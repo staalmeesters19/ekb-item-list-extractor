@@ -1,0 +1,12 @@
+# EKB brand palette: deep-blue primary (#003478) from the EKB logo, slate text for dense tables, soft off-white surfaces for low-fatigue reading.
+
+[theme]
+base = "light"
+primaryColor = "#003478"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F8FAFC"
+textColor = "#0F172A"
+font = "sans serif"
+
+[server]
+maxUploadSize = 200

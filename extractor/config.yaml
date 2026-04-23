@@ -1,0 +1,133 @@
+# Extractor configuration. PDF-AGNOSTIC: no per-PDF profiles exist.
+# The only thing we ever expand here is the synonym dictionary.
+
+column_mapping:
+  fuzzy_max_distance: 2         # Levenshtein tolerance
+  synonyms:
+    device_tag:
+      - device tag
+      - tag
+      - item
+      - item no
+      - item number
+      - pos
+      - position
+      - nr
+      - sr no
+      - sr. no
+      - ref
+      - reference
+      - part
+
+    quantity:
+      - quantity
+      - qty
+      - qty reqd
+      - qty req
+      - aantal
+      - stuks
+      - amount
+      - pcs
+      - count
+
+    description:
+      - description
+      - descr
+      - designation
+      - declaration
+      - omschrijving
+      - function text
+
+    model_number:
+      - model number
+      - model
+      - model no
+      - type number
+      - type
+
+    order_number:
+      - order number
+      - order no
+      - order nr
+      - artikelnummer
+      - part number
+      - part no
+      - mpn
+      - gpn
+      - sku
+      - catalog number
+
+    manufacturer:
+      - manufacturer
+      - manuf
+      - make
+      - brand
+      - fabrikant
+      - leverancier
+      - vendor
+      - supplier
+
+    schematic_position:
+      - schematic/position
+      - schematic/postion   # real typo observed in PDFs
+      - schematic
+      - placement
+      - location
+      - mounting
+
+
+table_selection:
+  # Discard tables outside these column counts (frames typically have 15-23 cols).
+  min_columns: 4
+  max_columns: 11
+  # Only consider tables whose header contains a "quantity-like" field.
+  require_quantity_header: true
+  # Minimum data rows to treat as a list (after padding removal).
+  min_data_rows: 1
+
+
+row_parsing:
+  drop_empty_rows: true
+  # A "section header" row sits between data rows, has <= N filled cells, and
+  # no numeric quantity. Subsequent data rows with empty device_tag inherit it.
+  section_header_detection:
+    enabled: true
+    max_filled_cells: 2
+
+
+post_processing:
+  # Keep \n inside description cells by default (for multi-line designs).
+  # When writing output, CSV/XLSX will quote them properly.
+  normalize_newlines: false
+  trim_whitespace: true
+  # Regex to pull a schematic position out of a description field when not in its own column.
+  # Matches EPLAN-style /nn.n, or Siemens &EFS\d+/xxx patterns.
+  extract_schematic_position_regex: '(/\d+\.\d+|&EFS\d+/[\d.:AB]+)'
+
+
+validation:
+  # If PyMuPDF and pdfplumber disagree on row count per page by more than this,
+  # emit a consensus warning (not a hard failure).
+  cross_parser_row_count_tolerance: 1
+  required_fields: [description]    # Minimum to accept a row as valid
+  flag_unicode_replacement: true    # Warn if U+FFFD appears
+
+
+section_detection:
+  enabled: true
+  # Only tokens <= this many characters are candidate section labels.
+  max_token_length: 15
+  # Zone for candidate tokens (fraction of page height, from top).
+  # EPLAN-style title blocks are bottom-right; Siemens-portrait tops are different.
+  # We scan both; the run-diff heuristic filters out firma/project text.
+  zones:
+    - {x_min: 0.0, y_min: 0.70, x_max: 1.0, y_max: 1.0}   # bottom strip
+    - {x_min: 0.50, y_min: 0.0, x_max: 1.0, y_max: 0.15}  # top-right strip
+
+
+output:
+  default_format: xlsx
+  csv_separator: ","
+  xlsx_sheet_per_pdf: true
+  include_raw_column: true
+  include_warnings_column: true

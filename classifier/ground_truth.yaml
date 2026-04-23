@@ -1,0 +1,66 @@
+# Ground truth - manually verified item list page ranges per test PDF.
+# Page numbers are 1-indexed (as pdfplumber reports them).
+# Expected "pages" is [start, end] inclusive.
+
+pdf_dir: "../data"
+
+fixtures:
+  - pdf: "126-0053 Cabinet Lineator Controller.pdf"
+    total_pages: 37
+    expected:
+      - pages: [33, 35]
+        title: "ITEM LIST"
+        approx_row_count: 76
+
+  - pdf: "9263111 ILCU REV-V1.0 20-02-2024.pdf"
+    total_pages: 13
+    expected:
+      - pages: [10, 11]
+        title: "Item list"
+        approx_row_count: 51
+
+  - pdf: "G88000-S0231-U001-D_Network Cabinets, Circuit Diagrams.pdf"
+    total_pages: 247
+    expected:
+      - pages: [46, 50]
+        title: "Parts list"
+        approx_row_count: 90
+      - pages: [92, 96]
+        title: "Parts list"
+        approx_row_count: 90
+      - pages: [136, 139]
+        title: "Parts list"
+        approx_row_count: 70
+      - pages: [178, 180]
+        title: "BILL OF MATERIALS"
+        approx_row_count: 45
+
+  - pdf: "MAXXeGUARD BASIS + VISION + LADE (Beckhoff) V4.26.pdf"
+    total_pages: 37
+    expected:
+      # +BASIC section
+      - pages: [21, 24]
+        title: "PARTS LIST"
+        approx_row_count: 143
+      # +TRAY section (isolated between schematic pages 25-31 and 33-34)
+      - pages: [32, 32]
+        title: "PARTS LIST"
+        approx_row_count: 9
+      # +VISION (p.35) + +MS (p.36) merge: adjacent pages, identical column schema.
+      # Sub-section split is a Phase-2 (extractor) concern via +SECTION marker.
+      - pages: [35, 36]
+        title: "PARTS LIST"
+        approx_row_count: 22
+
+  - pdf: "NGB-NGQ V4.0 REV-V4.0 23-04-2024.pdf"
+    total_pages: 60
+    expected:
+      # +MC section
+      - pages: [29, 35]
+        title: "PARTS LIST"
+        approx_row_count: 236
+      # +FIELD (47-49) + +NGQ (50) + +NGB (51) merge: contiguous, identical schema.
+      # Sub-section split is a Phase-2 (extractor) concern via +SECTION marker.
+      - pages: [47, 51]
+        title: "PARTS LIST"
+        approx_row_count: 104

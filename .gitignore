@@ -1,0 +1,48 @@
+# --- Customer-confidential data ---
+# PDF drawings are customer IP — never commit.
+data/*.pdf
+data/*.PDF
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+build/
+dist/
+.venv/
+venv/
+env/
+.eggs/
+
+# --- Test / coverage caches ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# --- IDE / editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Streamlit local state ---
+.streamlit/secrets.toml
+frontend/.streamlit/secrets.toml
+
+# --- Local / scratch output ---
+/out/
+/tmp/
+*.tmp
+*.log
+*.bak
+
+# --- Claude Code local config ---
+.claude/

@@ -1,0 +1,140 @@
+# Classifier configuration - all tunable parameters live here.
+# Modify without touching code.
+
+signals:
+  title:
+    enabled: true
+    weight: 3.0
+    patterns:
+      - '\bitem[\s_-]*list\b'
+      - '\bparts?[\s_-]*list\b'
+      - '\bbill\s+of\s+materials?\b'
+      - '\bB\.?O\.?M\.?\b'
+      - '\bstuklijst\b'
+      - '\bonderdelenlijst\b'
+      - '\bmateriaallijst\b'
+      - '\bequipment\s+list\b'
+      - '\bcomponent\s+list\b'
+      - '\bmateriallist\b'
+      - '\barticle\s+list\b'
+
+  column_header:
+    enabled: true
+    strong_weight: 10.0
+    weak_weight: 5.0
+    strong_threshold: 4       # >=4 categories matched => strong
+    weak_threshold: 3         # ==3 categories matched => weak
+    fuzzy_max_distance: 2     # Levenshtein tolerance for header normalization
+    # Core categories an item list typically has. Each category maps to
+    # a list of real-world synonym strings found in PDFs.
+    synonyms:
+      device_tag:
+        - device tag
+        - tag
+        - item
+        - item no
+        - item number
+        - pos
+        - position
+        - nr
+        - "no"
+        - sr no
+        - sr. no
+        - ref
+        - reference
+        - part
+      quantity:
+        - quantity
+        - qty
+        - qty reqd
+        - qty req
+        - aantal
+        - stuks
+        - amount
+        - pcs
+        - count
+      description:
+        - description
+        - descr
+        - designation
+        - declaration
+        - omschrijving
+        - function text
+        - note
+        - notes
+      model:
+        - model number
+        - model
+        - model no
+        - type number
+        - type
+        - mpn
+        - part number
+        - part no
+      manufacturer:
+        - manufacturer
+        - manuf
+        - make
+        - brand
+        - fabrikant
+        - leverancier
+        - vendor
+        - supplier
+      order_number:
+        - order number
+        - order no
+        - order nr
+        - artikelnummer
+        - gpn
+        - sku
+        - catalog number
+      location:
+        - schematic/position
+        - schematic/postion   # real typo observed in PDFs
+        - schematic
+        - placement
+        - location
+        - mounting
+        - mount
+
+  row_count:
+    enabled: true
+    strong_threshold: 10
+    strong_weight: 3.0
+    weak_threshold: 5
+    weak_weight: 1.0
+    negative_threshold: 5     # Below this => negative (mini-BOM elimination)
+    negative_weight: -2.0
+
+  vector_density:
+    enabled: true
+    weight: 2.0
+    # Pages with fewer than this many vector primitives (lines+curves+rects)
+    # are considered "quiet" (list-like, not schematic-like).
+    # Calibrated on the 5 fixture PDFs: max on list pages = 442.
+    quiet_threshold: 500
+    # Hard cap: pages way above this are almost certainly schematics.
+    noisy_threshold: 1500
+    noisy_penalty: -1.0
+
+  continuity:
+    enabled: true
+    weight: 2.0
+    # Bonus applied to page N if either neighbour (N-1 or N+1) has
+    # initial score >= base_threshold.
+    base_threshold: 7.0
+
+scoring:
+  strong_match: 12.0
+  weak_match: 7.0
+
+clustering:
+  # Jaccard threshold on column_fingerprint to merge adjacent runs
+  min_fingerprint_similarity: 0.6
+  # Discard runs with fewer than this many total rows.
+  # Mini-BOMs on schematic pages have only 3 columns and weak column_header
+  # score -> they don't qualify via has_strong anyway. So we can be lenient
+  # here to keep legitimate short subsections (e.g. NGB-NGQ +NGQ has 5 rows).
+  min_total_rows_per_run: 3
+  # Max gap of non-matching pages allowed inside a single run
+  max_gap: 0
