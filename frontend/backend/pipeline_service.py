@@ -21,6 +21,7 @@ from src.interfaces import ExtractionResult  # noqa: E402
 from src.pipeline import run as _pipeline_run  # noqa: E402
 from src.writers.csv_writer import write_csv as _write_csv  # noqa: E402
 from src.writers.json_writer import write_json as _write_json  # noqa: E402
+from src.writers.procos_writer import write_procos as _write_procos  # noqa: E402
 from src.writers.xlsx_writer import write_xlsx as _write_xlsx  # noqa: E402
 
 if TYPE_CHECKING:
@@ -34,6 +35,7 @@ __all__ = [
     "to_xlsx_bytes",
     "to_csv_bytes",
     "to_json_bytes",
+    "to_procos_bytes",
     "rows_to_dataframe",
 ]
 
@@ -99,6 +101,10 @@ def to_csv_bytes(result: ExtractionResult) -> bytes:
 
 def to_json_bytes(result: ExtractionResult) -> bytes:
     return _write_to_bytes(_write_json, ".json", result)
+
+
+def to_procos_bytes(result: ExtractionResult) -> bytes:
+    return _write_to_bytes(_write_procos, ".xltm", result)
 
 
 _DATAFRAME_COLUMNS = [

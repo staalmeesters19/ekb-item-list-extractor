@@ -11,6 +11,7 @@ Drie samenwerkende delen:
 | **Classifier** | Vindt welke pagina's een stuklijst bevatten | ✅ 4/4 tests groen · 11/11 runs gevonden, 0 false positives |
 | **Extractor** | Haalt elke rij structureel uit de gevonden pagina's | ✅ 8/8 tests groen · 100–108% van de verwachte rijen per PDF |
 | **Frontend** | Streamlit-UI voor upload, preview en download | ✅ Draait lokaal op poort 8501 |
+| **ProCos-export** | Vult EKB's `klantlijst`-template; macro's blijven werken | ✅ 5/5 PDFs gevalideerd, vbaProject.bin behouden |
 
 **PDF-agnostisch** — geen EPLAN/Siemens-specifieke logica. Nieuwe PDF-stijlen
 werken zonder codewijzigingen; alleen het synoniemen-woordenboek in
@@ -107,7 +108,10 @@ Item list poc/
 │   │   └── writers/
 │   │       ├── csv_writer.py
 │   │       ├── xlsx_writer.py        ← sheet-per-PDF optie
-│   │       └── json_writer.py
+│   │       ├── json_writer.py
+│   │       ├── procos_writer.py      ← vult EKB's klantlijst-template (macro intact)
+│   │       └── templates/
+│   │           └── ProCosImportStuklijst.xltm
 │   └── tests/test_pipeline.py        ← 8 integratie-tests
 │
 └── frontend/                         ← Fase 3 (Streamlit)
@@ -200,6 +204,65 @@ test runt.
 | G88000 Network Cabinets | 247 | 4 | **319** | ≈295 (108%) |
 | MAXXeGUARD Beckhoff V4.26 | 37 | 3 | **174** | ≈174 (100%) |
 | NGB-NGQ V4.0 | 60 | 2 | **348** | ≈340 (102%) |
+
+---
+
+## ProCos-export (`.xltm` voor klant-import)
+
+Eindproduct voor EKB: een `.xltm`-bestand dat direct in hun ProCos-flow past.
+
+```
+PDF in  →  classifier  →  extractor  →  procos_writer  →  <pdf>_procos.xltm
+                                                              │
+                                                              ▼
+                       EKB opent in Excel  →  klikt "XML Opslaan"-knop
+                                                              │
+                                                              ▼
+                                                      ProCos imports
+```
+
+**Kolom-mapping** (`klantlijst`-blad, vanaf rij 2):
+
+| Excel-kolom | Onze bron | Default |
+|---|---|---|
+| A — Aantal | `quantity` (int waar mogelijk) | — |
+| B — Eenheid | hardcoded | `"Stuks"` |
+| C — Klantartikel | `device_tag` | leeg als geen tag |
+| D — Omschrijving | `description` | — |
+| E — Fabrikant | `manufacturer` | — |
+| F — Type/bestelnummer | `model_number` (fallback `order_number`) | — |
+| G — toegeleverd | leeg | — |
+| H — ODC code | leeg | — |
+| I — Opmerking | `[<sectielabel>]` + warnings | leeg als geen van beide |
+| J — EAN code | leeg | — |
+
+De andere twee bladen (`Daten`, `XML Ausgabe`) bevatten formules die automatisch
+uit `klantlijst` lezen en de XML-export voorbereiden — die laten we ongemoeid.
+De VBA-macro's (`vbaProject.bin`) worden bij elke round-trip behouden, dus de
+"XML Opslaan"-knop blijft werken na onze write.
+
+**Gebruik:**
+
+```bash
+# Via CLI
+python extractor/cli.py path/naar/tekening.pdf --format procos
+
+# Via Streamlit-UI: knop "ProCos (.xltm)" rechts naast de Excel-knop
+```
+
+**Validatieresultaten** (round-trip test op alle 5 test-PDFs):
+
+| PDF | Rijen in `.xltm` | VBA intact | Sectielabels in Opmerking |
+|---|---|---|---|
+| 126-0053 | 76 | ✓ | n.v.t. (single-run) |
+| 9263111 ILCU | 51 | ✓ | n.v.t. (single-run) |
+| G88000 (4 cabinets) | 319 | ✓ | 4/4 (SSSA, SSSB, GPS, EX4400) |
+| MAXXeGUARD (3 secties) | 174 | ✓ | 2/3 (BASIC, VISION — TRAY mist) |
+| NGB-NGQ (2 secties) | 348 | ✓ | 1/2 (MC — FIELD mist) |
+
+Section-detectie kan op enkele multi-run PDFs nog beter (run-diff heuristiek
+mist soms een label); ProCos-import werkt zonder die labels prima omdat de
+match-sleutel type/bestelnummer + fabrikant is.
 
 ---
 

@@ -8,6 +8,7 @@ import streamlit as st
 XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 CSV_MIME = "text/csv"
 JSON_MIME = "application/json"
+PROCOS_MIME = "application/vnd.ms-excel.template.macroEnabled.12"
 
 
 def _collect_metrics(processed_items):
@@ -59,7 +60,7 @@ def _column_config(df):
     return cfg
 
 
-def render_results(processed_items, rows_to_df_fn, xlsx_bytes_fn, csv_bytes_fn, json_bytes_fn):
+def render_results(processed_items, rows_to_df_fn, xlsx_bytes_fn, csv_bytes_fn, json_bytes_fn, procos_bytes_fn=None):
     """Render results screen."""
     if not processed_items:
         st.info("Geen resultaten om te tonen.")
@@ -119,8 +120,22 @@ def render_results(processed_items, rows_to_df_fn, xlsx_bytes_fn, csv_bytes_fn, 
     first_stem = Path(processed_items[0]["name"]).stem
     xlsx_name = "extracted_items.xlsx" if multi else f"{first_stem}_items.xlsx"
 
-    d1, d2, d3 = st.columns(3)
+    d1, d2, d3, d4 = st.columns(4)
     with d1:
+        if multi or procos_bytes_fn is None:
+            st.button("ProCos (.xltm)", disabled=True, use_container_width=True)
+            if multi:
+                st.caption("ProCos-export per PDF — upload één tegelijk")
+        else:
+            st.download_button(
+                "ProCos (.xltm)",
+                data=procos_bytes_fn(all_results[0]),
+                file_name=f"{first_stem}_procos.xltm",
+                mime=PROCOS_MIME,
+                use_container_width=True,
+                type="primary",
+            )
+    with d2:
         st.download_button(
             "Excel (.xlsx)",
             data=xlsx_bytes_fn(all_results),
@@ -128,10 +143,9 @@ def render_results(processed_items, rows_to_df_fn, xlsx_bytes_fn, csv_bytes_fn, 
             mime=XLSX_MIME,
             use_container_width=True,
         )
-    with d2:
+    with d3:
         if multi:
             st.button("CSV (.csv)", disabled=True, use_container_width=True)
-            st.caption("Combineer PDFs niet in CSV/JSON — gebruik Excel, of upload één tegelijk")
         else:
             st.download_button(
                 "CSV (.csv)",
@@ -140,7 +154,7 @@ def render_results(processed_items, rows_to_df_fn, xlsx_bytes_fn, csv_bytes_fn, 
                 mime=CSV_MIME,
                 use_container_width=True,
             )
-    with d3:
+    with d4:
         if multi:
             st.button("JSON (.json)", disabled=True, use_container_width=True)
         else:

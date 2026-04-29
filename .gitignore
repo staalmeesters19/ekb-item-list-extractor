@@ -3,6 +3,12 @@
 data/*.pdf
 data/*.PDF
 
+# EKB-internal reference docs at project root (work instructions, raw template)
+# The bundled writer template lives at extractor/src/writers/templates/ — that one IS tracked.
+/*.xltm
+/*.doc
+/*.docx
+
 # --- Python ---
 __pycache__/
 *.py[cod]

@@ -17,6 +17,7 @@ from backend.pipeline_service import (
     rows_to_dataframe,
     to_csv_bytes,
     to_json_bytes,
+    to_procos_bytes,
     to_xlsx_bytes,
 )
 from components.processing import render_processing
@@ -97,6 +98,7 @@ def main() -> None:
             xlsx_bytes_fn=to_xlsx_bytes,
             csv_bytes_fn=to_csv_bytes,
             json_bytes_fn=to_json_bytes,
+            procos_bytes_fn=to_procos_bytes,
         )
 
 

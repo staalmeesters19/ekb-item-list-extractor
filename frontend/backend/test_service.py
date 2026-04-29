@@ -40,6 +40,11 @@ def main() -> int:
     parsed = json.loads(json_bytes.decode("utf-8"))
     assert isinstance(parsed, dict), "JSON did not parse as dict"
 
+    procos_bytes = svc.to_procos_bytes(result)
+    assert procos_bytes and procos_bytes[:2] == b"PK", "ProCos bytes invalid"
+    # .xltm with macros must contain vbaProject.bin
+    assert b"vbaProject.bin" in procos_bytes, "ProCos macro stripped — XML-Opslaan button would be lost"
+
     df = svc.rows_to_dataframe(result)
     assert len(df) == result.row_count, (
         f"DataFrame row count {len(df)} != result.row_count {result.row_count}"

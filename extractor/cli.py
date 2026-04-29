@@ -33,6 +33,7 @@ import yaml  # noqa: E402
 from src.pipeline import run as pipeline_run  # noqa: E402
 from src.writers.csv_writer import write_csv  # noqa: E402
 from src.writers.json_writer import write_json  # noqa: E402
+from src.writers.procos_writer import write_procos  # noqa: E402
 from src.writers.xlsx_writer import write_xlsx  # noqa: E402
 
 
@@ -111,7 +112,7 @@ def main(argv=None) -> int:
         description="Extract item-list rows from electrical-drawing PDFs.",
     )
     parser.add_argument("pdf", help="Path to the input PDF.")
-    parser.add_argument("--format", choices=["csv", "xlsx", "json"], default="xlsx",
+    parser.add_argument("--format", choices=["csv", "xlsx", "json", "procos"], default="xlsx",
                         dest="fmt", help="Output format (default: xlsx).")
     parser.add_argument("--output", default=None, dest="output_dir",
                         help="Output directory (default: same directory as PDF).")
@@ -156,13 +157,17 @@ def main(argv=None) -> int:
         print(f"  [warn] no table found on pages: {result.audit['pages_without_table']}")
 
     # Write output.
-    out_path = _output_path(pdf_path, output_dir, args.fmt)
-    if args.fmt == "csv":
-        write_csv(result, str(out_path), config)
-    elif args.fmt == "json":
-        write_json(result, str(out_path), config)
-    else:  # xlsx
-        write_xlsx([result], str(out_path), config)
+    if args.fmt == "procos":
+        out_path = output_dir / f"{pdf_path.stem}_procos.xltm"
+        write_procos(result, str(out_path), config)
+    else:
+        out_path = _output_path(pdf_path, output_dir, args.fmt)
+        if args.fmt == "csv":
+            write_csv(result, str(out_path), config)
+        elif args.fmt == "json":
+            write_json(result, str(out_path), config)
+        else:  # xlsx
+            write_xlsx([result], str(out_path), config)
 
     print(f"Written => {out_path}")
     return 0
