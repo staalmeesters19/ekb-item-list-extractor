@@ -114,54 +114,22 @@ def render_results(processed_items, rows_to_df_fn, xlsx_bytes_fn, csv_bytes_fn, 
     st.caption(f"{len(filtered)} van {len(combined)} rijen getoond")
 
     st.write("")
-    st.markdown("#### Downloaden")
 
     all_results = [item["result"] for item in processed_items]
     first_stem = Path(processed_items[0]["name"]).stem
-    xlsx_name = "extracted_items.xlsx" if multi else f"{first_stem}_items.xlsx"
 
-    d1, d2, d3, d4 = st.columns(4)
-    with d1:
+    # Single ProCos download — centered, white-on-dark default style.
+    _, mid, _ = st.columns([1, 2, 1])
+    with mid:
         if multi or procos_bytes_fn is None:
-            st.button("ProCos (.xltm)", disabled=True, use_container_width=True)
+            st.button("Download de ProCos", disabled=True, use_container_width=True)
             if multi:
                 st.caption("ProCos-export per PDF — upload één tegelijk")
         else:
             st.download_button(
-                "ProCos (.xltm)",
+                "Download de ProCos",
                 data=procos_bytes_fn(all_results[0]),
                 file_name=f"{first_stem}_procos.xltm",
                 mime=PROCOS_MIME,
-                use_container_width=True,
-                type="primary",
-            )
-    with d2:
-        st.download_button(
-            "Excel (.xlsx)",
-            data=xlsx_bytes_fn(all_results),
-            file_name=xlsx_name,
-            mime=XLSX_MIME,
-            use_container_width=True,
-        )
-    with d3:
-        if multi:
-            st.button("CSV (.csv)", disabled=True, use_container_width=True)
-        else:
-            st.download_button(
-                "CSV (.csv)",
-                data=csv_bytes_fn(all_results[0]),
-                file_name=f"{first_stem}_items.csv",
-                mime=CSV_MIME,
-                use_container_width=True,
-            )
-    with d4:
-        if multi:
-            st.button("JSON (.json)", disabled=True, use_container_width=True)
-        else:
-            st.download_button(
-                "JSON (.json)",
-                data=json_bytes_fn(all_results[0]),
-                file_name=f"{first_stem}_items.json",
-                mime=JSON_MIME,
                 use_container_width=True,
             )
