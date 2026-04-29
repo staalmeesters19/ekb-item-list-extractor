@@ -6,7 +6,11 @@ column_mapping:
   synonyms:
     device_tag:
       - device tag
+      - device tag placement
+      - device tag/placement
       - tag
+      - tag/placement
+      - placement
       - item
       - item no
       - item number

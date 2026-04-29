@@ -30,6 +30,27 @@ from .table_selector import select_data_table, _table_has_quantity_header
 from .validator import validate
 
 
+def _apply_device_tag_fallback(mappings):
+    """Treat column 0 as device_tag when no other column was mapped to it.
+
+    Drawings overwhelmingly place the device tag in the first column, often
+    with an empty or non-standard header that the synonym matcher misses.
+    This fallback only fires when:
+      - no column has been mapped to ``device_tag`` already, AND
+      - column 0 has no canonical_field assigned.
+    """
+    if not mappings:
+        return mappings
+    has_tag = any(m.canonical_field == "device_tag" for m in mappings)
+    if has_tag:
+        return mappings
+    first = mappings[0]
+    if first.canonical_field is None:
+        first.canonical_field = "device_tag"
+        first.match_method = "positional"
+    return mappings
+
+
 def _maybe_promote_header_row(tables: List[RawTable], config: dict) -> List[RawTable]:
     """Promote the first data row to headers when the parsed header row looks like
     a page title (no canonical match) but the first data row contains a
@@ -143,6 +164,7 @@ def run(
 
             # Map column headers.
             mappings = map_columns(best_table.headers, config)
+            mappings = _apply_device_tag_fallback(mappings)
 
             # Parse rows (section-header detection, device-tag inheritance).
             row_dicts: List[Dict[str, Any]] = parse_rows(best_table, mappings, config)
