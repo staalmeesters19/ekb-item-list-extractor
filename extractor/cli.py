@@ -34,6 +34,7 @@ from src.pipeline import run as pipeline_run  # noqa: E402
 from src.writers.csv_writer import write_csv  # noqa: E402
 from src.writers.json_writer import write_json  # noqa: E402
 from src.writers.procos_writer import write_procos  # noqa: E402
+from src.writers.procos_xml_writer import write_procos_xml  # noqa: E402
 from src.writers.xlsx_writer import write_xlsx  # noqa: E402
 
 
@@ -112,7 +113,7 @@ def main(argv=None) -> int:
         description="Extract item-list rows from electrical-drawing PDFs.",
     )
     parser.add_argument("pdf", help="Path to the input PDF.")
-    parser.add_argument("--format", choices=["csv", "xlsx", "json", "procos"], default="xlsx",
+    parser.add_argument("--format", choices=["csv", "xlsx", "json", "procos", "procos-xml"], default="xlsx",
                         dest="fmt", help="Output format (default: xlsx).")
     parser.add_argument("--output", default=None, dest="output_dir",
                         help="Output directory (default: same directory as PDF).")
@@ -160,6 +161,9 @@ def main(argv=None) -> int:
     if args.fmt == "procos":
         out_path = output_dir / f"{pdf_path.stem}_procos.xltm"
         write_procos(result, str(out_path), config)
+    elif args.fmt == "procos-xml":
+        out_path = output_dir / f"{pdf_path.stem}_procos.xml"
+        write_procos_xml(result, str(out_path), config)
     else:
         out_path = _output_path(pdf_path, output_dir, args.fmt)
         if args.fmt == "csv":

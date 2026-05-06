@@ -9,6 +9,7 @@ XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 CSV_MIME = "text/csv"
 JSON_MIME = "application/json"
 PROCOS_MIME = "application/vnd.ms-excel.template.macroEnabled.12"
+PROCOS_XML_MIME = "application/xml"
 
 # Feature flag: hide the ProCos download in the demo build.
 # Backend (procos_writer, to_procos_bytes, CLI --format procos) stays intact.
@@ -65,7 +66,7 @@ def _column_config(df):
     return cfg
 
 
-def render_results(processed_items, rows_to_df_fn, xlsx_bytes_fn, csv_bytes_fn, json_bytes_fn, procos_bytes_fn=None):
+def render_results(processed_items, rows_to_df_fn, xlsx_bytes_fn, csv_bytes_fn, json_bytes_fn, procos_bytes_fn=None, procos_xml_bytes_fn=None):
     """Render results screen."""
     if not processed_items:
         st.info("Geen resultaten om te tonen.")
@@ -124,18 +125,30 @@ def render_results(processed_items, rows_to_df_fn, xlsx_bytes_fn, csv_bytes_fn, 
         all_results = [item["result"] for item in processed_items]
         first_stem = Path(processed_items[0]["name"]).stem
 
-        # Single ProCos download — centered, white-on-dark default style.
-        _, mid, _ = st.columns([1, 2, 1])
-        with mid:
+        # Two ProCos downloads side by side: Excel template + direct XML.
+        col1, col2 = st.columns(2)
+        with col1:
             if multi or procos_bytes_fn is None:
-                st.button("Download de ProCos", disabled=True, use_container_width=True)
+                st.button("Download ProCos (Excel)", disabled=True, use_container_width=True)
                 if multi:
-                    st.caption("ProCos-export per PDF — upload één tegelijk")
+                    st.caption("Per PDF — upload één tegelijk")
             else:
                 st.download_button(
-                    "Download de ProCos",
+                    "Download ProCos (Excel)",
                     data=procos_bytes_fn(all_results[0]),
                     file_name=f"{first_stem}_procos.xltm",
                     mime=PROCOS_MIME,
                     use_container_width=True,
+                )
+        with col2:
+            if multi or procos_xml_bytes_fn is None:
+                st.button("Download ProCos (XML)", disabled=True, use_container_width=True)
+            else:
+                st.download_button(
+                    "Download ProCos (XML)",
+                    data=procos_xml_bytes_fn(all_results[0]),
+                    file_name=f"{first_stem}_procos.xml",
+                    mime=PROCOS_XML_MIME,
+                    use_container_width=True,
+                    type="primary",
                 )

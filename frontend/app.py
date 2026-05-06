@@ -18,6 +18,7 @@ from backend.pipeline_service import (
     to_csv_bytes,
     to_json_bytes,
     to_procos_bytes,
+    to_procos_xml_bytes,
     to_xlsx_bytes,
 )
 from components.header import render_header
@@ -101,6 +102,7 @@ def main() -> None:
             csv_bytes_fn=to_csv_bytes,
             json_bytes_fn=to_json_bytes,
             procos_bytes_fn=to_procos_bytes,
+            procos_xml_bytes_fn=to_procos_xml_bytes,
         )
 
 
