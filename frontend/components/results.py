@@ -10,6 +10,11 @@ CSV_MIME = "text/csv"
 JSON_MIME = "application/json"
 PROCOS_MIME = "application/vnd.ms-excel.template.macroEnabled.12"
 
+# Feature flag: hide the ProCos download in the demo build.
+# Backend (procos_writer, to_procos_bytes, CLI --format procos) stays intact.
+# Flip to True to restore the button.
+SHOW_PROCOS_DOWNLOAD = False
+
 
 def _collect_metrics(processed_items):
     total_rows = 0
@@ -113,23 +118,24 @@ def render_results(processed_items, rows_to_df_fn, xlsx_bytes_fn, csv_bytes_fn, 
     )
     st.caption(f"{len(filtered)} van {len(combined)} rijen getoond")
 
-    st.write("")
+    if SHOW_PROCOS_DOWNLOAD:
+        st.write("")
 
-    all_results = [item["result"] for item in processed_items]
-    first_stem = Path(processed_items[0]["name"]).stem
+        all_results = [item["result"] for item in processed_items]
+        first_stem = Path(processed_items[0]["name"]).stem
 
-    # Single ProCos download — centered, white-on-dark default style.
-    _, mid, _ = st.columns([1, 2, 1])
-    with mid:
-        if multi or procos_bytes_fn is None:
-            st.button("Download de ProCos", disabled=True, use_container_width=True)
-            if multi:
-                st.caption("ProCos-export per PDF — upload één tegelijk")
-        else:
-            st.download_button(
-                "Download de ProCos",
-                data=procos_bytes_fn(all_results[0]),
-                file_name=f"{first_stem}_procos.xltm",
-                mime=PROCOS_MIME,
-                use_container_width=True,
-            )
+        # Single ProCos download — centered, white-on-dark default style.
+        _, mid, _ = st.columns([1, 2, 1])
+        with mid:
+            if multi or procos_bytes_fn is None:
+                st.button("Download de ProCos", disabled=True, use_container_width=True)
+                if multi:
+                    st.caption("ProCos-export per PDF — upload één tegelijk")
+            else:
+                st.download_button(
+                    "Download de ProCos",
+                    data=procos_bytes_fn(all_results[0]),
+                    file_name=f"{first_stem}_procos.xltm",
+                    mime=PROCOS_MIME,
+                    use_container_width=True,
+                )
