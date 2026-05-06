@@ -9,7 +9,7 @@ XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 CSV_MIME = "text/csv"
 JSON_MIME = "application/json"
 PROCOS_MIME = "application/vnd.ms-excel.template.macroEnabled.12"
-PROCOS_XML_MIME = "application/xml"
+PROCOS_XML_MIME = "text/xml"
 
 # Feature flag: hide the ProCos download in the demo build.
 # Backend (procos_writer, to_procos_bytes, CLI --format procos) stays intact.
