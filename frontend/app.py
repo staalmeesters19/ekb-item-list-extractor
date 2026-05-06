@@ -20,6 +20,7 @@ from backend.pipeline_service import (
     to_procos_bytes,
     to_xlsx_bytes,
 )
+from components.header import render_header
 from components.processing import render_processing
 from components.results import render_results
 from components.upload import render_upload
@@ -57,6 +58,7 @@ def main() -> None:
     )
     _inject_css()
     _init_state()
+    render_header()
 
     stage = st.session_state.stage
 

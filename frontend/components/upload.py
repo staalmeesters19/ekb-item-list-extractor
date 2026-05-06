@@ -8,9 +8,7 @@ def render_upload():
 
     Returns list of Streamlit UploadedFile objects (or None if nothing uploaded).
     """
-    st.markdown("# Item-list Extractor")
-    st.caption("Automatische stuklijst-extractie uit PDF-tekeningen")
-
+    st.markdown("## Stuklijst-extractie uit PDF-tekeningen")
     st.write(
         "Upload één of meerdere PDF-tekeningen — de tool vindt automatisch "
         "de stuklijst en extraheert elke rij."
@@ -36,16 +34,13 @@ def render_upload():
             )
 
         st.write("")
-        col1, col2, col3 = st.columns(3)
+        col1, col2 = st.columns(2)
         with col1:
             st.markdown("**Automatisch**")
             st.caption("Classificatie detecteert stuklijstpagina's zonder handmatig werk.")
         with col2:
             st.markdown("**Gestructureerd**")
             st.caption("Rijen komen terug als kolommen: artikel, aantal, omschrijving.")
-        with col3:
-            st.markdown("**Exporteerbaar**")
-            st.caption("Download als Excel, CSV of JSON voor verdere verwerking.")
 
         return None
 
