@@ -37,14 +37,21 @@ _QUANTITY_SYNONYMS = [
 
 
 def _normalize_header(header) -> str:
-    """Lower-case, collapse whitespace (incl. newlines) to single spaces, strip."""
+    """Lower-case, collapse whitespace, strip trailing punctuation.
+
+    Mirrors the normalization in column_mapper.py so a header like 'QTY.' or
+    'Quantity:' matches the synonym 'qty' / 'quantity' exactly.
+    """
     if header is None:
         return ""
     s = str(header)
-    # Replace newlines/tabs with spaces, collapse runs of whitespace
     s = s.replace("\n", " ").replace("\r", " ").replace("\t", " ")
     s = " ".join(s.split())
-    return s.strip().lower()
+    s = s.strip().lower()
+    # Strip trailing colons and dots (repeated), so "qty." -> "qty", "qty.:" -> "qty"
+    while s and s[-1] in ":.":
+        s = s[:-1]
+    return s
 
 
 def _header_matches_quantity(header_norm: str, synonyms: List[str], max_distance: int = 2) -> bool:

@@ -25,7 +25,7 @@ from .interfaces import CanonicalRow, ExtractionResult, RawTable
 from .post_processor import post_process
 from .row_parser import parse_rows
 from .section_detector import detect_section_labels
-from .table_extractor import extract_page_tables
+from .table_extractor import extract_page_tables, _drop_empty_columns, _merge_empty_header_columns
 from .table_selector import select_data_table, _table_has_quantity_header
 from .validator import validate
 
@@ -85,6 +85,24 @@ def _maybe_promote_header_row(tables: List[RawTable], config: dict) -> List[RawT
             bbox=t.bbox,
         )
         if _table_has_quantity_header(tmp, synonyms, max_dist):
+            # After header promotion: (1) drop columns that are empty in
+            # both header AND every data row, (2) merge remaining columns
+            # whose header is empty into the previous labelled column —
+            # this handles drawings where the coordinate grid splits a wide
+            # cell (long description, etc.) across multiple buckets.
+            h, r = _drop_empty_columns(tmp.headers, tmp.rows)
+            h, r = _merge_empty_header_columns(h, r)
+            if len(h) != tmp.n_cols:
+                tmp = RawTable(
+                    page_number=tmp.page_number,
+                    headers=h,
+                    rows=r,
+                    parser=tmp.parser,
+                    table_index=tmp.table_index,
+                    n_cols=len(h),
+                    n_rows=len(r),
+                    bbox=tmp.bbox,
+                )
             result.append(tmp)
         else:
             result.append(t)

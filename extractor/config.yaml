@@ -11,6 +11,7 @@ column_mapping:
       - tag
       - tag/placement
       - placement
+      - code
       - item
       - item no
       - item number
