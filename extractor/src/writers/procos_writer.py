@@ -75,7 +75,7 @@ def _build_row_values(row: CanonicalRow) -> list[Any]:
     """Map a CanonicalRow to the 10 klantlijst columns (A..J)."""
     return [
         _quantity_value(row.quantity),                  # A: Aantal
-        "Stuks",                                        # B: Eenheid (default)
+        "ST",                                           # B: Eenheid (default)
         (row.device_tag or "").strip() or None,         # C: Klantartikel
         (row.description or "").strip() or None,        # D: Omschrijving
         (row.manufacturer or "").strip() or None,       # E: Fabrikant

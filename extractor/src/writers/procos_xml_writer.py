@@ -91,7 +91,7 @@ def _row_to_attrs(pos: int, row: CanonicalRow) -> dict[str, str]:
     return {
         "POS":            str(pos),
         "Menge":          _quantity_to_str(row.quantity),
-        "ME":             "Stuks",
+        "ME":             "ST",
         "KndBezeichnung": desc,
         "KndArtikel":     _knd_artikel(row, bstnr),
         "BstNr":          bstnr,

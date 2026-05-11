@@ -103,6 +103,7 @@ def main() -> None:
             json_bytes_fn=to_json_bytes,
             procos_bytes_fn=to_procos_bytes,
             procos_xml_bytes_fn=to_procos_xml_bytes,
+            raw_xlsx_bytes_fn=to_xlsx_bytes,
         )
 
 

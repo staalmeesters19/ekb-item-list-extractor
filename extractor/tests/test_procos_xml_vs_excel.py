@@ -44,46 +44,46 @@ TEST_CASES = [
     {
         "name": "01_simple_single_row",
         "rows": [
-            (1, "Stuks", "100F0", "CIRCUIT-BREAKER, 2P, 4A", "EATON", "FAZ-C4/2", "", "", "", ""),
+            (1, "ST", "100F0", "CIRCUIT-BREAKER, 2P, 4A", "EATON", "FAZ-C4/2", "", "", "", ""),
         ],
     },
     {
         "name": "02_three_rows",
         "rows": [
-            (1, "Stuks", "100F0", "First row",  "EATON",   "FAZ-C4/2",         "", "", "", ""),
-            (2, "Stuks", "100Q0", "Second row", "ITSME",   "T0-1-102/V/SVB",   "", "", "", ""),
-            (1, "Stuks", "21K1",  "Third row",  "SIEMENS", "6ED1052-1MD08-0BA1","", "", "", ""),
+            (1, "ST", "100F0", "First row",  "EATON",   "FAZ-C4/2",         "", "", "", ""),
+            (2, "ST", "100Q0", "Second row", "ITSME",   "T0-1-102/V/SVB",   "", "", "", ""),
+            (1, "ST", "21K1",  "Third row",  "SIEMENS", "6ED1052-1MD08-0BA1","", "", "", ""),
         ],
     },
     {
         "name": "03_ampersand_and_lt_gt",
         "rows": [
-            (1, "Stuks", "TAGX", "AT&T device <special> v2", "ACME", "MODEL-X", "", "", "", ""),
+            (1, "ST", "TAGX", "AT&T device <special> v2", "ACME", "MODEL-X", "", "", "", ""),
         ],
     },
     {
         "name": "04_double_quotes_in_text",
         "rows": [
-            (1, "Stuks", "TAGY", 'Item with "quoted" text', "ACME", "M-1", "", "", "", ""),
+            (1, "ST", "TAGY", 'Item with "quoted" text', "ACME", "M-1", "", "", "", ""),
         ],
     },
     {
         "name": "05_empty_klantartikel_fallback",
         "rows": [
             # C empty -> KndArtikel must fall back to E&F (manufacturer + type)
-            (1, "Stuks", "", "Item without tag", "EATON", "FAZ-C4/2", "", "", "", ""),
+            (1, "ST", "", "Item without tag", "EATON", "FAZ-C4/2", "", "", "", ""),
         ],
     },
     {
         "name": "06_long_description_truncate_120",
         "rows": [
-            (1, "Stuks", "TAG3", "X" * 200, "ACME", "M", "", "", "", ""),
+            (1, "ST", "TAG3", "X" * 200, "ACME", "M", "", "", "", ""),
         ],
     },
     {
         "name": "07_unicode_chars",
         "rows": [
-            (1, "Stuks", "TAG4", "Spülmaschine ßéü Ω", "ACME", "M", "", "", "", ""),
+            (1, "ST", "TAG4", "Spülmaschine ßéü Ω", "ACME", "M", "", "", "", ""),
         ],
     },
     {
@@ -91,23 +91,23 @@ TEST_CASES = [
         # ODC (col H) is intentionally empty — our extractor never produces it
         # (not present in source PDFs); BMK stays "" in our writer by design.
         "rows": [
-            (1, "Stuks", "TAG5", "Item with remark", "ACME", "M-99", "", "", "Belangrijk!", ""),
+            (1, "ST", "TAG5", "Item with remark", "ACME", "M-99", "", "", "Belangrijk!", ""),
         ],
     },
     {
         "name": "09_decimal_quantity",
         "rows": [
-            (1.5, "Stuks", "TAG6", "Half item", "ACME", "M", "", "", "", ""),
+            (1.5, "ST", "TAG6", "Half item", "ACME", "M", "", "", "", ""),
         ],
     },
     {
         "name": "10_mixed_5_rows",
         "rows": [
-            (1,   "Stuks", "100F0", "Circuit breaker",        "EATON",   "FAZ-C4/2",  "", "", "", ""),
-            (3,   "Stuks", "100Q0", "Switch w/ \"contacts\"", "ITSME",   "T0-1",      "", "", "", ""),
-            (1,   "Stuks", "",      "Mounting bracket",       "EATON",   "ZAV-T0",    "", "", "", ""),
-            (1,   "Stuks", "21K1",  "Logo controller é & ü",  "SIEMENS", "6ED1052",   "", "", "Sectie A", ""),
-            (2.5, "Stuks", "TAG-Z", "Cable 2.5m",             "LAPP",    "OLFLEX",    "", "", "", ""),
+            (1,   "ST", "100F0", "Circuit breaker",        "EATON",   "FAZ-C4/2",  "", "", "", ""),
+            (3,   "ST", "100Q0", "Switch w/ \"contacts\"", "ITSME",   "T0-1",      "", "", "", ""),
+            (1,   "ST", "",      "Mounting bracket",       "EATON",   "ZAV-T0",    "", "", "", ""),
+            (1,   "ST", "21K1",  "Logo controller é & ü",  "SIEMENS", "6ED1052",   "", "", "Sectie A", ""),
+            (2.5, "ST", "TAG-Z", "Cable 2.5m",             "LAPP",    "OLFLEX",    "", "", "", ""),
         ],
     },
 ]
