@@ -14,7 +14,7 @@ PROCOS_XML_MIME = "text/xml"
 # Feature flag: hide the ProCos download in the demo build.
 # Backend (procos_writer, to_procos_bytes, CLI --format procos) stays intact.
 # Flip to True to restore the button.
-SHOW_PROCOS_DOWNLOAD = False
+SHOW_PROCOS_DOWNLOAD = True
 
 
 def _collect_metrics(processed_items):
