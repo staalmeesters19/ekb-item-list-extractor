@@ -22,7 +22,9 @@ import yaml
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "extractor"))
 
+from src.matcher import MatchResult
 from src.pipeline import run as pipeline_run
+from src.writers.match_writer import write_match_report, write_niet_gevonden
 from src.writers.procos_writer import write_procos
 from src.writers.procos_xml_writer import write_procos_xml
 from src.writers.xlsx_writer import write_xlsx
@@ -213,26 +215,21 @@ def run(pdf_path: str):
     print(f"\n=== STAP 4: match tegen ProCos 86k-export ===")
     by_fab_type, by_type_only = load_procos()
 
-    results = []
+    match_results: list = []
     statuses = defaultdict(int)
     for r in result.rows:
         status, hits = match_one(r, by_fab_type, by_type_only)
         statuses[status] += 1
-        proc = hits[0] if hits else {"artikel": "", "fabrikant": "", "omschrijving": ""}
-        results.append({
-            "page": r.source_page,
-            "device_tag": r.device_tag,
-            "qty": r.quantity,
-            "description": r.description,
-            "manufacturer_pdf": r.manufacturer,
-            "model_number_pdf": r.model_number,
-            "order_number_pdf": r.order_number,
-            "status": status,
-            "procos_artikel": proc["artikel"],
-            "procos_fabcode": proc["fabrikant"],
-            "procos_omschrijving": proc["omschrijving"],
-            "n_hits": len(hits),
-        })
+        proc = hits[0] if hits else {"artikel": "", "fabrikant": "", "omschrijving": "", "type_nr": ""}
+        match_results.append(MatchResult(
+            status=status,
+            procos_artikel=proc.get("artikel", ""),
+            procos_fabcode=proc.get("fabrikant", ""),
+            procos_omschrijving=proc.get("omschrijving", ""),
+            mapped_fab="",
+            matched_typenr=proc.get("type_nr", ""),
+            n_hits=len(hits),
+        ))
 
     print()
     print("=== STATUS-OVERZICHT ===")
@@ -241,27 +238,16 @@ def run(pdf_path: str):
         print(f"  {status:55s}: {count:>3} ({pct:5.1f}%)")
     print(f"  {'TOTAAL':55s}: {len(result.rows):>3}")
 
+    # Use the canonical match-writer so this script and the Streamlit UI
+    # produce identical Excel output (9 cols Match, 6 cols Niet-gevonden).
     match_xlsx = out_dir / f"{stem}_match_rapport.xlsx"
-    wb = openpyxl.Workbook()
-    ws = wb.active
-    ws.title = "Match"
-    headers = list(results[0].keys()) if results else []
-    ws.append(headers)
-    for c in ws[1]:
-        c.font = openpyxl.styles.Font(bold=True)
-    for r in results:
-        ws.append([r[h] for h in headers])
+    write_match_report(result.rows, match_results, str(match_xlsx))
 
-    sw = wb.create_sheet("Samenvatting")
-    sw.append(["Status", "Aantal", "%"])
-    for c in sw[1]:
-        c.font = openpyxl.styles.Font(bold=True)
-    for status, count in sorted(statuses.items(), key=lambda x: -x[1]):
-        sw.append([status, count, f"{100*count/max(1,len(result.rows)):.1f}%"])
-    sw.append(["TOTAAL", len(result.rows), "100.0%"])
+    nietgev_xlsx = out_dir / f"{stem}_niet_gevonden.xlsx"
+    write_niet_gevonden(result.rows, match_results, str(nietgev_xlsx))
 
-    wb.save(match_xlsx)
-    print(f"\n  Match rapport: {match_xlsx}")
+    print(f"\n  Match rapport:  {match_xlsx}")
+    print(f"  Niet gevonden:  {nietgev_xlsx}")
 
     print(f"\n=== KLAAR ===")
     return {
@@ -274,6 +260,7 @@ def run(pdf_path: str):
             "procos_xltm": str(procos_xltm),
             "procos_xml": str(procos_xml),
             "match_xlsx": str(match_xlsx),
+            "niet_gevonden_xlsx": str(nietgev_xlsx),
         }
     }
 
