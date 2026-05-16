@@ -1,7 +1,7 @@
 """Item-list Extractor — Streamlit entry point.
 
-Orchestrates the three screens: upload -> processing -> results, wires
-the UI components to the pipeline_service backend, and applies the
+Orchestrates the screens (upload → processing → results → matching → match_results),
+wires the UI components to the pipeline_service backend, and applies the
 EKB-branded theme overlay.
 """
 
@@ -16,8 +16,6 @@ from backend.pipeline_service import (
     extract,
     rows_to_dataframe,
     run_match,
-    to_csv_bytes,
-    to_json_bytes,
     to_match_xlsx_bytes,
     to_niet_gevonden_xlsx_bytes,
     to_procos_bytes,
@@ -25,6 +23,8 @@ from backend.pipeline_service import (
     to_xlsx_bytes,
 )
 from components.header import render_header
+from components.match_results import render_match_results
+from components.matching import render_matching
 from components.processing import render_processing
 from components.results import render_results
 from components.upload import render_upload
@@ -109,13 +109,27 @@ def main() -> None:
         render_results(
             st.session_state.processed or [],
             rows_to_df_fn=rows_to_dataframe,
-            xlsx_bytes_fn=to_xlsx_bytes,
-            csv_bytes_fn=to_csv_bytes,
-            json_bytes_fn=to_json_bytes,
+            raw_xlsx_bytes_fn=to_xlsx_bytes,
+        )
+
+    elif stage == "matching":
+        top_l, top_r = st.columns([5, 1])
+        with top_r:
+            if st.button("Nieuwe upload", use_container_width=True):
+                _reset()
+                st.rerun()
+
+        render_matching(
+            st.session_state.processed or [],
+            run_match_fn=run_match,
+        )
+
+    elif stage == "match_results":
+        render_match_results(
+            st.session_state.processed or [],
+            rows_to_df_fn=rows_to_dataframe,
             procos_bytes_fn=to_procos_bytes,
             procos_xml_bytes_fn=to_procos_xml_bytes,
-            raw_xlsx_bytes_fn=to_xlsx_bytes,
-            run_match_fn=run_match,
             match_xlsx_bytes_fn=to_match_xlsx_bytes,
             niet_gevonden_xlsx_bytes_fn=to_niet_gevonden_xlsx_bytes,
         )
