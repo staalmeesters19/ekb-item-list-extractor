@@ -18,9 +18,19 @@ if str(_EXTRACTOR_ROOT) not in sys.path:
 import yaml  # noqa: E402
 
 from src.interfaces import ExtractionResult  # noqa: E402
+from src.matcher import (  # noqa: E402
+    MatchResult,
+    load_procos_db as _load_procos_db,
+    match_rows as _match_rows,
+    summarize as _summarize_matches,
+)
 from src.pipeline import run as _pipeline_run  # noqa: E402
 from src.writers.csv_writer import write_csv as _write_csv  # noqa: E402
 from src.writers.json_writer import write_json as _write_json  # noqa: E402
+from src.writers.match_writer import (  # noqa: E402
+    write_match_report as _write_match_report,
+    write_niet_gevonden as _write_niet_gevonden,
+)
 from src.writers.procos_writer import write_procos as _write_procos  # noqa: E402
 from src.writers.procos_xml_writer import write_procos_xml as _write_procos_xml  # noqa: E402
 from src.writers.xlsx_writer import write_xlsx as _write_xlsx  # noqa: E402
@@ -30,6 +40,7 @@ if TYPE_CHECKING:
 
 __all__ = [
     "ExtractionResult",
+    "MatchResult",
     "load_config",
     "classify",
     "extract",
@@ -39,6 +50,13 @@ __all__ = [
     "to_procos_bytes",
     "to_procos_xml_bytes",
     "rows_to_dataframe",
+    "load_procos_db_from_bytes",
+    "get_fab_mapping",
+    "run_match",
+    "summarize_match",
+    "to_match_xlsx_bytes",
+    "to_niet_gevonden_xlsx_bytes",
+    "match_results_to_dataframe",
 ]
 
 
@@ -126,6 +144,75 @@ _DATAFRAME_COLUMNS = [
     "schematic_position",
     "warnings",
 ]
+
+
+# --- Match step (ProCos 86k database) -----------------------------------------
+
+def load_procos_db_from_bytes(file_bytes: bytes) -> dict:
+    """Load the ProCos export from raw bytes uploaded via Streamlit."""
+    return _load_procos_db(file_bytes)
+
+
+def get_fab_mapping() -> dict:
+    """Return the fabrikant name -> fabcode mapping from config.yaml."""
+    cfg = load_config()
+    mapping = (cfg.get("procos_matching") or {}).get("fab_mapping") or {}
+    # Normalise keys to uppercase strip-spaces so case differences in PDF
+    # fabrikantnamen don't cause mismatches.
+    return {str(k).strip().upper(): str(v).strip() for k, v in mapping.items()}
+
+
+def run_match(result: ExtractionResult, db: dict) -> List[MatchResult]:
+    """Match the rows in *result* against the ProCos database."""
+    return _match_rows(result.rows, db, get_fab_mapping())
+
+
+def summarize_match(match_results: List[MatchResult]) -> dict:
+    return _summarize_matches(match_results)
+
+
+def to_match_xlsx_bytes(result: ExtractionResult,
+                        match_results: List[MatchResult]) -> bytes:
+    tmp = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
+    tmp_path = tmp.name
+    tmp.close()
+    try:
+        _write_match_report(result.rows, match_results, tmp_path, load_config())
+        with open(tmp_path, "rb") as fh:
+            return fh.read()
+    finally:
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
+
+
+def to_niet_gevonden_xlsx_bytes(result: ExtractionResult,
+                                match_results: List[MatchResult]) -> bytes:
+    tmp = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
+    tmp_path = tmp.name
+    tmp.close()
+    try:
+        _write_niet_gevonden(result.rows, match_results, tmp_path, load_config())
+        with open(tmp_path, "rb") as fh:
+            return fh.read()
+    finally:
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
+
+
+def match_results_to_dataframe(result: ExtractionResult,
+                               match_results: List[MatchResult]) -> "pd.DataFrame":
+    """Build a DataFrame combining extracted rows + match info — for UI display."""
+    import pandas as pd
+    base = rows_to_dataframe(result)
+    if match_results and len(match_results) == len(base):
+        base["match_status"] = [m.status for m in match_results]
+        base["procos_artikel"] = [m.procos_artikel for m in match_results]
+        base["procos_omschrijving"] = [m.procos_omschrijving for m in match_results]
+    return base
 
 
 def rows_to_dataframe(result: ExtractionResult) -> "pd.DataFrame":

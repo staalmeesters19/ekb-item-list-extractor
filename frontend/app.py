@@ -15,8 +15,11 @@ from backend.pipeline_service import (
     classify,
     extract,
     rows_to_dataframe,
+    run_match,
     to_csv_bytes,
     to_json_bytes,
+    to_match_xlsx_bytes,
+    to_niet_gevonden_xlsx_bytes,
     to_procos_bytes,
     to_procos_xml_bytes,
     to_xlsx_bytes,
@@ -42,12 +45,20 @@ def _init_state() -> None:
     st.session_state.setdefault("stage", "upload")
     st.session_state.setdefault("files", None)
     st.session_state.setdefault("processed", None)
+    # ProCos-database + match state survives reset (within the session)
+    st.session_state.setdefault("procos_db", None)
+    st.session_state.setdefault("procos_db_n", None)
+    st.session_state.setdefault("procos_db_name", None)
+    st.session_state.setdefault("match_results_by_name", None)
 
 
 def _reset() -> None:
     st.session_state.stage = "upload"
     st.session_state.files = None
     st.session_state.processed = None
+    # Clear match results — they're tied to the previous processed set
+    st.session_state.match_results_by_name = None
+    # KEEP procos_db loaded; user uploaded once, no need to repeat
 
 
 def main() -> None:
@@ -104,6 +115,9 @@ def main() -> None:
             procos_bytes_fn=to_procos_bytes,
             procos_xml_bytes_fn=to_procos_xml_bytes,
             raw_xlsx_bytes_fn=to_xlsx_bytes,
+            run_match_fn=run_match,
+            match_xlsx_bytes_fn=to_match_xlsx_bytes,
+            niet_gevonden_xlsx_bytes_fn=to_niet_gevonden_xlsx_bytes,
         )
 
 

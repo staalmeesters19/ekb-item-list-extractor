@@ -136,3 +136,37 @@ output:
   xlsx_sheet_per_pdf: true
   include_raw_column: true
   include_warnings_column: true
+
+
+# --- Match-step (PDF rij -> ProCos artikel database) ---
+procos_matching:
+  # Manual mapping: how the PDF's tekstuele fabrikantnaam (uppercase)
+  # maps to the 6-letter fabrikantcode used in ProCos.
+  # Both column-A keys are case-insensitive in matching.
+  # Extend this list as new fabrikanten arrive in customer PDFs.
+  fab_mapping:
+    SIEMENS: SIEHAA
+    SIEMENS AG: SIEHAA
+    ROCKWELL: ROCUIT
+    ROCKWELL AUTOMATION: ROCUIT
+    ABB: ABBROT1
+    EATON: EATVEJ
+    RITTAL: RITZEV
+    PHOENIX: PHOZEV
+    PHOENIX CONTACT: PHOZEV
+    LAPP: LAPVEL
+    WEIDMULLER: WEIHIL
+    WEIDMUELLER: WEIHIL
+    "WEIDMÜLLER": WEIHIL
+    SCHNEIDER: SCHHAA
+    SCHNEIDER ELECTRIC: SCHHAA
+    HARTING: HARBOS
+    FESTO: FESDEL
+    EAO: EAODOR
+    HUMMEL: HUMZEV
+    FINDER: FINAMS
+    SMC: SMCAMS
+    SMC PNEUMATICS: SMCAMS
+    PMA: PMAUST
+    PMA AG: PMAUST
+    FIBOX: FIBESP

@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Stueckliste>
+	<P POS="1" Menge="1" ME="ST" KndBezeichnung="SICAM A8000 CI-8520 Ethernet Interface" KndArtikel="-21A1
+&amp;EFS040/21.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="2" Menge="1" ME="ST" KndBezeichnung="CP-8050 MASTER MODULE
+SICAM A8000" KndArtikel="-21A2
+&amp;EFS040/21.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="3" Menge="1" ME="ST" KndBezeichnung="POWER SUPPLY PS-8622, DC 110-220V, 12W
+SICAM A8000" KndArtikel="-21A3
+&amp;EFS040/21.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="4" Menge="1" ME="ST" KndBezeichnung="POWER SUPPLY PS-8622, DC 110-220V, 12W
+SICAM A8000" KndArtikel="-21A4
+&amp;EFS040/21.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="5" Menge="1" ME="ST" KndBezeichnung="SICAM A8000 CI-8520 Ethernet Interface" KndArtikel="-31A1
+&amp;EFS040/31.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="6" Menge="1" ME="ST" KndBezeichnung="CP-8050 MASTER MODULE
+SICAM A8000" KndArtikel="-31A2
+&amp;EFS040/31.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="7" Menge="1" ME="ST" KndBezeichnung="POWER SUPPLY PS-8622, DC 110-220V, 12W
+SICAM A8000" KndArtikel="-31A3
+&amp;EFS040/31.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="8" Menge="1" ME="ST" KndBezeichnung="POWER SUPPLY PS-8622, DC 110-220V, 12W
+SICAM A8000" KndArtikel="-31A4
+&amp;EFS040/31.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="9" Menge="2" ME="ST" KndBezeichnung="SICAM A8000 DI-8112 Dig. Inp. (2x8, 110 VDC)" KndArtikel="-31A5
+&amp;EFS040/31.4:B;&amp;EFS040/41.2:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="10" Menge="2" ME="ST" KndBezeichnung="SICAM A8000 DI-8112 Dig. Inp. (2x8, 110 VDC)" KndArtikel="-31A6
+&amp;EFS040/31.5:B;&amp;EFS040/41.6:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="11" Menge="2" ME="ST" KndBezeichnung="SICAM A8000 DI-8112 Dig. Inp. (2x8, 110 VDC)" KndArtikel="-31A7
+&amp;EFS040/31.5:B;&amp;EFS040/42.2:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="12" Menge="3" ME="ST" KndBezeichnung="DO-8212 DIG. OUTP. (REL 8X 24 - 220 VDC/230 VAC)
+SICAM A8000" KndArtikel="-31A8
+&amp;EFS040/31.6:B;&amp;EFS040/42.6:A;&amp;EFS040/210.0:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="13" Menge="1" ME="ST" KndBezeichnung="IE4010 Industrial Ethernet Switch
+4 x SFP 100MB/1G Uplink, 12 x SFP 100/1000M, 12 x RJ45 10/100/1000M PoE/PoE+
+Cisco" KndArtikel="-81A4
+&amp;EFS040/81.4:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="14" Menge="1" ME="ST" KndBezeichnung="IE4010 Industrial Ethernet Switch
+4 x SFP 100MB/1G Uplink, 12 x SFP 100/1000M, 12 x RJ45 10/100/1000M PoE/PoE+
+Cisco" KndArtikel="-81A7
+&amp;EFS040/81.6:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="15" Menge="1" ME="ST" KndBezeichnung="Juniper" KndArtikel="-90A1
+&amp;EFS040/90.1:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="16" Menge="1" ME="ST" KndBezeichnung="Juniper" KndArtikel="-90A5
+&amp;EFS040/90.5:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="17" Menge="1" ME="ST" KndBezeichnung="Juniper" KndArtikel="-91A1
+&amp;EFS040/91.1:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="18" Menge="1" ME="ST" KndBezeichnung="Juniper" KndArtikel="-91A5
+&amp;EFS040/91.5:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="19" Menge="1" ME="ST" KndBezeichnung="RECTIFIER DIODE MODULE SKKD 100/16
+RECTIFIER DIODE MODULES" KndArtikel="-85D1
+&amp;EFS040/85.0:B" BstNr="" Lieferant="SEMIKRON" Typ="zie bstnr" Hersteller="SEMIKRON" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="20" Menge="1" ME="ST" KndBezeichnung="RECTIFIER DIODE MODULE SKKD 100/16
+RECTIFIER DIODE MODULES" KndArtikel="-85D3
+&amp;EFS040/85.3:B" BstNr="" Lieferant="SEMIKRON" Typ="zie bstnr" Hersteller="SEMIKRON" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="21" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER 10KA 2POL C6
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-70F2
+&amp;EFS040/70.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="22" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-70F5
+&amp;EFS040/70.5:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="23" Menge="1" ME="ST" KndBezeichnung="RCBO ELM
+SENTRON RCBO" KndArtikel="-70F7
+&amp;EFS040/70.7:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="24" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-70F8
+&amp;EFS040/70.8:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="25" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F1
+&amp;EFS040/81.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="26" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F1
+&amp;EFS040/81.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="27" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F2
+&amp;EFS040/81.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="28" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F2
+&amp;EFS040/81.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="29" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F4
+&amp;EFS040/81.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="30" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F4
+&amp;EFS040/81.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="31" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F5
+&amp;EFS040/81.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="32" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F5
+&amp;EFS040/81.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="33" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F7
+&amp;EFS040/81.7:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="34" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F7
+&amp;EFS040/81.7:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="35" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F8
+&amp;EFS040/81.8:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="36" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F8
+&amp;EFS040/81.8:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="37" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-84F1
+&amp;EFS040/84.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="38" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-84F1
+&amp;EFS040/84.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="39" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-84F3
+&amp;EFS040/84.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="40" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-84F3
+&amp;EFS040/84.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="41" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-84F5
+&amp;EFS040/84.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="42" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-84F5
+&amp;EFS040/84.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="43" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-84F7
+&amp;EFS040/84.7:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="44" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-84F7
+&amp;EFS040/84.7:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="45" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-85F1
+&amp;EFS040/85.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="46" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-85F1
+&amp;EFS040/85.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="47" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-85F3
+&amp;EFS040/85.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="48" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-85F3
+&amp;EFS040/85.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="49" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C16
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-90F1
+&amp;EFS040/90.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="50" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-90F1
+&amp;EFS040/90.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="51" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C16
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-90F5
+&amp;EFS040/90.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="52" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-90F5
+&amp;EFS040/90.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="53" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C16
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-91F1
+&amp;EFS040/91.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="54" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-91F1
+&amp;EFS040/91.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="55" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C16
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-91F5
+&amp;EFS040/91.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="56" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-91F5
+&amp;EFS040/91.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="57" Menge="1" ME="ST" KndBezeichnung="Surge protection device
+SPD" KndArtikel="-211F1
+&amp;EFS040/211.1:A" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="58" Menge="1" ME="ST" KndBezeichnung="LED system light
+LED system light, with motion detector, Length: 437 mm, Input voltage: 100 V - 240 V," KndArtikel="-70H5
+&amp;EFS040/70.5:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="59" Menge="1" ME="ST" KndBezeichnung="Fan module
+Fan module for VX IT, TS IT, TX CableNet, Rated operating voltage: 100 V - 240 V, 1~," KndArtikel="-70M8
+&amp;EFS040/70.8:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="60" Menge="1" ME="ST" KndBezeichnung="Fan expansion kit
+Fan expansion kit for VX IT, TS IT, 24 V (DC)" KndArtikel="-70M8
+&amp;EFS040/70.8:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="61" Menge="1" ME="ST" KndBezeichnung="SWITCH-DISCONNECTOR 690V 100A 3P
+SENTRON Switching device" KndArtikel="-51Q2
+&amp;EFS040/51.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="62" Menge="1" ME="ST" KndBezeichnung="INPUT COUP. DEV. 115VAC/DC,1 CO CONTACT
+SIRIUS COUPLING RELAYS WITH RELAY OUTPUT (NOT PLUG-IN)" KndArtikel="-51Q8
+&amp;EFS040/51.8:C" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="63" Menge="1" ME="ST" KndBezeichnung="SWITCH-DISCONNECTOR 690V 100A 3P
+SENTRON Switching device" KndArtikel="-52Q2
+&amp;EFS040/52.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="64" Menge="1" ME="ST" KndBezeichnung="INPUT COUP. DEV. 115VAC/DC,1 CO CONTACT
+SIRIUS COUPLING RELAYS WITH RELAY OUTPUT (NOT PLUG-IN)" KndArtikel="-52Q8
+&amp;EFS040/52.8:C" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="65" Menge="1" ME="ST" KndBezeichnung="INPUT COUPLING LINK, 230VAC/DC, 1 CO HTV
+SIRIUS Coupling relays with relay output (not plug-in)" KndArtikel="-70Q4
+&amp;EFS040/70.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="66" Menge="1" ME="ST" KndBezeichnung="Thermostat
+SK Thermostat, enclosure internal thermostat, 24-230 V, 1~, 24-60 V (DC), Colour RAL" KndArtikel="-70S8
+&amp;EFS040/70.8:D" BstNr="" Lieferant="Rittal" Typ="zie bstnr" Hersteller="Rittal" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="67" Menge="1" ME="ST" KndBezeichnung="Connection cable
+SM Connection cable, For power pack, with IEC 60 320, L: 1,5 m" KndArtikel="-70W1
+&amp;EFS040/70.8:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="68" Menge="2" ME="ST" KndBezeichnung="END CLAMP CLIPFIX 35-5" KndArtikel="-X0" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="69" Menge="8" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 35
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/51.1:C;&amp;EFS040/51.2:C;&amp;EFS040/52.1:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="70" Menge="2" ME="ST" KndBezeichnung="GROUND MODULAR TERMINAL BLOCK UT 35-PE
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/51.2:C;&amp;EFS040/52.2:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="71" Menge="2" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 2,5
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/70.1:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="72" Menge="1" ME="ST" KndBezeichnung="GROUND MODULAR TERMINAL BLOCK UT 2,5-PE
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/70.2:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="73" Menge="1" ME="ST" KndBezeichnung="END COVER" KndArtikel="-X0
+&amp;EFS040/70.2:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="74" Menge="16" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 10
+SCREW CONNECTION" KndArtikel="-X48
+&amp;EFS040/90.1:D;&amp;EFS040/90.2:D;&amp;EFS040/90.5:D" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="75" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.1
+&amp;EFS040/51.2:A" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="76" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.2
+&amp;EFS040/51.2:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="77" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.3
+&amp;EFS040/52.2:A" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="78" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.4
+&amp;EFS040/52.2:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="79" Menge="4" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 2,5
+SCREW CONNECTION" KndArtikel="-X230
+&amp;EFS040/70.5:B;&amp;EFS040/70.8:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="80" Menge="2" ME="ST" KndBezeichnung="GROUND MODULAR TERMINAL BLOCK UT 2,5-PE
+SCREW CONNECTION" KndArtikel="-X230
+&amp;EFS040/70.6:B;&amp;EFS040/70.9:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="81" Menge="2" ME="ST" KndBezeichnung="END COVER" KndArtikel="-X230
+&amp;EFS040/70.6:B;&amp;EFS040/70.9:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="82" Menge="1" ME="ST" KndBezeichnung="SOCKET - EO-CF/UT/LED/GN
+FOR GERMANY AND OTHER COUNTRIES
+EO-CF/UT/LED/GN" KndArtikel="-70XC7
+&amp;EFS040/70.6:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="83" Menge="2" ME="ST" KndBezeichnung="END CLAMP CLIPFIX 35-5" KndArtikel="-X IO
+_" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="84" Menge="48" ME="ST" KndBezeichnung="MULTI-LEVEL TERMINAL BLOCK PT 2,5-3L
+PUSH-IN CONNECTION" KndArtikel="-X IO
+_
+&amp;EFS040/201.1:C;&amp;EFS040/201.2:C;&amp;EFS040/201.3:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="85" Menge="16" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 2,5
+SCREW CONNECTION" KndArtikel="-X IO
+_
+&amp;EFS040/210.1:B;&amp;EFS040/210.2:B;&amp;EFS040/210.3:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="86" Menge="1" ME="ST" KndBezeichnung="END COVER" KndArtikel="-X IO
+_
+&amp;EFS040/210.1:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSA-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="87" Menge="1" ME="ST" KndBezeichnung="SICAM A8000 CI-8520 Ethernet Interface" KndArtikel="-21A1
+&amp;EFS040/21.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="88" Menge="1" ME="ST" KndBezeichnung="CP-8050 MASTER MODULE
+SICAM A8000" KndArtikel="-21A2
+&amp;EFS040/21.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="89" Menge="1" ME="ST" KndBezeichnung="POWER SUPPLY PS-8622, DC 110-220V, 12W
+SICAM A8000" KndArtikel="-21A3
+&amp;EFS040/21.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="90" Menge="1" ME="ST" KndBezeichnung="POWER SUPPLY PS-8622, DC 110-220V, 12W
+SICAM A8000" KndArtikel="-21A4
+&amp;EFS040/21.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="91" Menge="1" ME="ST" KndBezeichnung="SICAM A8000 CI-8520 Ethernet Interface" KndArtikel="-31A1
+&amp;EFS040/31.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="92" Menge="1" ME="ST" KndBezeichnung="CP-8050 MASTER MODULE
+SICAM A8000" KndArtikel="-31A2
+&amp;EFS040/31.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="93" Menge="1" ME="ST" KndBezeichnung="POWER SUPPLY PS-8622, DC 110-220V, 12W
+SICAM A8000" KndArtikel="-31A3
+&amp;EFS040/31.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="94" Menge="1" ME="ST" KndBezeichnung="POWER SUPPLY PS-8622, DC 110-220V, 12W
+SICAM A8000" KndArtikel="-31A4
+&amp;EFS040/31.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="95" Menge="2" ME="ST" KndBezeichnung="SICAM A8000 DI-8112 Dig. Inp. (2x8, 110 VDC)" KndArtikel="-31A5
+&amp;EFS040/31.4:B;&amp;EFS040/41.2:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="96" Menge="2" ME="ST" KndBezeichnung="SICAM A8000 DI-8112 Dig. Inp. (2x8, 110 VDC)" KndArtikel="-31A6
+&amp;EFS040/31.5:B;&amp;EFS040/41.6:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="97" Menge="2" ME="ST" KndBezeichnung="SICAM A8000 DI-8112 Dig. Inp. (2x8, 110 VDC)" KndArtikel="-31A7
+&amp;EFS040/31.5:B;&amp;EFS040/42.2:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="98" Menge="3" ME="ST" KndBezeichnung="DO-8212 DIG. OUTP. (REL 8X 24 - 220 VDC/230 VAC)
+SICAM A8000" KndArtikel="-31A8
+&amp;EFS040/31.6:B;&amp;EFS040/42.6:A;&amp;EFS040/210.0:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="99" Menge="1" ME="ST" KndBezeichnung="IE4010 Industrial Ethernet Switch
+4 x SFP 100MB/1G Uplink, 12 x SFP 100/1000M, 12 x RJ45 10/100/1000M PoE/PoE+
+Cisco" KndArtikel="-81A4
+&amp;EFS040/81.4:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="100" Menge="1" ME="ST" KndBezeichnung="IE4010 Industrial Ethernet Switch
+4 x SFP 100MB/1G Uplink, 12 x SFP 100/1000M, 12 x RJ45 10/100/1000M PoE/PoE+
+Cisco" KndArtikel="-81A7
+&amp;EFS040/81.6:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="101" Menge="1" ME="ST" KndBezeichnung="Juniper" KndArtikel="-90A1
+&amp;EFS040/90.1:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="102" Menge="1" ME="ST" KndBezeichnung="Juniper" KndArtikel="-90A5
+&amp;EFS040/90.5:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="103" Menge="1" ME="ST" KndBezeichnung="Juniper" KndArtikel="-91A1
+&amp;EFS040/91.1:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="104" Menge="1" ME="ST" KndBezeichnung="Juniper" KndArtikel="-91A5
+&amp;EFS040/91.5:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="105" Menge="1" ME="ST" KndBezeichnung="RECTIFIER DIODE MODULE SKKD 100/16
+RECTIFIER DIODE MODULES" KndArtikel="-85D1
+&amp;EFS040/85.0:B" BstNr="" Lieferant="SEMIKRON" Typ="zie bstnr" Hersteller="SEMIKRON" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="106" Menge="1" ME="ST" KndBezeichnung="RECTIFIER DIODE MODULE SKKD 100/16
+RECTIFIER DIODE MODULES" KndArtikel="-85D3
+&amp;EFS040/85.3:B" BstNr="" Lieferant="SEMIKRON" Typ="zie bstnr" Hersteller="SEMIKRON" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="107" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER 10KA 2POL C6
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-70F2
+&amp;EFS040/70.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="108" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-70F5
+&amp;EFS040/70.5:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="109" Menge="1" ME="ST" KndBezeichnung="RCBO ELM
+SENTRON RCBO" KndArtikel="-70F7
+&amp;EFS040/70.7:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="110" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-70F8
+&amp;EFS040/70.8:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="111" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F1
+&amp;EFS040/81.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="112" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F1
+&amp;EFS040/81.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="113" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F2
+&amp;EFS040/81.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="114" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F2
+&amp;EFS040/81.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="115" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F4
+&amp;EFS040/81.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="116" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F4
+&amp;EFS040/81.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="117" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F5
+&amp;EFS040/81.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="118" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F5
+&amp;EFS040/81.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="119" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F7
+&amp;EFS040/81.7:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="120" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F7
+&amp;EFS040/81.7:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="121" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F8
+&amp;EFS040/81.8:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="122" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F8
+&amp;EFS040/81.8:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="123" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-84F1
+&amp;EFS040/84.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="124" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-84F1
+&amp;EFS040/84.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="125" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-84F3
+&amp;EFS040/84.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="126" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-84F3
+&amp;EFS040/84.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="127" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-84F5
+&amp;EFS040/84.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="128" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-84F5
+&amp;EFS040/84.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="129" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-84F7
+&amp;EFS040/84.7:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="130" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-84F7
+&amp;EFS040/84.7:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="131" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-85F1
+&amp;EFS040/85.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="132" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-85F1
+&amp;EFS040/85.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="133" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-85F3
+&amp;EFS040/85.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="134" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-85F3
+&amp;EFS040/85.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="135" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C16
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-90F1
+&amp;EFS040/90.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="136" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-90F1
+&amp;EFS040/90.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="137" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C16
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-90F5
+&amp;EFS040/90.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="138" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-90F5
+&amp;EFS040/90.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="139" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C16
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-91F1
+&amp;EFS040/91.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="140" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-91F1
+&amp;EFS040/91.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="141" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C16
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-91F5
+&amp;EFS040/91.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="142" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-91F5
+&amp;EFS040/91.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="143" Menge="1" ME="ST" KndBezeichnung="Surge protection device
+SPD" KndArtikel="-211F1
+&amp;EFS040/211.1:A" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="144" Menge="1" ME="ST" KndBezeichnung="LED system light
+LED system light, with motion detector, Length: 437 mm, Input voltage: 100 V - 240 V," KndArtikel="-70H5
+&amp;EFS040/70.5:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="145" Menge="1" ME="ST" KndBezeichnung="Fan module
+Fan module for VX IT, TS IT, TX CableNet, Rated operating voltage: 100 V - 240 V, 1~," KndArtikel="-70M8
+&amp;EFS040/70.8:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="146" Menge="1" ME="ST" KndBezeichnung="Fan expansion kit
+Fan expansion kit for VX IT, TS IT, 24 V (DC)" KndArtikel="-70M8
+&amp;EFS040/70.8:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="147" Menge="1" ME="ST" KndBezeichnung="SWITCH-DISCONNECTOR 690V 100A 3P
+SENTRON Switching device" KndArtikel="-51Q2
+&amp;EFS040/51.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="148" Menge="1" ME="ST" KndBezeichnung="INPUT COUP. DEV. 115VAC/DC,1 CO CONTACT
+SIRIUS COUPLING RELAYS WITH RELAY OUTPUT (NOT PLUG-IN)" KndArtikel="-51Q8
+&amp;EFS040/51.8:C" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="149" Menge="1" ME="ST" KndBezeichnung="SWITCH-DISCONNECTOR 690V 100A 3P
+SENTRON Switching device" KndArtikel="-52Q2
+&amp;EFS040/52.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="150" Menge="1" ME="ST" KndBezeichnung="INPUT COUP. DEV. 115VAC/DC,1 CO CONTACT
+SIRIUS COUPLING RELAYS WITH RELAY OUTPUT (NOT PLUG-IN)" KndArtikel="-52Q8
+&amp;EFS040/52.8:C" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="151" Menge="1" ME="ST" KndBezeichnung="INPUT COUPLING LINK, 230VAC/DC, 1 CO HTV
+SIRIUS Coupling relays with relay output (not plug-in)" KndArtikel="-70Q4
+&amp;EFS040/70.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="152" Menge="1" ME="ST" KndBezeichnung="Thermostat
+SK Thermostat, enclosure internal thermostat, 24-230 V, 1~, 24-60 V (DC), Colour RAL" KndArtikel="-70S8
+&amp;EFS040/70.8:D" BstNr="" Lieferant="Rittal" Typ="zie bstnr" Hersteller="Rittal" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="153" Menge="1" ME="ST" KndBezeichnung="Connection cable
+SM Connection cable, For power pack, with IEC 60 320, L: 1,5 m" KndArtikel="-70W1
+&amp;EFS040/70.8:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="154" Menge="8" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 35
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/51.1:C;&amp;EFS040/51.2:C;&amp;EFS040/52.1:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="155" Menge="2" ME="ST" KndBezeichnung="GROUND MODULAR TERMINAL BLOCK UT 35-PE
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/51.2:C;&amp;EFS040/52.2:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="156" Menge="2" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 2,5
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/70.1:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="157" Menge="1" ME="ST" KndBezeichnung="GROUND MODULAR TERMINAL BLOCK UT 2,5-PE
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/70.2:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="158" Menge="1" ME="ST" KndBezeichnung="END COVER" KndArtikel="-X0
+&amp;EFS040/70.2:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="159" Menge="16" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 10
+SCREW CONNECTION" KndArtikel="-X48
+&amp;EFS040/90.1:D;&amp;EFS040/90.2:D;&amp;EFS040/90.5:D" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="160" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.1
+&amp;EFS040/51.2:A" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="161" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.2
+&amp;EFS040/51.2:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="162" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.3
+&amp;EFS040/52.2:A" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="163" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.4
+&amp;EFS040/52.2:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="164" Menge="4" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 2,5
+SCREW CONNECTION" KndArtikel="-X230
+&amp;EFS040/70.5:B;&amp;EFS040/70.8:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="165" Menge="2" ME="ST" KndBezeichnung="GROUND MODULAR TERMINAL BLOCK UT 2,5-PE
+SCREW CONNECTION" KndArtikel="-X230
+&amp;EFS040/70.6:B;&amp;EFS040/70.9:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="166" Menge="2" ME="ST" KndBezeichnung="END COVER" KndArtikel="-X230
+&amp;EFS040/70.6:B;&amp;EFS040/70.9:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="167" Menge="1" ME="ST" KndBezeichnung="SOCKET - EO-CF/UT/LED/GN
+FOR GERMANY AND OTHER COUNTRIES
+EO-CF/UT/LED/GN" KndArtikel="-70XC7
+&amp;EFS040/70.6:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="168" Menge="48" ME="ST" KndBezeichnung="MULTI-LEVEL TERMINAL BLOCK PT 2,5-3L
+PUSH-IN CONNECTION" KndArtikel="-X IO
+_
+&amp;EFS040/201.1:C;&amp;EFS040/201.2:C;&amp;EFS040/201.3:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="169" Menge="16" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 2,5
+SCREW CONNECTION" KndArtikel="-X IO
+_
+&amp;EFS040/210.1:B;&amp;EFS040/210.2:B;&amp;EFS040/210.3:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="170" Menge="1" ME="ST" KndBezeichnung="END COVER" KndArtikel="-X IO
+_
+&amp;EFS040/210.1:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[SSSB-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="171" Menge="1" ME="ST" KndBezeichnung="SICAM A8000 CI-8520 Ethernet Interface" KndArtikel="-31A1
+&amp;EFS040/31.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="172" Menge="1" ME="ST" KndBezeichnung="CP-8050 MASTER MODULE
+SICAM A8000" KndArtikel="-31A2
+&amp;EFS040/31.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="173" Menge="1" ME="ST" KndBezeichnung="POWER SUPPLY PS-8622, DC 110-220V, 12W
+SICAM A8000" KndArtikel="-31A3
+&amp;EFS040/31.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="174" Menge="1" ME="ST" KndBezeichnung="POWER SUPPLY PS-8622, DC 110-220V, 12W
+SICAM A8000" KndArtikel="-31A4
+&amp;EFS040/31.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="175" Menge="2" ME="ST" KndBezeichnung="SICAM A8000 DI-8112 Dig. Inp. (2x8, 110 VDC)" KndArtikel="-31A5
+&amp;EFS040/31.4:B;&amp;EFS040/41.2:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="176" Menge="2" ME="ST" KndBezeichnung="SICAM A8000 DI-8112 Dig. Inp. (2x8, 110 VDC)" KndArtikel="-31A6
+&amp;EFS040/31.5:B;&amp;EFS040/41.6:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="177" Menge="2" ME="ST" KndBezeichnung="SICAM A8000 DI-8112 Dig. Inp. (2x8, 110 VDC)" KndArtikel="-31A7
+&amp;EFS040/31.5:B;&amp;EFS040/42.2:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="178" Menge="3" ME="ST" KndBezeichnung="DO-8212 DIG. OUTP. (REL 8X 24 - 220 VDC/230 VAC)
+SICAM A8000" KndArtikel="-31A8
+&amp;EFS040/31.6:B;&amp;EFS040/42.6:A;&amp;EFS040/210.0:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="179" Menge="1" ME="ST" KndBezeichnung="Juniper" KndArtikel="-90A1
+&amp;EFS040/90.1:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="180" Menge="1" ME="ST" KndBezeichnung="Juniper" KndArtikel="-90A5
+&amp;EFS040/90.5:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="181" Menge="1" ME="ST" KndBezeichnung="RECTIFIER DIODE MODULE SKKD 100/16
+RECTIFIER DIODE MODULES" KndArtikel="-85D1
+&amp;EFS040/85.0:B" BstNr="" Lieferant="SEMIKRON" Typ="zie bstnr" Hersteller="SEMIKRON" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="182" Menge="1" ME="ST" KndBezeichnung="RECTIFIER DIODE MODULE SKKD 100/16
+RECTIFIER DIODE MODULES" KndArtikel="-85D3
+&amp;EFS040/85.3:B" BstNr="" Lieferant="SEMIKRON" Typ="zie bstnr" Hersteller="SEMIKRON" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="183" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER 10KA 2POL C6
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-70F2
+&amp;EFS040/70.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="184" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-70F5
+&amp;EFS040/70.5:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="185" Menge="1" ME="ST" KndBezeichnung="RCBO ELM
+SENTRON RCBO" KndArtikel="-70F7
+&amp;EFS040/70.7:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="186" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-70F8
+&amp;EFS040/70.8:A" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="187" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F1
+&amp;EFS040/81.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="188" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F1
+&amp;EFS040/81.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="189" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F2
+&amp;EFS040/81.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="190" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F2
+&amp;EFS040/81.2:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="191" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F9
+&amp;EFS040/81.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="192" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F9
+&amp;EFS040/81.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="193" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F10
+&amp;EFS040/81.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="194" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F10
+&amp;EFS040/81.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="195" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F11
+&amp;EFS040/81.7:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="196" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F11
+&amp;EFS040/81.7:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="197" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10kA, 2-POLE, C04
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-81F12
+&amp;EFS040/81.8:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="198" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-81F12
+&amp;EFS040/81.8:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="199" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-84F1
+&amp;EFS040/84.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="200" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-84F1
+&amp;EFS040/84.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="201" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-84F3
+&amp;EFS040/84.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="202" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-84F3
+&amp;EFS040/84.3:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="203" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-85F1
+&amp;EFS040/85.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="204" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-85F1
+&amp;EFS040/85.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="205" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C02
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-85F3
+&amp;EFS040/85.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="206" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-85F3
+&amp;EFS040/85.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="207" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C16
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-90F1
+&amp;EFS040/90.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="208" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH" KndArtikel="-90F1
+&amp;EFS040/90.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="209" Menge="1" ME="ST" KndBezeichnung="CIRCUIT BREAKER UC 10KA 2P C16
+SENTRON MINIATURE CIRCUIT BREAKER" KndArtikel="-90F5
+&amp;EFS040/90.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="210" Menge="1" ME="ST" KndBezeichnung="AUXILIARY SWITCH 1NO+1NC
+SENTRON AUXILIARY CURRENT SWITCH
+Need to add the SPD
+details." KndArtikel="-90F5
+&amp;EFS040/90.5:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="211" Menge="1" ME="ST" KndBezeichnung="Surge protection device
+SPD" KndArtikel="-211F1
+&amp;EFS040/211.1:A" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="212" Menge="1" ME="ST" KndBezeichnung="Surge protection device
+SPD" KndArtikel="-211F2
+&amp;EFS040/211.2:A" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="213" Menge="1" ME="ST" KndBezeichnung="LED system light
+LED system light, with motion detector, Length: 437 mm, Input voltage: 100 V - 240 V," KndArtikel="-70H5
+&amp;EFS040/70.5:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="214" Menge="1" ME="ST" KndBezeichnung="Fan module
+Fan module for VX IT, TS IT, TX CableNet, Rated operating voltage: 100 V - 240 V, 1~," KndArtikel="-70M8
+&amp;EFS040/70.8:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="215" Menge="1" ME="ST" KndBezeichnung="Connection cable
+SM Connection cable, For power pack, with IEC 60 320, L: 1,5 m" KndArtikel="-70M8
+&amp;EFS040/70.8:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="216" Menge="1" ME="ST" KndBezeichnung="Fan expansion kit
+Fan expansion kit for VX IT, TS IT, 24 V (DC)" KndArtikel="-70M8
+&amp;EFS040/70.8:C" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="217" Menge="1" ME="ST" KndBezeichnung="SWITCH-DISCONNECTOR 690V 100A 3P
+SENTRON Switching device" KndArtikel="-51Q2
+&amp;EFS040/51.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="218" Menge="1" ME="ST" KndBezeichnung="INPUT COUP. DEV. 115VAC/DC,1 CO CONTACT
+SIRIUS COUPLING RELAYS WITH RELAY OUTPUT (NOT PLUG-IN)" KndArtikel="-51Q8
+&amp;EFS040/51.8:C" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="219" Menge="1" ME="ST" KndBezeichnung="SWITCH-DISCONNECTOR 690V 100A 3P
+SENTRON Switching device" KndArtikel="-52Q2
+&amp;EFS040/52.1:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="220" Menge="1" ME="ST" KndBezeichnung="INPUT COUP. DEV. 115VAC/DC,1 CO CONTACT
+SIRIUS COUPLING RELAYS WITH RELAY OUTPUT (NOT PLUG-IN)" KndArtikel="-52Q8
+&amp;EFS040/52.8:C" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="221" Menge="1" ME="ST" KndBezeichnung="INPUT COUPLING LINK, 230VAC/DC, 1 CO HTV
+SIRIUS Coupling relays with relay output (not plug-in)" KndArtikel="-70Q4
+&amp;EFS040/70.4:B" BstNr="" Lieferant="Siemens" Typ="zie bstnr" Hersteller="Siemens" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="222" Menge="1" ME="ST" KndBezeichnung="Thermostat
+SK Thermostat, enclosure internal thermostat, 24-230 V, 1~, 24-60 V (DC), Colour RAL" KndArtikel="-70S8
+&amp;EFS040/70.8:D" BstNr="" Lieferant="Rittal" Typ="zie bstnr" Hersteller="Rittal" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="223" Menge="1" ME="ST" KndBezeichnung="Connection cable
+SM Connection cable, For power pack, with IEC 60 320, L: 1,5 m" KndArtikel="-70W1
+&amp;EFS040/70.8:D" BstNr="" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="224" Menge="8" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 35
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/51.1:C;&amp;EFS040/51.2:C;&amp;EFS040/52.1:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="225" Menge="2" ME="ST" KndBezeichnung="GROUND MODULAR TERMINAL BLOCK UT 35-PE
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/51.2:C;&amp;EFS040/52.2:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="226" Menge="2" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 2,5
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/70.1:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="227" Menge="1" ME="ST" KndBezeichnung="GROUND MODULAR TERMINAL BLOCK UT 2,5-PE
+SCREW CONNECTION" KndArtikel="-X0
+&amp;EFS040/70.2:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="228" Menge="1" ME="ST" KndBezeichnung="END COVER" KndArtikel="-X0
+&amp;EFS040/70.2:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="229" Menge="8" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 10
+SCREW CONNECTION" KndArtikel="-X48
+&amp;EFS040/90.1:D;&amp;EFS040/90.2:D;&amp;EFS040/90.5:D" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="230" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.1
+&amp;EFS040/51.2:A" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="231" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.2
+&amp;EFS040/51.2:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="232" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.3
+&amp;EFS040/52.2:A" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="233" Menge="1" ME="ST" KndBezeichnung="Feed-through terminal block
+Potential collective terminal" KndArtikel="-X100.4
+&amp;EFS040/52.2:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="234" Menge="4" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 2,5
+SCREW CONNECTION" KndArtikel="-X230
+&amp;EFS040/70.5:B;&amp;EFS040/70.8:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="235" Menge="2" ME="ST" KndBezeichnung="GROUND MODULAR TERMINAL BLOCK UT 2,5-PE
+SCREW CONNECTION" KndArtikel="-X230
+&amp;EFS040/70.6:B;&amp;EFS040/70.9:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="236" Menge="2" ME="ST" KndBezeichnung="END COVER" KndArtikel="-X230
+&amp;EFS040/70.6:B;&amp;EFS040/70.9:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="237" Menge="1" ME="ST" KndBezeichnung="SOCKET - EO-CF/UT/LED/GN
+FOR GERMANY AND OTHER COUNTRIES
+EO-CF/UT/LED/GN" KndArtikel="-70XC7
+&amp;EFS040/70.6:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="238" Menge="48" ME="ST" KndBezeichnung="MULTI-LEVEL TERMINAL BLOCK PT 2,5-3L
+PUSH-IN CONNECTION" KndArtikel="-X IO
+_
+&amp;EFS040/201.1:C;&amp;EFS040/201.2:C;&amp;EFS040/201.3:C" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="239" Menge="16" ME="ST" KndBezeichnung="FEED-THROUGH TERMINAL BLOCK UT 2,5
+SCREW CONNECTION" KndArtikel="-X IO
+_
+&amp;EFS040/210.1:B;&amp;EFS040/210.2:B;&amp;EFS040/210.3:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="240" Menge="1" ME="ST" KndBezeichnung="END COVER" KndArtikel="-X IO
+_
+&amp;EFS040/210.1:B" BstNr="" Lieferant="PHOENIX CONTACT" Typ="zie bstnr" Hersteller="PHOENIX CONTACT" BMK="" Bemerkung="[GPS-NC]" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="241" Menge="1" ME="ST" KndBezeichnung="Network switch bundle with redundant power supply and SW license" KndArtikel="1
+Network Operating System: JUNOS 23.4R1.9" BstNr="EX4400-48F-DC" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="242" Menge="34" ME="ST" KndBezeichnung="100BASE-FX SFP transceiver module" KndArtikel="2" BstNr="EX-SFP-1FE-FX" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="243" Menge="5" ME="ST" KndBezeichnung="1000BASE-T SFP transceiver module" KndArtikel="3" BstNr="EX-SFP-1GE-T" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="244" Menge="8" ME="ST" KndBezeichnung="10GBASE-LR SFP+ transceiver module" KndArtikel="4" BstNr="FTLX1471D3BCL" Lieferant="Finisar" Typ="zie bstnr" Hersteller="Finisar" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="245" Menge="1" ME="ST" KndBezeichnung="Network switch bundle with redundant power supply and SW license" KndArtikel="1
+Network Operating System: JUNOS 23.4R1.9" BstNr="EX4400-48F-DC" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="246" Menge="25" ME="ST" KndBezeichnung="100BASE-FX SFP transceiver module" KndArtikel="2" BstNr="EX-SFP-1FE-FX" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="247" Menge="5" ME="ST" KndBezeichnung="1000BASE-T SFP transceiver module" KndArtikel="3" BstNr="EX-SFP-1GE-T" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="248" Menge="3" ME="ST" KndBezeichnung="10GBASE-LR SFP+ transceiver module" KndArtikel="4" BstNr="FTLX1471D3BCL" Lieferant="Finisar" Typ="zie bstnr" Hersteller="Finisar" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="249" Menge="1" ME="ST" KndBezeichnung="Network switch bundle with redundant power supply and SW license" KndArtikel="1
+Network Operating System: JUNOS 23.4R1.9" BstNr="EX4400-48F-DC" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="250" Menge="42" ME="ST" KndBezeichnung="100BASE-FX SFP transceiver module" KndArtikel="2" BstNr="EX-SFP-1FE-FX" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="251" Menge="1" ME="ST" KndBezeichnung="1000BASE-T SFP transceiver module" KndArtikel="3" BstNr="EX-SFP-1GE-T" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="252" Menge="3" ME="ST" KndBezeichnung="10GBASE-LR SFP+ transceiver module" KndArtikel="4" BstNr="FTLX1471D3BCL" Lieferant="Finisar" Typ="zie bstnr" Hersteller="Finisar" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="253" Menge="1" ME="ST" KndBezeichnung="Network switch bundle with redundant power supply and SW license" KndArtikel="1
+Network Operating System: JUNOS 23.4R1.9" BstNr="EX4400-48F-DC" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="254" Menge="42" ME="ST" KndBezeichnung="100BASE-FX SFP transceiver module" KndArtikel="2" BstNr="EX-SFP-1FE-FX" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="255" Menge="1" ME="ST" KndBezeichnung="1000BASE-T SFP transceiver module" KndArtikel="3" BstNr="EX-SFP-1GE-T" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="256" Menge="3" ME="ST" KndBezeichnung="10GBASE-LR SFP+ transceiver module" KndArtikel="4" BstNr="FTLX1471D3BCL" Lieferant="Finisar" Typ="zie bstnr" Hersteller="Finisar" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="257" Menge="5" ME="ST" KndBezeichnung="Closet Connector Housing (Fiber box)" KndArtikel="1" BstNr="CCH-01U" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="258" Menge="6" ME="ST" KndBezeichnung="Pigtailed Splice Cassette 24 F, LC UPC Duplex" KndArtikel="2" BstNr="CCH-CS24-A9-P00RE" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="259" Menge="4" ME="ST" KndBezeichnung="Closet Connector Housing (CCH) Panel, LC adapters, Duplex, 24 fiber, 50
+µm multimode (OM3/4)" KndArtikel="3" BstNr="CCH-CP24-E4" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="260" Menge="1" ME="ST" KndBezeichnung="CCH mounting recess kit" KndArtikel="4" BstNr="CCH1-RECESS-KIT-5" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="261" Menge="1" ME="ST" KndBezeichnung="IE4010 16X1G SFP and 12X10/100/1000 LAN base. CISCO IE4010,
+Universal with web based dev mgr. CISCO IOT for extended ent" KndArtikel="1" BstNr="IE4010" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="262" Menge="2" ME="ST" KndBezeichnung="IE4010/5000HAZLOC P/S HIGH85-264VAC/88-300VDC" KndArtikel="2" BstNr="PWR-RGD-AC-DC-H" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="263" Menge="2" ME="ST" KndBezeichnung="CISCO 1000BASE-LX/LH SFP XCVR MOD MMF/SMF 1310NM DOM" KndArtikel="3" BstNr="GLC-LH-SMD" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="264" Menge="6" ME="ST" KndBezeichnung="CISCO 100BASE-LX Rugged SFP MMF 1310NM 2km" KndArtikel="4" BstNr="GLC-FE-100FX-RGD" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="265" Menge="1" ME="ST" KndBezeichnung="ETSI RACK-MOUNT KIT FOR CISCO CGS 2520" KndArtikel="5" BstNr="RM-RGD-ETSI" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="266" Menge="0" ME="ST" KndBezeichnung="LC-LC duplex MMF patch cable, length TBD" KndArtikel="1" BstNr="TBD" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="267" Menge="23" ME="ST" KndBezeichnung="LC-LC duplex SMF patch cable, length TBD" KndArtikel="2" BstNr="TBD" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="268" Menge="8" ME="ST" KndBezeichnung="Cat6, RJ45 patch cable, length TBD" KndArtikel="3" BstNr="TBD" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="269" Menge="1" ME="ST" KndBezeichnung="Surge protection device" KndArtikel="4" BstNr="CL3112" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="270" Menge="1" ME="ST" KndBezeichnung="Network switch bundle with redundant power supply and SW license" KndArtikel="1
+Network Operating System: JUNOS 23.4R1.9" BstNr="EX4400-48F-DC" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="271" Menge="25" ME="ST" KndBezeichnung="100BASE-FX SFP transceiver module" KndArtikel="2" BstNr="EX-SFP-1FE-FX" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="272" Menge="5" ME="ST" KndBezeichnung="1000BASE-T SFP transceiver module" KndArtikel="3" BstNr="EX-SFP-1GE-T" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="273" Menge="3" ME="ST" KndBezeichnung="10GBASE-LR SFP+ transceiver module" KndArtikel="4" BstNr="FTLX1471D3BCL" Lieferant="Finisar" Typ="zie bstnr" Hersteller="Finisar" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="274" Menge="1" ME="ST" KndBezeichnung="Network switch bundle with redundant power supply and SW license" KndArtikel="1
+Network Operating System: JUNOS 23.4R1.9" BstNr="EX4400-48F-DC" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="275" Menge="34" ME="ST" KndBezeichnung="100BASE-FX SFP transceiver module" KndArtikel="2" BstNr="EX-SFP-1FE-FX" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="276" Menge="5" ME="ST" KndBezeichnung="1000BASE-T SFP transceiver module" KndArtikel="3" BstNr="EX-SFP-1GE-T" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="277" Menge="8" ME="ST" KndBezeichnung="10GBASE-LR SFP+ transceiver module" KndArtikel="4" BstNr="FTLX1471D3BCL" Lieferant="Finisar" Typ="zie bstnr" Hersteller="Finisar" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="278" Menge="1" ME="ST" KndBezeichnung="Network switch bundle with redundant power supply and SW license" KndArtikel="1
+Network Operating System: JUNOS 23.4R1.9" BstNr="EX4400-48F-DC" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="279" Menge="42" ME="ST" KndBezeichnung="100BASE-FX SFP transceiver module" KndArtikel="2" BstNr="EX-SFP-1FE-FX" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="280" Menge="1" ME="ST" KndBezeichnung="1000BASE-T SFP transceiver module" KndArtikel="3" BstNr="EX-SFP-1GE-T" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="281" Menge="3" ME="ST" KndBezeichnung="10GBASE-LR SFP+ transceiver module" KndArtikel="4" BstNr="FTLX1471D3BCL" Lieferant="Finisar" Typ="zie bstnr" Hersteller="Finisar" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="282" Menge="1" ME="ST" KndBezeichnung="Network switch bundle with redundant power supply and SW license" KndArtikel="1
+Network Operating System: JUNOS 23.4R1.9" BstNr="EX4400-48F-DC" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="283" Menge="42" ME="ST" KndBezeichnung="100BASE-FX SFP transceiver module" KndArtikel="2" BstNr="EX-SFP-1FE-FX" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="284" Menge="1" ME="ST" KndBezeichnung="1000BASE-T SFP transceiver module" KndArtikel="3" BstNr="EX-SFP-1GE-T" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="285" Menge="3" ME="ST" KndBezeichnung="10GBASE-LR SFP+ transceiver module" KndArtikel="4" BstNr="FTLX1471D3BCL" Lieferant="Finisar" Typ="zie bstnr" Hersteller="Finisar" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="286" Menge="5" ME="ST" KndBezeichnung="Closet Connector Housing (Fiber box)" KndArtikel="1" BstNr="CCH-01U" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="287" Menge="6" ME="ST" KndBezeichnung="Pigtailed Splice Cassette 24 F, LC UPC Duplex" KndArtikel="2" BstNr="CCH-CS24-A9-P00RE" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="288" Menge="4" ME="ST" KndBezeichnung="Closet Connector Housing (CCH) Panel, LC adapters, Duplex, 24 fiber, 50
+µm multimode (OM3/4)" KndArtikel="3" BstNr="CCH-CP24-E4" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="289" Menge="1" ME="ST" KndBezeichnung="CCH mounting recess kit" KndArtikel="4" BstNr="CCH1-RECESS-KIT-5" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="290" Menge="1" ME="ST" KndBezeichnung="IE4010 16X1G SFP and 12X10/100/1000 LAN base. CISCO IE4010,
+Universal with web based dev mgr. CISCO IOT for extended ent" KndArtikel="1" BstNr="IE4010" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="291" Menge="2" ME="ST" KndBezeichnung="IE4010/5000HAZLOC P/S HIGH85-264VAC/88-300VDC" KndArtikel="2" BstNr="PWR-RGD-AC-DC-H" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="292" Menge="2" ME="ST" KndBezeichnung="CISCO 1000BASE-LX/LH SFP XCVR MOD MMF/SMF 1310NM DOM" KndArtikel="3" BstNr="GLC-LH-SMD" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="293" Menge="6" ME="ST" KndBezeichnung="CISCO 100BASE-LX Rugged SFP MMF 1310NM 2km" KndArtikel="4" BstNr="GLC-FE-100FX-RGD" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="294" Menge="1" ME="ST" KndBezeichnung="ETSI RACK-MOUNT KIT FOR CISCO CGS 2520" KndArtikel="5" BstNr="RM-RGD-ETSI" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="295" Menge="0" ME="ST" KndBezeichnung="LC-LC duplex MMF patch cable, length TBD" KndArtikel="1" BstNr="TBD" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="296" Menge="23" ME="ST" KndBezeichnung="LC-LC duplex SMF patch cable, length TBD" KndArtikel="2" BstNr="TBD" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="297" Menge="8" ME="ST" KndBezeichnung="Cat6, RJ45 patch cable, length TBD" KndArtikel="3" BstNr="TBD" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="298" Menge="1" ME="ST" KndBezeichnung="Surge protection device" KndArtikel="4" BstNr="CL3112" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="299" Menge="1" ME="ST" KndBezeichnung="Network switch bundle with redundant power supply and SW license" KndArtikel="1
+Network Operating System: JUNOS 23.4R1.9" BstNr="EX4400-48F-DC" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="300" Menge="28" ME="ST" KndBezeichnung="100BASE-FX SFP transceiver module" KndArtikel="2" BstNr="EX-SFP-1FE-FX" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="301" Menge="4" ME="ST" KndBezeichnung="1000BASE-T SFP transceiver module" KndArtikel="3" BstNr="EX-SFP-1GE-T" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="302" Menge="5" ME="ST" KndBezeichnung="10GBASE-LR SFP+ transceiver module" KndArtikel="4" BstNr="FTLX1471D3BCL" Lieferant="Finisar" Typ="zie bstnr" Hersteller="Finisar" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="303" Menge="1" ME="ST" KndBezeichnung="Network switch bundle with redundant power supply and SW license" KndArtikel="1
+Network Operating System: JUNOS 23.4R1.9" BstNr="EX4400-48F-DC" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="304" Menge="28" ME="ST" KndBezeichnung="100BASE-FX SFP transceiver module" KndArtikel="2" BstNr="EX-SFP-1FE-FX" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="305" Menge="4" ME="ST" KndBezeichnung="1000BASE-T SFP transceiver module" KndArtikel="3" BstNr="EX-SFP-1GE-T" Lieferant="Juniper" Typ="zie bstnr" Hersteller="Juniper" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="306" Menge="3" ME="ST" KndBezeichnung="10GBASE-LR SFP+ transceiver module" KndArtikel="4" BstNr="FTLX1471D3BCL" Lieferant="Finisar" Typ="zie bstnr" Hersteller="Finisar" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="307" Menge="6" ME="ST" KndBezeichnung="Closet Connector Housing (Fiber box)" KndArtikel="1" BstNr="CCH-01U" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="308" Menge="4" ME="ST" KndBezeichnung="Pigtailed Splice Cassette 24 F, LC UPC Duplex" KndArtikel="2" BstNr="CCH-CS24-A9-P00RE" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="309" Menge="8" ME="ST" KndBezeichnung="Closet Connector Housing (CCH) Panel, LC adapters, Duplex, 24 fiber, 50
+µm multimode (OM3/4)" KndArtikel="3" BstNr="CCH-CP24-E4" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="310" Menge="2" ME="ST" KndBezeichnung="CCH mounting recess kit" KndArtikel="4" BstNr="CCH1-RECESS-KIT-5" Lieferant="Corning" Typ="zie bstnr" Hersteller="Corning" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="311" Menge="1" ME="ST" KndBezeichnung="IE4010 16X1G SFP and 12X10/100/1000 LAN base. CISCO IE4010,
+Universal with web based dev mgr. CISCO IOT for extended ent" KndArtikel="1" BstNr="IE4010" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="312" Menge="2" ME="ST" KndBezeichnung="IE4010/5000HAZLOC P/S HIGH85-264VAC/88-300VDC" KndArtikel="2" BstNr="PWR-RGD-AC-DC-H" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="313" Menge="2" ME="ST" KndBezeichnung="CISCO 1000BASE-LX/LH SFP XCVR MOD MMF/SMF 1310NM DOM" KndArtikel="3" BstNr="GLC-LH-SMD" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="314" Menge="4" ME="ST" KndBezeichnung="CISCO 100BASE-LX Rugged SFP MMF 1310NM 2km" KndArtikel="4" BstNr="GLC-FE-100FX-RGD" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="315" Menge="1" ME="ST" KndBezeichnung="ETSI RACK-MOUNT KIT FOR CISCO CGS 2520" KndArtikel="5" BstNr="RM-RGD-ETSI" Lieferant="Cisco" Typ="zie bstnr" Hersteller="Cisco" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="316" Menge="0" ME="ST" KndBezeichnung="LC-LC duplex MMF patch cable, length TBD" KndArtikel="1" BstNr="TBD" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="317" Menge="6" ME="ST" KndBezeichnung="LC-LC duplex SMF patch cable, length TBD" KndArtikel="2" BstNr="TBD" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="318" Menge="4" ME="ST" KndBezeichnung="Cat6, RJ45 patch cable, length TBD" KndArtikel="3" BstNr="TBD" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+	<P POS="319" Menge="2" ME="ST" KndBezeichnung="Surge protection device" KndArtikel="4" BstNr="CL3112" Lieferant="" Typ="zie bstnr" Hersteller="" BMK="" Bemerkung="" SeitePfad="not used" Beistellung="0" EinbauOrt="not used" EANNR=""/>
+</Stueckliste>
