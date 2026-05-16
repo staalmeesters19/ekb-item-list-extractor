@@ -471,3 +471,4 @@ Initieel gebouwd voor EKB (divisie van Agyle) om elektrische-tekening
 stuklijsten automatisch te verwerken via hun ProCos-flow. PDF-agnostische
 opzet zodat de tool ook voor toekomstige klanten en toolchains werkt
 zonder aanpassingen per leverancier.
+
