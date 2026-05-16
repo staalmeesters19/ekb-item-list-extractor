@@ -1,7 +1,15 @@
 # --- Customer-confidential data ---
-# PDF drawings are customer IP — never commit.
+# PDF drawings AND any extractor output derived from them are customer IP — never commit.
 data/*.pdf
 data/*.PDF
+data/*.xlsx
+data/*.XLSX
+data/*.xltm
+data/*.XLTM
+data/*.xml
+data/*.XML
+data/*.csv
+data/*.json
 
 # EKB-internal reference docs at project root (work instructions, raw template)
 # The bundled writer template lives at extractor/src/writers/templates/ — that one IS tracked.
