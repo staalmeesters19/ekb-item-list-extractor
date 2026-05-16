@@ -32,32 +32,23 @@ _FILL_RED = "FFD4D4"     # NIET GEVONDEN (any variant)
 _FILL_GRAY = "E5E5E5"    # GEEN TYPE NR
 
 _MATCH_COLUMNS = [
-    "source_page",
-    "source_section",
     "device_tag",
     "quantity",
     "description",
     "manufacturer",
     "model_number",
-    "order_number",
     "status",
     "procos_artikel",
     "procos_fabcode",
     "procos_omschrijving",
-    "matched_typenr",
-    "n_hits",
 ]
 
 _NIET_GEVONDEN_COLUMNS = [
-    "source_page",
-    "source_section",
     "device_tag",
     "quantity",
     "description",
     "manufacturer",
     "model_number",
-    "order_number",
-    "status",
     "reden",
 ]
 
@@ -105,20 +96,15 @@ def _is_unmatched(status: str) -> bool:
 def _row_values(row: CanonicalRow, match: Any) -> List[Any]:
     """Build the Match-sheet row values for one (CanonicalRow, MatchResult)."""
     return [
-        row.source_page,
-        row.source_section,
         row.device_tag,
         row.quantity,
         row.description,
         row.manufacturer,
         row.model_number,
-        row.order_number,
         getattr(match, "status", "") or "",
         getattr(match, "procos_artikel", "") or "",
         getattr(match, "procos_fabcode", "") or "",
         getattr(match, "procos_omschrijving", "") or "",
-        getattr(match, "matched_typenr", "") or "",
-        getattr(match, "n_hits", 0),
     ]
 
 
@@ -126,15 +112,11 @@ def _niet_gevonden_values(row: CanonicalRow, match: Any) -> List[Any]:
     status = getattr(match, "status", "") or ""
     reden = _REDEN_MAP.get(status, "")
     return [
-        row.source_page,
-        row.source_section,
         row.device_tag,
         row.quantity,
         row.description,
         row.manufacturer,
         row.model_number,
-        row.order_number,
-        status,
         reden,
     ]
 

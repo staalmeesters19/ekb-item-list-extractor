@@ -39,7 +39,19 @@ def _agg_stats(match_results_by_name):
     }
 
 
+# Visible columns in the UI table — strakke set voor de demo.
+_VISIBLE_COLUMNS = [
+    "device_tag", "quantity", "description", "manufacturer", "model_number",
+    "match_status", "procos_artikel", "procos_fabcode", "procos_omschrijving",
+]
+
+
 def _build_combined_df(processed_items, rows_to_df_fn, match_results_by_name):
+    """Return a DataFrame with all columns we may need (visible + filter-only).
+
+    Filtering uses pdf/source_section internally; the final table display
+    is reduced to ``_VISIBLE_COLUMNS`` for compactness.
+    """
     frames = []
     for item in processed_items:
         df = rows_to_df_fn(item["result"])
@@ -51,6 +63,7 @@ def _build_combined_df(processed_items, rows_to_df_fn, match_results_by_name):
         if matches and len(matches) == len(df):
             df["match_status"] = [m.status for m in matches]
             df["procos_artikel"] = [m.procos_artikel for m in matches]
+            df["procos_fabcode"] = [m.procos_fabcode for m in matches]
             df["procos_omschrijving"] = [m.procos_omschrijving for m in matches]
         frames.append(df)
     if not frames:
@@ -72,6 +85,8 @@ def _column_config(df):
             cfg[col] = st.column_config.TextColumn("match", width="medium")
         elif col == "procos_artikel":
             cfg[col] = st.column_config.TextColumn("ProCos artikel", width="medium")
+        elif col == "procos_fabcode":
+            cfg[col] = st.column_config.TextColumn("ProCos fabcode", width="small")
         elif col == "procos_omschrijving":
             cfg[col] = st.column_config.TextColumn("ProCos omschrijving", width="large")
         else:
@@ -167,13 +182,15 @@ def render_match_results(
         mask = filtered["description"].astype(str).str.contains(search, case=False, na=False)
         filtered = filtered[mask]
 
-    # --- Table ---
+    # --- Table — only the visible columns, in fixed order ---
+    visible = [c for c in _VISIBLE_COLUMNS if c in filtered.columns]
+    display_df = filtered[visible]
     st.dataframe(
-        filtered,
+        display_df,
         use_container_width=True,
         hide_index=True,
         height=500,
-        column_config=_column_config(filtered),
+        column_config=_column_config(display_df),
     )
     st.caption(f"{len(filtered)} van {len(combined)} rijen getoond")
 
