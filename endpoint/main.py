@@ -24,8 +24,10 @@ import uuid
 from pathlib import Path
 from typing import Any, Literal, Optional, Union
 
+import json
+
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel, Field
 
 
@@ -342,6 +344,49 @@ async def health():
     return {"status": "ok"}
 
 
+def _stream_full_reply(reply_md: str, model: str):
+    """Yield an OpenAI-compatible SSE stream that delivers the whole reply
+    in one content chunk. Our workflow is non-streaming under the hood,
+    but LibreChat expects SSE — so we wrap the result accordingly.
+    """
+    cid = f"chatcmpl-{uuid.uuid4().hex[:24]}"
+    created = int(time.time())
+
+    base = {
+        "id": cid,
+        "object": "chat.completion.chunk",
+        "created": created,
+        "model": model,
+    }
+
+    # 1. opening chunk — role assistant
+    open_chunk = {**base, "choices": [{
+        "index": 0,
+        "delta": {"role": "assistant"},
+        "finish_reason": None,
+    }]}
+    yield f"data: {json.dumps(open_chunk)}\n\n"
+
+    # 2. full content as a single chunk (workflow is non-streaming)
+    content_chunk = {**base, "choices": [{
+        "index": 0,
+        "delta": {"content": reply_md},
+        "finish_reason": None,
+    }]}
+    yield f"data: {json.dumps(content_chunk)}\n\n"
+
+    # 3. finish chunk
+    finish_chunk = {**base, "choices": [{
+        "index": 0,
+        "delta": {},
+        "finish_reason": "stop",
+    }]}
+    yield f"data: {json.dumps(finish_chunk)}\n\n"
+
+    # 4. terminator
+    yield "data: [DONE]\n\n"
+
+
 @app.get("/v1/models", response_model=ModelsListResponse,
          dependencies=[Depends(require_bearer)])
 async def list_models():
@@ -379,18 +424,6 @@ async def chat_completions(req: ChatCompletionRequest):
             },
         )
 
-    if req.stream:
-        raise HTTPException(
-            status_code=400,
-            detail={
-                "error": {
-                    "message": "Streaming is not supported in v0.1. "
-                               "Send stream=false (or omit).",
-                    "type": "invalid_request_error",
-                }
-            },
-        )
-
     # ----- Route the user turn -----
     # 1. PDF in the latest user message → run extraction
     # 2. No PDF, no usable text → show the helper / welcome message
@@ -409,6 +442,17 @@ async def chat_completions(req: ChatCompletionRequest):
             )
     else:
         reply_md = _helper_message()
+
+    # ----- Stream or single-shot response -----
+    if req.stream:
+        return StreamingResponse(
+            _stream_full_reply(reply_md, req.model),
+            media_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "X-Accel-Buffering": "no",  # disable nginx buffering
+            },
+        )
 
     return ChatCompletionResponse(
         id=f"chatcmpl-{uuid.uuid4().hex[:24]}",
