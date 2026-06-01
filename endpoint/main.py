@@ -569,6 +569,30 @@ async def health():
     return {"status": "ok"}
 
 
+@app.get("/debug/fs", dependencies=[Depends(require_bearer)])
+async def debug_fs():
+    """List the project root and confirm whether ProCos.xlsx is on disk.
+    Temporary diagnostic — remove once deployment is stable.
+    """
+    try:
+        entries = []
+        for p in sorted(_PROJECT_ROOT.iterdir()):
+            try:
+                size = p.stat().st_size if p.is_file() else None
+            except OSError:
+                size = None
+            entries.append({"name": p.name, "is_dir": p.is_dir(), "size": size})
+        return {
+            "project_root": str(_PROJECT_ROOT),
+            "procos_path": str(_PROCOS_PATH),
+            "procos_exists": _PROCOS_PATH.exists(),
+            "procos_size": _PROCOS_PATH.stat().st_size if _PROCOS_PATH.exists() else None,
+            "entries": entries,
+        }
+    except Exception as exc:  # noqa: BLE001
+        return {"error": f"{type(exc).__name__}: {exc}"}
+
+
 def _chunk_text(text: str, target_size: int = 64) -> list[str]:
     """Split *text* into chunks of roughly *target_size* characters at word
     boundaries. Preserves all whitespace/newlines so the concatenation of
