@@ -60,3 +60,10 @@ frontend/.streamlit/secrets.toml
 # NOTE: ProCos-export*.xlsx is intentionally NOT listed here.
 # It IS gitignored (see .gitignore) so it never gets committed,
 # but it IS uploaded by `railway up` so the matcher can load it on startup.
+#
+# Railway CLI sometimes honours .gitignore on top of .railwayignore, so we
+# explicitly NEGATE the gitignore rule for ProCos using gitignore's `!` syntax.
+!ProCos-export*.xlsx
+!/ProCos-export*.xlsx
+!ProCos-export*.XLSX
+!/ProCos-export*.XLSX
