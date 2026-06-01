@@ -17,6 +17,11 @@ data/*.json
 /*.doc
 /*.docx
 
+# ProCos artikeldata-export (confidential) — bundled into Railway via .railwayignore,
+# but NEVER committed to git.
+/ProCos-export*.xlsx
+/ProCos-export*.XLSX
+
 # --- Python ---
 __pycache__/
 *.py[cod]

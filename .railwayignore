@@ -1,0 +1,62 @@
+# Railway upload exclusions.
+# When .railwayignore is present, Railway uses ONLY this file (NOT .gitignore).
+# So we need to repeat any exclusions from .gitignore that should also apply
+# to Railway uploads — EXCEPT ProCos-export*.xlsx, which we explicitly want
+# on the server (it's the artikeldatabase the matcher uses).
+
+# --- Customer-confidential PDFs / outputs (NEVER upload) ---
+data/
+
+# --- EKB-internal reference docs at root (not needed at runtime) ---
+/*.xltm
+/*.doc
+/*.docx
+
+# --- Python cruft ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+build/
+dist/
+.venv/
+venv/
+env/
+.eggs/
+
+# --- Test / coverage caches ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# --- IDE / editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Streamlit local state ---
+.streamlit/secrets.toml
+frontend/.streamlit/secrets.toml
+
+# --- Local scratch output ---
+/out/
+/tmp/
+*.tmp
+*.log
+*.bak
+
+# --- Git + Claude config (Railway doesn't need either) ---
+.git/
+.claude/
+
+# NOTE: ProCos-export*.xlsx is intentionally NOT listed here.
+# It IS gitignored (see .gitignore) so it never gets committed,
+# but it IS uploaded by `railway up` so the matcher can load it on startup.
