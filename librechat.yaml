@@ -1,0 +1,18 @@
+# LibreChat configuration — Agyle Parts Extract endpoint
+# Loaded by LibreChat from the public URL set via CONFIG_PATH env var.
+# Spec: https://www.librechat.ai/docs/configuration/librechat_yaml
+
+version: 1.2.5
+cache: true
+
+endpoints:
+  custom:
+    - name: 'Agyle Parts Extract'
+      apiKey: '${AGYLE_API_KEY}'
+      baseURL: 'https://agyle-api-production.up.railway.app/v1'
+      models:
+        default:
+          - 'agyle_parts_extract'
+        fetch: true
+      titleConvo: false
+      modelDisplayLabel: 'Agyle Parts Extract'
