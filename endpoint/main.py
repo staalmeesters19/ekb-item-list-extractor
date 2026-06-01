@@ -593,50 +593,15 @@ async def debug_fs():
         return {"error": f"{type(exc).__name__}: {exc}"}
 
 
-def _chunk_text(text: str, target_size: int = 64) -> list[str]:
-    """Split *text* into chunks of roughly *target_size* characters at word
-    boundaries. Preserves all whitespace/newlines so the concatenation of
-    the result equals the input exactly.
-    """
-    if not text:
-        return [""]
-    out: list[str] = []
-    buf = ""
-    # Split keeping spaces by inserting after each whitespace-containing token.
-    i = 0
-    n = len(text)
-    while i < n:
-        # Take up to target_size more chars, then extend to the next whitespace.
-        end = min(i + target_size, n)
-        # Extend to next whitespace boundary so we don't break mid-word
-        while end < n and not text[end].isspace():
-            end += 1
-        buf += text[i:end]
-        # Skip the whitespace char (include it in this chunk)
-        if end < n:
-            buf += text[end]
-            end += 1
-        out.append(buf)
-        buf = ""
-        i = end
-    return out or [text]
-
-
 def _stream_full_reply(reply_md: str, model: str):
     """Yield an OpenAI-compatible SSE stream for *reply_md*.
 
     Our workflow is non-streaming under the hood, but LibreChat expects SSE.
-    To stay compatible with LibreChat's parser we follow the OpenAI spec
-    strictly:
-
-    1. Opening delta has ``{"role": "assistant", "content": ""}`` — some
-       frontends need the content field present even if empty to bootstrap
-       the assistant message bubble.
-    2. Body is split into multiple smaller content deltas (~64 chars at word
-       boundaries). A single huge delta works on most clients but LibreChat
-       has historically been finicky about it.
-    3. Final delta carries ``finish_reason: "stop"`` with empty delta.
-    4. ``[DONE]`` terminator.
+    We emit the entire reply in a single content delta — this is the format
+    that has been empirically proven to render correctly in LibreChat.
+    Variations (multi-chunk content, empty content="" in opening delta)
+    have resulted in blank assistant bubbles in some LibreChat versions,
+    so we keep this minimal.
     """
     cid = f"chatcmpl-{uuid.uuid4().hex[:24]}"
     created = int(time.time())
@@ -648,24 +613,21 @@ def _stream_full_reply(reply_md: str, model: str):
         "model": model,
     }
 
-    # 1. opening chunk — role + empty content per OpenAI spec
+    # 1. opening chunk — role only (no content field)
     open_chunk = {**base, "choices": [{
         "index": 0,
-        "delta": {"role": "assistant", "content": ""},
+        "delta": {"role": "assistant"},
         "finish_reason": None,
     }]}
     yield f"data: {json.dumps(open_chunk)}\n\n"
 
-    # 2. content chunks
-    for piece in _chunk_text(reply_md, target_size=64):
-        if not piece:
-            continue
-        content_chunk = {**base, "choices": [{
-            "index": 0,
-            "delta": {"content": piece},
-            "finish_reason": None,
-        }]}
-        yield f"data: {json.dumps(content_chunk)}\n\n"
+    # 2. full content as a single chunk
+    content_chunk = {**base, "choices": [{
+        "index": 0,
+        "delta": {"content": reply_md},
+        "finish_reason": None,
+    }]}
+    yield f"data: {json.dumps(content_chunk)}\n\n"
 
     # 3. finish chunk
     finish_chunk = {**base, "choices": [{
