@@ -21,6 +21,7 @@ from src.interfaces import ExtractionResult  # noqa: E402
 from src.matcher import (  # noqa: E402
     MatchResult,
     detect_klant_code as _detect_klant_code,
+    load_import_referenties as _load_import_referenties,
     load_klant_referentielijsten as _load_klant_referentielijsten,
     load_procos_db as _load_procos_db,
     load_procos_db_v2 as _load_procos_db_v2,
@@ -59,6 +60,7 @@ __all__ = [
     "load_procos_db_from_bytes",
     "load_procos_db_v2_from_path",
     "load_klant_referentielijst_from_path",
+    "load_import_referenties_from_path",
     "detect_klant_code",
     "get_fab_mapping",
     "run_match",
@@ -184,6 +186,11 @@ def load_klant_referentielijst_from_path(path: str) -> dict:
     return _load_klant_referentielijsten(path)
 
 
+def load_import_referenties_from_path(path: str) -> dict:
+    """Load Gino's Import referenties xlsx (HEADER + Eenheden + Adressen)."""
+    return _load_import_referenties(path)
+
+
 def detect_klant_code(*hints: str | None) -> str | None:
     """Heuristic klant-code detection from filename + sheet-name hints."""
     return _detect_klant_code(*hints)
@@ -193,12 +200,16 @@ def run_match_combined(result: ExtractionResult,
                        db_v2: dict | None,
                        db_v1: dict | None,
                        klant_db: dict | None = None,
-                       klant_code: str | None = None) -> List[MatchResult]:
+                       klant_code: str | None = None,
+                       import_refs: dict | None = None) -> List[MatchResult]:
     """Match against v2 first (with optional klant-ref step 0), fall back
-    to legacy 86k on miss."""
+    to legacy 86k on miss. When ``import_refs`` is provided, the v1 path
+    uses Adressen (738 fab-mappings with wildcards) instead of the
+    hardcoded 24-entry config-yaml mapping."""
     return _match_rows_combined(
         result.rows, db_v2, db_v1, get_fab_mapping(),
         klant_db=klant_db, klant_code=klant_code,
+        import_refs=import_refs,
     )
 
 

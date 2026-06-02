@@ -51,15 +51,54 @@ class MatchResult:
 # Private helpers
 # ----------------------------------------------------------------------
 
-_NORM_RE = re.compile(r"[\s\-./()_,]+")
+_NORM_RE = re.compile(r"[\s\-./()_,\\]+")  # includes backslash per Gino's spec
 
 
 def _norm_type(s: str | None) -> str:
-    """Strip whitespace / dashes / dots / slashes / parens / underscores /
-    commas and uppercase. Mirrors ProCos's own match-time normalization."""
+    """Strip whitespace / dashes / dots / slashes / backslashes / parens /
+    underscores / commas and uppercase. Mirrors ProCos's match-time
+    normalization (per Import referenties HEADER: "Uitgesloten karakters")."""
     if not s:
         return ""
     return _NORM_RE.sub("", str(s)).upper()
+
+
+# Common corporate suffixes to strip when matching fab names — these only
+# appear in klant data (e.g. "SIEMENS AG") and never in v1/v2 fab tables.
+_FAB_SUFFIX_STRIP_RE = re.compile(
+    r"\s+(AG|GMBH|B\.?\s?V\.?|BV|N\.?\s?V\.?|NV|INC\.?|LTD\.?|LLC|"
+    r"ELECTRIC|ELECTRICAL|ELECTRONICS|CONTACT|AUTOMATION|GROUP|HOLDING|"
+    r"CO\.?|COMPANY|CORP\.?|CORPORATION|SE)$",
+    re.IGNORECASE,
+)
+
+
+def _fab_variants(s: str | None) -> list[str]:
+    """Return progressive normalisations of a klant fab-name to try.
+
+    Mirrors how the same brand appears under different klant conventions:
+      "SIEMENS AG"          -> ["SIEMENS AG", "SIEMENS"]
+      "Phoenix Contact"     -> ["PHOENIX CONTACT", "PHOENIX"]
+      "Schneider Electric"  -> ["SCHNEIDER ELECTRIC", "SCHNEIDER"]
+    First entry is always the uppercased input; suffix-stripped variants
+    follow. Caller probes lookups in order, taking the first hit.
+    """
+    if not s:
+        return []
+    base = str(s).strip().upper()
+    if not base:
+        return []
+    variants = [base]
+    # Iteratively strip recognized suffixes (some names have two).
+    cur = base
+    for _ in range(3):
+        stripped = _FAB_SUFFIX_STRIP_RE.sub("", cur).strip()
+        if stripped == cur or not stripped:
+            break
+        cur = stripped
+        if cur not in variants:
+            variants.append(cur)
+    return variants
 
 
 def _candidate_typenrs(row: CanonicalRow) -> list[str]:
@@ -200,10 +239,16 @@ def load_procos_db(source: Any) -> dict:
     finally:
         wb.close()
 
+    # Build aux index for wildcard fab-lookup (Fase C: Adressen "SIE%").
+    by_type_to_fabs: dict[str, dict[str, list[dict]]] = defaultdict(dict)
+    for (fab_code, type_norm), recs in by_fab_type.items():
+        by_type_to_fabs[type_norm][fab_code] = recs
+
     return {
-        "by_fab_type": dict(by_fab_type),
-        "by_type_only": dict(by_type_only),
-        "n_rows": n,
+        "by_fab_type":     dict(by_fab_type),
+        "by_type_to_fabs": dict(by_type_to_fabs),
+        "by_type_only":    dict(by_type_only),
+        "n_rows":          n,
     }
 
 
@@ -488,6 +533,126 @@ def load_procos_db_v2(source: Any) -> dict:
 
 
 # ----------------------------------------------------------------------
+# Import referenties (Gino's HEADER + Eenheden + Adressen sections)
+# ----------------------------------------------------------------------
+#
+# Three sections in one sheet, separated by "*** Sectie ***" markers:
+#
+#   HEADER:
+#     "Variabelen voor klant:"   -> klant-code default
+#     "Uitgesloten karakters"    -> regex char-class for typenr normalization
+#     "Conversielijst"           -> klant-referentielijst-id
+#   *** Eenheden ***
+#     klant-eenheid              -> ProCos-eenheid (e.g. "MTR" -> "Meter")
+#   *** Adressen ***
+#     klant-fabrikant-naam       -> ProCos-fabcode (or wildcard "SIE%")
+#
+# The Adressen section replaces our hardcoded 24-entry fab_mapping with
+# 738 entries — many of which use the "%" wildcard suffix (`SIE%` matches
+# any leverancierscode starting with SIE).
+
+
+def _split_imp_ref_chars(raw: str) -> str:
+    """Convert Gino's `Uitgesloten karakters` string into a char-class
+    pattern suitable for ``re.compile``. The value is a sequence of
+    characters that should be stripped — preserve them verbatim but
+    escape regex metacharacters.
+    """
+    safe: list[str] = []
+    for ch in (raw or ""):
+        if ch in r"\^]-":
+            safe.append("\\" + ch)
+        elif ch == " ":
+            safe.append(r"\s")  # space -> any whitespace
+        else:
+            safe.append(ch)
+    return "".join(safe)
+
+
+def load_import_referenties(source: Any) -> dict:
+    """Load Gino's Import referenties xlsx into structured config.
+
+    Returns:
+        {
+            "default_klant_code": "EKBBEVIP",
+            "uitgesloten_karakters": "- ,/\\_().",
+            "eenheden":  {"st": "Stuks", "MTR": "Meter", ...},
+            "adressen":  {
+                # klant-fab-name (uppercase, stripped) -> mapping spec
+                "SIEMENS": {"raw": "SIE%", "prefix": "SIE", "exact": None},
+                "EAO":     {"raw": "EAODOR", "prefix": None, "exact": "EAODOR"},
+                ...
+            },
+            "n_adressen": int,
+            "n_eenheden": int,
+        }
+    """
+    wb = _open_workbook(source)
+    try:
+        ws = wb[wb.sheetnames[0]]
+        rows = list(ws.iter_rows(values_only=True))
+    finally:
+        wb.close()
+
+    default_klant = ""
+    uitgesloten = ""
+    eenheden: dict[str, str] = {}
+    adressen: dict[str, dict] = {}
+
+    section = "HEADER"
+    for row in rows:
+        if not row:
+            continue
+        # Detect section markers in any cell.
+        marker = None
+        for v in row:
+            if v and isinstance(v, str):
+                s = v.strip()
+                if s.startswith("***") and s.endswith("***"):
+                    marker = s.strip("*").strip()
+                    break
+        if marker:
+            section = marker
+            continue
+
+        key = row[0]
+        val = row[1] if len(row) > 1 else None
+        if key is None and val is None:
+            continue
+        key_s = str(key or "").strip()
+        val_s = str(val or "").strip()
+
+        if section == "HEADER":
+            if key_s.lower().startswith("variabelen voor klant"):
+                default_klant = val_s
+            elif key_s.lower().startswith("uitgesloten karakters"):
+                uitgesloten = val_s
+            # Conversielijst row is informational; not used for matching.
+        elif section.lower().startswith("eenheden"):
+            if key_s:
+                eenheden[key_s] = val_s
+        elif section.lower().startswith("adressen"):
+            if not key_s:
+                continue
+            kc = key_s.upper()
+            # Parse mapping value: ends with % -> wildcard prefix; else exact
+            if val_s.endswith("%"):
+                prefix = val_s[:-1]
+                adressen[kc] = {"raw": val_s, "prefix": prefix.upper(), "exact": None}
+            else:
+                adressen[kc] = {"raw": val_s, "prefix": None, "exact": val_s.upper()}
+
+    return {
+        "default_klant_code": default_klant,
+        "uitgesloten_karakters": uitgesloten,
+        "eenheden": eenheden,
+        "adressen": adressen,
+        "n_adressen": len(adressen),
+        "n_eenheden": len(eenheden),
+    }
+
+
+# ----------------------------------------------------------------------
 # Klant referentielijst (Gino's 45k klant-artikel -> EKB-artikel mapping)
 # ----------------------------------------------------------------------
 
@@ -696,6 +861,131 @@ def _match_one_v2(
     )
 
 
+def _resolve_fab_v1_adressen(
+    fab_raw: str | None,
+    adressen: dict | None,
+    fab_mapping_legacy: dict[str, str] | None,
+) -> dict | None:
+    """Resolve a klant fab-name to a ProCos fab-code or fab-code-prefix.
+
+    Tries (in order, first hit wins):
+      1. Adressen exact match on each fab-name variant (suffix-stripped)
+      2. Legacy hardcoded fab_mapping (24 entries) on each variant
+    Returns ``{"exact": code, "prefix": None}`` or ``{"exact": None, "prefix": pfx}``,
+    or None when nothing matched.
+    """
+    if not fab_raw:
+        return None
+    variants = _fab_variants(fab_raw)
+    if not variants:
+        return None
+    if adressen:
+        for v in variants:
+            entry = adressen.get(v)
+            if entry:
+                return entry
+    if fab_mapping_legacy:
+        for v in variants:
+            code = fab_mapping_legacy.get(v)
+            if code:
+                return {"raw": code, "exact": code, "prefix": None}
+    return None
+
+
+def _match_one_v1_adressen(
+    row: CanonicalRow,
+    db_v1: dict,
+    adressen: dict | None,
+    fab_mapping_legacy: dict[str, str] | None,
+) -> MatchResult:
+    """v1 (legacy 86k) cascade with Adressen-driven fab resolution + wildcards.
+
+    Differs from ``_match_one``:
+      - Resolves fab via Adressen first (738 entries with wildcards),
+        falls back to legacy 24-entry mapping.
+      - Supports ``SIE%``-style prefix wildcards: tries every fab-code in
+        v1.by_type_to_fabs[type] that starts with the prefix.
+    """
+    candidates = _candidate_typenrs(row)
+    if not candidates:
+        return MatchResult(status="GEEN TYPE NR")
+
+    fab_info = _resolve_fab_v1_adressen(row.manufacturer, adressen, fab_mapping_legacy)
+
+    by_fab_type     = db_v1.get("by_fab_type") or {}
+    by_type_to_fabs = db_v1.get("by_type_to_fabs") or {}
+    by_type_only    = db_v1.get("by_type_only") or {}
+
+    last_norm = ""
+    best_ambiguous: MatchResult | None = None
+
+    for cand in candidates:
+        norm = _norm_type(cand)
+        if not norm:
+            continue
+        last_norm = norm
+
+        if fab_info:
+            # Collect hits across the (exact code OR all wildcard-matched codes)
+            hits: list[dict] = []
+            matched_fc = ""
+            if fab_info.get("exact"):
+                fc = fab_info["exact"]
+                fc_hits = by_fab_type.get((fc, norm), [])
+                if fc_hits:
+                    hits.extend(fc_hits)
+                    matched_fc = fc
+            elif fab_info.get("prefix"):
+                pfx = fab_info["prefix"]
+                for fc, recs in (by_type_to_fabs.get(norm) or {}).items():
+                    if fc.startswith(pfx):
+                        hits.extend(recs)
+                        matched_fc = matched_fc or fc
+            if len(hits) == 1:
+                h = hits[0]
+                return MatchResult(
+                    status="MATCH", procos_artikel=h["artikel"],
+                    procos_fabcode=h["fabrikant"], procos_omschrijving=h["omschrijving"],
+                    mapped_fab=matched_fc, matched_typenr=cand, n_hits=1,
+                    matched_route="v1:fab+type" + (":wild" if fab_info.get("prefix") else ""),
+                )
+            if len(hits) > 1 and best_ambiguous is None:
+                h = hits[0]
+                best_ambiguous = MatchResult(
+                    status="NIET UNIEK", procos_artikel=h["artikel"],
+                    procos_fabcode=h["fabrikant"], procos_omschrijving=h["omschrijving"],
+                    mapped_fab=matched_fc, matched_typenr=cand, n_hits=len(hits),
+                    matched_route="v1:fab+type" + (":wild" if fab_info.get("prefix") else ""),
+                )
+
+        # Type-only fallback (when no fab info, OR fab info gave no hits).
+        hits = by_type_only.get(norm, [])
+        if len(hits) == 1:
+            h = hits[0]
+            return MatchResult(
+                status="MATCH (op type alleen)", procos_artikel=h["artikel"],
+                procos_fabcode=h["fabrikant"], procos_omschrijving=h["omschrijving"],
+                mapped_fab="", matched_typenr=cand, n_hits=1,
+                matched_route="v1:type-only",
+            )
+        if len(hits) > 1 and best_ambiguous is None:
+            h = hits[0]
+            best_ambiguous = MatchResult(
+                status="NIET UNIEK (op type alleen)", procos_artikel=h["artikel"],
+                procos_fabcode=h["fabrikant"], procos_omschrijving=h["omschrijving"],
+                mapped_fab="", matched_typenr=cand, n_hits=len(hits),
+                matched_route="v1:type-only",
+            )
+
+    if best_ambiguous is not None:
+        return best_ambiguous
+    return MatchResult(
+        status="NIET GEVONDEN" if fab_info else "NIET GEVONDEN (fab niet gemapt)",
+        mapped_fab=(fab_info or {}).get("raw", ""),
+        matched_typenr=last_norm,
+    )
+
+
 def match_rows_combined(
     rows: Iterable[CanonicalRow],
     db_v2: dict | None,
@@ -703,16 +993,21 @@ def match_rows_combined(
     fab_mapping_v1: dict[str, str],
     klant_db: dict | None = None,
     klant_code: str | None = None,
+    import_refs: dict | None = None,
 ) -> list[MatchResult]:
     """Match each row against v2 first; fall back to v1 on miss.
 
-    The v2 cascade also takes an optional ``klant_db`` (Gino's Klant
-    referentielijsten) plus a ``klant_code`` for that row's upload —
-    used as cascade step 0 to map klant-artikelcodes directly to EKB.
+    Optional inputs:
+      - klant_db + klant_code : enable cascade step 0 (klant-ref lookup).
+      - import_refs           : enable Adressen-driven v1 fab-mapping
+                                 with wildcards (replaces the legacy
+                                 24-entry hardcoded fab_mapping).
 
     Either DB may be None — the cascade tries whatever it has. If both
     are None, every row returns NIET GEVONDEN.
     """
+    adressen = (import_refs or {}).get("adressen") or None
+
     results: list[MatchResult] = []
     for row in rows:
         result_v2: MatchResult | None = None
@@ -723,12 +1018,20 @@ def match_rows_combined(
                 continue
         # Fallback to v1 when v2 missed (or no v2 DB available).
         if db_v1:
-            result_v1 = _match_one(
-                row,
-                db_v1.get("by_fab_type") or {},
-                db_v1.get("by_type_only") or {},
-                fab_mapping_v1 or {},
-            )
+            if adressen:
+                # Adressen-aware path (Fase C): richer 738-entry fab map
+                # plus wildcard support.
+                result_v1 = _match_one_v1_adressen(
+                    row, db_v1, adressen, fab_mapping_v1 or {},
+                )
+            else:
+                # Legacy path (Fase A/B): hardcoded 24-entry fab map only.
+                result_v1 = _match_one(
+                    row,
+                    db_v1.get("by_fab_type") or {},
+                    db_v1.get("by_type_only") or {},
+                    fab_mapping_v1 or {},
+                )
             if result_v1.status.startswith("MATCH"):
                 if not result_v1.matched_route:
                     result_v1.matched_route = "v1:fab+type"

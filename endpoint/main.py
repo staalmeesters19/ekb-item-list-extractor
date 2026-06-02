@@ -49,6 +49,7 @@ from backend.pipeline_service import (  # noqa: E402
     detect_klant_code as _detect_klant_code,
     extract as _extract,
     extract_from_xlsx as _extract_from_xlsx,
+    load_import_referenties_from_path as _load_import_referenties_from_path,
     load_klant_referentielijst_from_path as _load_klant_referentielijst_from_path,
     load_procos_db_from_bytes as _load_procos_db_from_bytes,
     load_procos_db_v2_from_path as _load_procos_db_v2_from_path,
@@ -71,6 +72,7 @@ from backend.pipeline_service import (  # noqa: E402
 _PROCOS_V1_PATH = _PROJECT_ROOT / "ProCos-export Artikeldata-excl prijzen.xlsx"
 _PROCOS_V2_PATH = _PROJECT_ROOT / "procos_data" / "artikellijst.xlsx"
 _KLANT_REF_PATH = _PROJECT_ROOT / "procos_data" / "klant_referentielijsten.xlsx"
+_IMPORT_REFS_PATH = _PROJECT_ROOT / "procos_data" / "import_referenties.xlsx"
 
 _PROCOS_DB_V1: Optional[dict] = None
 _PROCOS_DB_V1_ERROR: Optional[str] = None
@@ -78,6 +80,8 @@ _PROCOS_DB_V2: Optional[dict] = None
 _PROCOS_DB_V2_ERROR: Optional[str] = None
 _KLANT_DB: Optional[dict] = None
 _KLANT_DB_ERROR: Optional[str] = None
+_IMPORT_REFS: Optional[dict] = None
+_IMPORT_REFS_ERROR: Optional[str] = None
 
 
 def _get_procos_db_v1() -> tuple[Optional[dict], Optional[str]]:
@@ -145,6 +149,25 @@ def _get_klant_db() -> tuple[Optional[dict], Optional[str]]:
     except Exception as exc:  # noqa: BLE001
         _KLANT_DB_ERROR = f"{type(exc).__name__}: {exc}"
         return None, _KLANT_DB_ERROR
+
+
+def _get_import_refs() -> tuple[Optional[dict], Optional[str]]:
+    """Load (and cache) Gino's Import referenties (HEADER + Eenheden + Adressen)."""
+    global _IMPORT_REFS, _IMPORT_REFS_ERROR
+    if _IMPORT_REFS is not None or _IMPORT_REFS_ERROR is not None:
+        return _IMPORT_REFS, _IMPORT_REFS_ERROR
+    if not _IMPORT_REFS_PATH.exists():
+        _IMPORT_REFS_ERROR = (
+            f"Import referenties niet gevonden "
+            f"(`procos_data/{_IMPORT_REFS_PATH.name}`)."
+        )
+        return None, _IMPORT_REFS_ERROR
+    try:
+        _IMPORT_REFS = _load_import_referenties_from_path(str(_IMPORT_REFS_PATH))
+        return _IMPORT_REFS, None
+    except Exception as exc:  # noqa: BLE001
+        _IMPORT_REFS_ERROR = f"{type(exc).__name__}: {exc}"
+        return None, _IMPORT_REFS_ERROR
 
 
 # ---------------------------------------------------------------------------
@@ -626,6 +649,9 @@ def _run_match_response(messages: list[ChatMessage]) -> str:
 
     # Klant-referentielijst is OPTIONAL — missing is fine, just no step 0.
     klant_db, _ = _get_klant_db()
+    # Import referenties is OPTIONAL — missing means we fall back to the
+    # legacy 24-entry hardcoded fab_mapping on the v1 cascade path.
+    import_refs, _ = _get_import_refs()
 
     try:
         result = _extract_result_cached(data, kind)
@@ -649,7 +675,9 @@ def _run_match_response(messages: list[ChatMessage]) -> str:
 
     try:
         matches = _run_match_combined(
-            result, db_v2, db_v1, klant_db=klant_db, klant_code=klant_code,
+            result, db_v2, db_v1,
+            klant_db=klant_db, klant_code=klant_code,
+            import_refs=import_refs,
         )
     except Exception as exc:  # noqa: BLE001
         return (
