@@ -16,3 +16,19 @@ endpoints:
         fetch: true
       titleConvo: false
       modelDisplayLabel: 'Agyle Parts Extract'
+
+# File-upload config — allow PDFs AND xlsx via "Upload to Provider" (sends
+# the file as base64 to our /v1/chat/completions endpoint, which is the
+# path our extractor expects). Without this, LibreChat falls back to
+# "Upload als Tekst", which inlines the file content as raw text and
+# blows past the context window for any non-trivial spreadsheet.
+fileConfig:
+  endpoints:
+    "Agyle Parts Extract":
+      fileLimit: 5
+      fileSizeLimit: 25      # MB per file
+      totalSizeLimit: 50     # MB per request
+      supportedMimeTypes:
+        - "application/pdf"
+        - "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        - "application/vnd.ms-excel"
