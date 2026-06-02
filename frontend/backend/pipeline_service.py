@@ -34,6 +34,7 @@ from src.writers.match_writer import (  # noqa: E402
 from src.writers.procos_writer import write_procos as _write_procos  # noqa: E402
 from src.writers.procos_xml_writer import write_procos_xml as _write_procos_xml  # noqa: E402
 from src.writers.xlsx_writer import write_xlsx as _write_xlsx  # noqa: E402
+from src.xlsx_reader import read_xlsx as _read_xlsx  # noqa: E402
 
 if TYPE_CHECKING:
     import pandas as pd
@@ -44,6 +45,7 @@ __all__ = [
     "load_config",
     "classify",
     "extract",
+    "extract_from_xlsx",
     "to_xlsx_bytes",
     "to_csv_bytes",
     "to_json_bytes",
@@ -94,6 +96,17 @@ def classify(pdf_path: str) -> List[List[int]]:
 
 def extract(pdf_path: str, page_runs: List[List[int]]) -> ExtractionResult:
     return _pipeline_run(pdf_path, load_config(), page_runs)
+
+
+def extract_from_xlsx(xlsx_path: str) -> ExtractionResult:
+    """Extract an item-list from an xlsx file.
+
+    Mirrors the PDF ``extract()`` contract: same ExtractionResult shape,
+    same downstream pipeline (match, exports). No page-run argument because
+    Excels don't have pages — the reader auto-detects the best sheet and
+    header row.
+    """
+    return _read_xlsx(xlsx_path, load_config())
 
 
 def _write_to_bytes(writer, suffix: str, *args) -> bytes:

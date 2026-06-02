@@ -23,6 +23,7 @@ column_mapping:
       - ref
       - reference
       - part
+      - stuklijstpositie
 
     quantity:
       - quantity
@@ -41,6 +42,10 @@ column_mapping:
       - designation
       - declaration
       - omschrijving
+      - omschrijving 1
+      - omschrijving1
+      - omschrijving 2
+      - omschrijving2
       - function text
 
     model_number:
@@ -54,7 +59,9 @@ column_mapping:
       - order number
       - order no
       - order nr
+      - artikel
       - artikelnummer
+      - artikelnummer ekb
       - part number
       - part no
       - mpn

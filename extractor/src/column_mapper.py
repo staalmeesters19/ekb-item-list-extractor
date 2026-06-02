@@ -16,10 +16,11 @@ from .interfaces import ColumnMapping
 
 _WS_RE = re.compile(r"\s+")
 _TRAILING_PUNCT_RE = re.compile(r"[:.]+$")
-# Minimum length for a header to be eligible for fuzzy matching.
-# Short tokens like "qty", "pos", "no" must match exactly to avoid false
-# positives (e.g. "no" <-> "nr" is distance 2).
-_FUZZY_MIN_LEN = 4
+# Minimum length for BOTH header and synonym to be eligible for fuzzy matching.
+# Short tokens like "qty", "pos", "no", "make", "part" must match exactly to
+# avoid false positives (e.g. "Mach" -> "make" at distance 2 in klant-Excels,
+# or "no" <-> "nr" at distance 2 in PDFs).
+_FUZZY_MIN_LEN = 5
 
 
 def _normalize(header: Optional[str]) -> str:
@@ -123,9 +124,17 @@ def map_columns(headers: List[Optional[str]], config: dict) -> List[ColumnMappin
             continue
 
         # --- Fuzzy match pass (only for headers >= 4 chars). ---
+        # Also require the synonym to be >= _FUZZY_MIN_LEN — otherwise a
+        # cryptic 4-char Excel column like "Mach" fuzzy-matches "make" at
+        # distance 2 and corrupts a klant-Excel parse. PDFs are unaffected
+        # because their meaningful fuzzy hits (e.g. typo'd
+        # "schematic/postion" -> "schematic/position") are all on long
+        # synonyms.
         if len(norm) >= _FUZZY_MIN_LEN:
             best = None  # (distance, canonical_field, syn_orig, order_index)
             for order_idx, (canonical_field, syn_norm, syn_orig) in enumerate(syn_index):
+                if len(syn_norm) < _FUZZY_MIN_LEN:
+                    continue
                 d = Levenshtein.distance(norm, syn_norm)
                 if d <= fuzzy_max_distance:
                     if best is None or d < best[0]:

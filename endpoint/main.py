@@ -47,6 +47,7 @@ if str(_FRONTEND_DIR) not in sys.path:
 from backend.pipeline_service import (  # noqa: E402
     classify as _classify,
     extract as _extract,
+    extract_from_xlsx as _extract_from_xlsx,
     load_procos_db_from_bytes as _load_procos_db_from_bytes,
     run_match as _run_match,
 )
@@ -177,72 +178,126 @@ class ModelsListResponse(BaseModel):
 # PDF-detection + extraction helpers
 # ---------------------------------------------------------------------------
 
-def _try_pdf_from_content(content: Any) -> Optional[tuple[bytes, str]]:
-    """Inspect one message's `content` field for an attached PDF.
+# MIME types we recognize for input files.
+_PDF_MIMES = (
+    "application/pdf",
+)
+_XLSX_MIMES = (
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/vnd.ms-excel",  # legacy .xls also tolerated
+)
 
-    LibreChat / OpenAI clients can ship file uploads in several shapes:
 
-    - ``{"type": "image_url", "image_url": {"url": "data:application/pdf;base64,..."}}``
-    - ``{"type": "file", "file": {"name": "...", "data": "<b64>"}}``
-    - ``{"type": "file", "file": {"name": "...", "file_data": "<data:.../b64>"}}``
-    - plain string starting with ``data:application/pdf;base64,...`` (rare)
-
-    Returns ``(pdf_bytes, filename)`` if found, otherwise ``None``.
+def _detect_upload_kind(data: bytes, filename: str) -> Optional[str]:
+    """Identify what kind of upload this is. Returns ``"pdf"``, ``"xlsx"``,
+    or ``None``. Uses file-magic first (most reliable) and falls back to
+    the filename extension.
     """
-    if isinstance(content, str) and content.startswith("data:application/pdf"):
-        try:
-            b64 = content.split(",", 1)[1]
-            return base64.b64decode(b64), "upload.pdf"
-        except Exception:
-            return None
-    if isinstance(content, list):
-        for block in content:
-            if not isinstance(block, dict):
-                continue
-            btype = block.get("type")
-            # Vision-style: image_url containing a data URL with PDF mime
-            if btype == "image_url":
-                url = (block.get("image_url") or {}).get("url", "")
-                if url.startswith("data:application/pdf"):
-                    try:
-                        b64 = url.split(",", 1)[1]
-                        return base64.b64decode(b64), "upload.pdf"
-                    except Exception:
-                        continue
-            # file-style: nested data field
-            if btype in ("file", "input_file"):
-                file_obj = block.get("file") or {}
-                name = file_obj.get("name") or file_obj.get("filename") or "upload.pdf"
-                data = (
-                    file_obj.get("data")
-                    or file_obj.get("base64")
-                    or file_obj.get("file_data")
-                )
-                if data:
-                    if isinstance(data, str) and data.startswith("data:"):
-                        data = data.split(",", 1)[1]
-                    try:
-                        return base64.b64decode(data), name
-                    except Exception:
-                        continue
+    if not data:
+        return None
+    if data.startswith(b"%PDF-"):
+        return "pdf"
+    # XLSX files are ZIPs — magic bytes 'PK\x03\x04'
+    if data.startswith(b"PK\x03\x04"):
+        return "xlsx"
+    low = (filename or "").lower()
+    if low.endswith(".pdf"):
+        return "pdf"
+    if low.endswith(".xlsx") or low.endswith(".xls"):
+        return "xlsx"
     return None
 
 
-def _extract_pdf_bytes_from_messages(
+def _try_upload_from_content(content: Any) -> Optional[tuple[bytes, str, str]]:
+    """Inspect one message's ``content`` for an attached PDF or XLSX.
+
+    LibreChat / OpenAI clients can ship file uploads in several shapes:
+
+    - ``{"type": "image_url", "image_url": {"url": "data:<mime>;base64,..."}}``
+    - ``{"type": "file", "file": {"name": "...", "data": "<b64>"}}``
+    - ``{"type": "file", "file": {"name": "...", "file_data": "<data:.../b64>"}}``
+    - plain string starting with ``data:application/...;base64,...`` (rare)
+
+    Returns ``(bytes, filename, kind)`` where kind is ``"pdf"`` or ``"xlsx"``,
+    otherwise ``None``.
+    """
+    # Plain string data-URL
+    if isinstance(content, str) and content.startswith("data:"):
+        try:
+            head, b64 = content.split(",", 1)
+        except ValueError:
+            return None
+        mime = head.split(";")[0][5:]
+        data = base64.b64decode(b64)
+        kind = _detect_upload_kind(data, f"upload.{mime.rsplit('/', 1)[-1]}")
+        if kind:
+            ext = "pdf" if kind == "pdf" else "xlsx"
+            return data, f"upload.{ext}", kind
+
+    if not isinstance(content, list):
+        return None
+
+    for block in content:
+        if not isinstance(block, dict):
+            continue
+        btype = block.get("type")
+
+        # Vision-style: image_url with embedded data URL
+        if btype == "image_url":
+            url = (block.get("image_url") or {}).get("url", "")
+            if not isinstance(url, str) or not url.startswith("data:"):
+                continue
+            try:
+                _, b64 = url.split(",", 1)
+                data = base64.b64decode(b64)
+            except Exception:
+                continue
+            kind = _detect_upload_kind(data, "upload")
+            if kind:
+                ext = "pdf" if kind == "pdf" else "xlsx"
+                return data, f"upload.{ext}", kind
+
+        # file-style: nested data field
+        if btype in ("file", "input_file"):
+            file_obj = block.get("file") or {}
+            name = file_obj.get("name") or file_obj.get("filename") or "upload"
+            raw_data = (
+                file_obj.get("data")
+                or file_obj.get("base64")
+                or file_obj.get("file_data")
+            )
+            if not raw_data:
+                continue
+            if isinstance(raw_data, str) and raw_data.startswith("data:"):
+                try:
+                    _, raw_data = raw_data.split(",", 1)
+                except ValueError:
+                    continue
+            try:
+                data = base64.b64decode(raw_data)
+            except Exception:
+                continue
+            kind = _detect_upload_kind(data, name)
+            if kind:
+                return data, name, kind
+
+    return None
+
+
+def _extract_upload_from_messages(
     messages: list[ChatMessage],
     latest_only: bool = False,
-) -> Optional[tuple[bytes, str]]:
-    """Walk user messages (newest first) looking for an attached PDF.
+) -> Optional[tuple[bytes, str, str]]:
+    """Walk user messages (newest first) looking for an attached PDF or XLSX.
 
-    When ``latest_only=True`` we stop after inspecting the most recent
-    user message — used to decide whether the *current* turn carries a new
-    upload (extract path) vs. a follow-up like "match" against an earlier
-    upload still in the conversation history.
+    When ``latest_only=True`` we stop after the most recent user message —
+    used to decide whether the *current* turn carries a new upload vs.
+    is a follow-up like ``match`` against an earlier upload in history.
     """
     for msg in reversed(messages):
         if msg.role != "user":
             continue
-        result = _try_pdf_from_content(msg.content)
+        result = _try_upload_from_content(msg.content)
         if result is not None:
             return result
         if latest_only:
@@ -339,31 +394,40 @@ def _format_extraction_md(result, source_name: str) -> str:
 def _helper_message() -> str:
     return (
         "## Agyle Parts Extract\n\n"
-        "Upload een **PDF-tekening** met een stuklijst om te starten. "
-        "Ik haal automatisch de stuklijst-pagina's eruit en laat per rij zien "
-        "wat er gevonden is.\n\n"
+        "Upload een **PDF-tekening** of **Excel-stuklijst** om te starten. "
+        "Ik haal automatisch de rijen eruit en laat per rij zien wat er "
+        "gevonden is.\n\n"
         "Typ daarna **`match`** om de geëxtraheerde lijst te matchen tegen "
         "de ProCos artikeldatabase."
     )
 
 
-def _extract_result_cached(pdf_bytes: bytes):
-    """Classify + extract, caching the result by SHA-256 of the PDF bytes.
+def _extract_result_cached(data: bytes, kind: str):
+    """Classify + extract (PDF) or read (XLSX), caching by (kind, sha256).
 
-    Returns the ExtractionResult, or None if the classifier found no
-    stuklijst-pagina's in this PDF. Caches None too — that's a valid result.
+    Returns the ExtractionResult, or ``None`` if no usable rows were
+    detected (e.g. PDF without a stuklijst, xlsx without a header row).
+    Caches ``None`` too — that's a valid result we don't want to retry.
     """
-    h = hashlib.sha256(pdf_bytes).hexdigest()
-    if h in _EXTRACT_CACHE:
-        return _EXTRACT_CACHE[h]
+    cache_key = (kind, hashlib.sha256(data).hexdigest())
+    if cache_key in _EXTRACT_CACHE:
+        return _EXTRACT_CACHE[cache_key]
 
-    tmp = tempfile.NamedTemporaryFile(suffix=".pdf", delete=False)
+    suffix = ".pdf" if kind == "pdf" else ".xlsx"
+    tmp = tempfile.NamedTemporaryFile(suffix=suffix, delete=False)
     tmp_path = tmp.name
-    tmp.write(pdf_bytes)
+    tmp.write(data)
     tmp.close()
     try:
-        page_runs = _classify(tmp_path)
-        result = _extract(tmp_path, page_runs) if page_runs else None
+        if kind == "pdf":
+            page_runs = _classify(tmp_path)
+            result = _extract(tmp_path, page_runs) if page_runs else None
+        elif kind == "xlsx":
+            result = _extract_from_xlsx(tmp_path)
+            if result is not None and not result.rows:
+                result = None
+        else:
+            result = None
     finally:
         try:
             os.unlink(tmp_path)
@@ -371,22 +435,29 @@ def _extract_result_cached(pdf_bytes: bytes):
             pass
 
     if len(_EXTRACT_CACHE) >= _EXTRACT_CACHE_MAX:
-        # FIFO eviction — cheap, good-enough for POC
         _EXTRACT_CACHE.pop(next(iter(_EXTRACT_CACHE)))
-    _EXTRACT_CACHE[h] = result
+    _EXTRACT_CACHE[cache_key] = result
     return result
 
 
-def _run_extraction(pdf_bytes: bytes, source_name: str) -> str:
-    """Run extraction on the given PDF bytes and return a markdown response."""
-    result = _extract_result_cached(pdf_bytes)
+def _run_extraction(data: bytes, source_name: str, kind: str) -> str:
+    """Run extraction on the given upload and return a markdown response."""
+    result = _extract_result_cached(data, kind)
     if result is None:
+        if kind == "pdf":
+            return (
+                f"## Geen stuklijst-pagina's gedetecteerd in `{source_name}`\n\n"
+                "De classifier heeft geen pagina's met een stuklijst herkend. "
+                "Mogelijk is dit een tekening zonder stuklijst, of zit de "
+                "stuklijst in een aparte PDF.\n\n"
+                "**Probeer opnieuw**: upload een andere PDF."
+            )
         return (
-            f"## Geen stuklijst-pagina's gedetecteerd in `{source_name}`\n\n"
-            "De classifier heeft geen pagina's met een stuklijst herkend. "
-            "Mogelijk is dit een tekening zonder stuklijst, of zit de "
-            "stuklijst in een aparte PDF.\n\n"
-            "**Probeer opnieuw**: upload een andere PDF."
+            f"## Geen herkenbare stuklijst in `{source_name}`\n\n"
+            "Ik kon geen tabel met herkenbare kolomnamen vinden in deze Excel "
+            "(bijv. `Omschrijving`, `Aantal`, `Type`, `Fabrikant`, ...).\n\n"
+            "**Probeer opnieuw**: zorg dat de eerste rij van het stuklijst-blad "
+            "kolomnamen bevat."
         )
     return _format_extraction_md(result, source_name)
 
@@ -455,23 +526,23 @@ def _format_match_md(result, matches, source_name: str) -> str:
         "",
         "---",
         "",
-        "Upload een **nieuwe PDF** om opnieuw te starten.",
+        "Upload een **nieuw bestand** (PDF of Excel) om opnieuw te starten.",
     ]
     return "\n".join(head + table + foot)
 
 
 def _run_match_response(messages: list[ChatMessage]) -> str:
-    """Handle a `match` command: find the prior PDF in history, then match."""
-    pdf_info = _extract_pdf_bytes_from_messages(messages, latest_only=False)
-    if pdf_info is None:
+    """Handle a `match` command: find the prior upload in history, then match."""
+    upload = _extract_upload_from_messages(messages, latest_only=False)
+    if upload is None:
         return (
-            "## Geen PDF in deze conversatie\n\n"
-            "Ik kan alleen matchen nadat je een PDF-tekening hebt geüpload "
-            "en geëxtraheerd.\n\n"
-            "**Upload eerst een PDF**, en typ daarna `match`."
+            "## Geen upload in deze conversatie\n\n"
+            "Ik kan alleen matchen nadat je een **PDF-tekening** of "
+            "**Excel-stuklijst** hebt geüpload en geëxtraheerd.\n\n"
+            "**Upload eerst een bestand**, en typ daarna `match`."
         )
 
-    pdf_bytes, source_name = pdf_info
+    data, source_name, kind = upload
 
     db, err = _get_procos_db()
     if db is None:
@@ -481,18 +552,18 @@ def _run_match_response(messages: list[ChatMessage]) -> str:
         )
 
     try:
-        result = _extract_result_cached(pdf_bytes)
+        result = _extract_result_cached(data, kind)
     except Exception as exc:  # noqa: BLE001
         return (
-            f"## Fout bij hertdoen van extractie op `{source_name}`\n\n"
+            f"## Fout bij heropvoeren van extractie op `{source_name}`\n\n"
             f"`{type(exc).__name__}: {exc}`"
         )
 
     if result is None or not result.rows:
         return (
             f"## Geen rijen om te matchen\n\n"
-            f"Ik kon geen stuklijst-rijen vinden in `{source_name}`. "
-            "Upload eventueel een andere PDF."
+            f"Ik kon geen rijen vinden in `{source_name}`. "
+            "Upload eventueel een ander bestand."
         )
 
     try:
@@ -655,21 +726,21 @@ async def chat_completions(req: ChatCompletionRequest):
         )
 
     # ----- Route the user turn -----
-    # 1. PDF in the *latest* user message      → run extraction
-    # 2. "match"-style command in latest text  → run match against ProCos
-    # 3. Otherwise                              → welcome / helper message
-    pdf_latest = _extract_pdf_bytes_from_messages(req.messages, latest_only=True)
+    # 1. PDF or XLSX in the *latest* user message → run extraction
+    # 2. "match"-style command in latest text     → run match against ProCos
+    # 3. Otherwise                                 → welcome / helper message
+    upload_latest = _extract_upload_from_messages(req.messages, latest_only=True)
     latest_text = _user_text(req.messages[-1]) if req.messages else ""
 
-    if pdf_latest is not None:
-        pdf_bytes, source_name = pdf_latest
+    if upload_latest is not None:
+        data, source_name, kind = upload_latest
         try:
-            reply_md = _run_extraction(pdf_bytes, source_name)
+            reply_md = _run_extraction(data, source_name, kind)
         except Exception as exc:  # noqa: BLE001 - surface anything unexpected
             reply_md = (
                 f"## Fout bij verwerken van `{source_name}`\n\n"
                 f"`{type(exc).__name__}: {exc}`\n\n"
-                "Upload een andere PDF om opnieuw te proberen."
+                "Upload een ander bestand om opnieuw te proberen."
             )
     elif _is_match_command(latest_text):
         reply_md = _run_match_response(req.messages)
