@@ -46,8 +46,10 @@ if str(_FRONTEND_DIR) not in sys.path:
 
 from backend.pipeline_service import (  # noqa: E402
     classify as _classify,
+    detect_klant_code as _detect_klant_code,
     extract as _extract,
     extract_from_xlsx as _extract_from_xlsx,
+    load_klant_referentielijst_from_path as _load_klant_referentielijst_from_path,
     load_procos_db_from_bytes as _load_procos_db_from_bytes,
     load_procos_db_v2_from_path as _load_procos_db_v2_from_path,
     run_match as _run_match,
@@ -68,11 +70,14 @@ from backend.pipeline_service import (  # noqa: E402
 #   - v2 (new 232k):   primary, supports fab+type / fab+art_code / fab+bestelnr
 _PROCOS_V1_PATH = _PROJECT_ROOT / "ProCos-export Artikeldata-excl prijzen.xlsx"
 _PROCOS_V2_PATH = _PROJECT_ROOT / "procos_data" / "artikellijst.xlsx"
+_KLANT_REF_PATH = _PROJECT_ROOT / "procos_data" / "klant_referentielijsten.xlsx"
 
 _PROCOS_DB_V1: Optional[dict] = None
 _PROCOS_DB_V1_ERROR: Optional[str] = None
 _PROCOS_DB_V2: Optional[dict] = None
 _PROCOS_DB_V2_ERROR: Optional[str] = None
+_KLANT_DB: Optional[dict] = None
+_KLANT_DB_ERROR: Optional[str] = None
 
 
 def _get_procos_db_v1() -> tuple[Optional[dict], Optional[str]]:
@@ -121,6 +126,25 @@ def _get_procos_db() -> tuple[Optional[dict], Optional[str]]:
     'DB not available' early-out check.
     """
     return _get_procos_db_v1()
+
+
+def _get_klant_db() -> tuple[Optional[dict], Optional[str]]:
+    """Load (and cache) Gino's Klant referentielijsten (45k mappings, 16 klanten)."""
+    global _KLANT_DB, _KLANT_DB_ERROR
+    if _KLANT_DB is not None or _KLANT_DB_ERROR is not None:
+        return _KLANT_DB, _KLANT_DB_ERROR
+    if not _KLANT_REF_PATH.exists():
+        _KLANT_DB_ERROR = (
+            f"Klant referentielijsten niet gevonden "
+            f"(`procos_data/{_KLANT_REF_PATH.name}`)."
+        )
+        return None, _KLANT_DB_ERROR
+    try:
+        _KLANT_DB = _load_klant_referentielijst_from_path(str(_KLANT_REF_PATH))
+        return _KLANT_DB, None
+    except Exception as exc:  # noqa: BLE001
+        _KLANT_DB_ERROR = f"{type(exc).__name__}: {exc}"
+        return None, _KLANT_DB_ERROR
 
 
 # ---------------------------------------------------------------------------
@@ -513,7 +537,7 @@ _STATUS_DISPLAY = {
 }
 
 
-def _format_match_md(result, matches, source_name: str) -> str:
+def _format_match_md(result, matches, source_name: str, klant_code: Optional[str] = None) -> str:
     """Render extraction + match results as a 9-column markdown table."""
     rows = result.rows
     n_total = len(rows)
@@ -542,6 +566,9 @@ def _format_match_md(result, matches, source_name: str) -> str:
         summary,
         "",
     ]
+    if klant_code:
+        head.insert(2, f"_Klant gedetecteerd: **{klant_code}** (klant-referentielijst actief)_")
+        head.insert(3, "")
 
     table = [
         "| # | Klantartikel | Aantal | Omschrijving | Fabrikant | "
@@ -597,6 +624,9 @@ def _run_match_response(messages: list[ChatMessage]) -> str:
             "Neem contact op met de beheerder."
         )
 
+    # Klant-referentielijst is OPTIONAL — missing is fine, just no step 0.
+    klant_db, _ = _get_klant_db()
+
     try:
         result = _extract_result_cached(data, kind)
     except Exception as exc:  # noqa: BLE001
@@ -612,15 +642,22 @@ def _run_match_response(messages: list[ChatMessage]) -> str:
             "Upload eventueel een ander bestand."
         )
 
+    # Klant-detectie: filename + sheet-naam (xlsx-reader stores sheet-name
+    # in result.rows[0].source_section).
+    sheet_name = result.rows[0].source_section if result.rows else None
+    klant_code = _detect_klant_code(source_name, sheet_name) if klant_db else None
+
     try:
-        matches = _run_match_combined(result, db_v2, db_v1)
+        matches = _run_match_combined(
+            result, db_v2, db_v1, klant_db=klant_db, klant_code=klant_code,
+        )
     except Exception as exc:  # noqa: BLE001
         return (
             f"## Fout bij matchen tegen ProCos\n\n"
             f"`{type(exc).__name__}: {exc}`"
         )
 
-    return _format_match_md(result, matches, source_name)
+    return _format_match_md(result, matches, source_name, klant_code=klant_code)
 
 
 # ---------------------------------------------------------------------------

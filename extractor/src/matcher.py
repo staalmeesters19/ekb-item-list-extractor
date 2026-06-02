@@ -319,6 +319,53 @@ def _match_one(
 
 
 # ----------------------------------------------------------------------
+# Klant-code detectie uit filename + sheet-naam
+# ----------------------------------------------------------------------
+#
+# Heuristiek: zoek herkenbare klant-fragmenten in de filename of sheet-naam.
+# Voor elke bekende klant-code een lijst van fragmenten die we kunnen
+# herkennen (klant-namen of bedrijfsmerken die in EKB-werkstukken
+# vóórkomen). Match insensitive — uppercase haystack vs uppercase fragments.
+#
+# Niet-klant-specifieke regel: als niets matcht → caller defaults to
+# EKBBEVIP (Gino's "Variabelen voor klant" header) of None (skip klant-ref).
+_KLANT_FRAGMENTS: dict[str, tuple[str, ...]] = {
+    "JBTAMS":    ("JBT", "JBTAMS"),
+    "BOSBOX":    ("BOSCH", "BOSBOX", "REXROTH"),
+    "EPLAPE":    ("EPLAN", "EPLAPE"),
+    "HOUVLA":    ("HOUVLA",),
+    "NEDHER1":   ("NEDAP", "NEDHER"),
+    "WEIVEN":    ("WEIDMULLER", "WEIVEN"),
+    "SELBEV":    ("SELBEV",),
+    "STSVEL":    ("STSVEL",),
+    "SEEENK":    ("SEEENK",),
+    "PANERM":    ("PANASONIC", "PANERM"),
+    "SPGBOX":    ("SPGBOX",),
+    "EKBDRASPB": ("EKBDRA", "DRACHTEN"),
+    "LISOUD":    ("LISOUD",),
+    "SMIEIN":    ("SMIEIN",),
+    "EKBSOMIP":  ("EKBSOM", "SOMEREN"),
+    "EKBBEVIP":  ("EKBBEV", "BEVERWIJK"),
+}
+
+
+def detect_klant_code(*hints: str | None) -> str | None:
+    """Try to identify the klant code from filename / sheet-name / etc.
+
+    Returns the matched klant code (e.g. ``"JBTAMS"``), or ``None`` if no
+    fragment matched. The caller decides whether ``None`` means "fall back
+    to EKBBEVIP default" or "skip the klant-ref cascade step".
+    """
+    haystack = " ".join(h or "" for h in hints).upper()
+    if not haystack.strip():
+        return None
+    for code, fragments in _KLANT_FRAGMENTS.items():
+        if any(frag in haystack for frag in fragments):
+            return code
+    return None
+
+
+# ----------------------------------------------------------------------
 # v2 — Cascade against the new 232k Artikellijst export
 # ----------------------------------------------------------------------
 #
@@ -363,6 +410,7 @@ def load_procos_db_v2(source: Any) -> dict:
             "by_fab_artcode":  {(fab_norm, artcode_norm): [rec]}
             "by_fab_bestelnr": {(fab_norm, bestelnr_norm): [rec]}
             "by_type_only":    {type_norm: [rec]}
+            "by_artikel_ekb":  {artikel_ekb: rec}  -- reverse lookup for klant-ref hits
             "n_rows":          int
     """
     wb = _open_workbook(source)
@@ -374,6 +422,7 @@ def load_procos_db_v2(source: Any) -> dict:
         by_fab_artcode: dict[tuple[str, str], list[dict]] = defaultdict(list)
         by_fab_bestelnr: dict[tuple[str, str], list[dict]] = defaultdict(list)
         by_type_only: dict[str, list[dict]] = defaultdict(list)
+        by_artikel_ekb: dict[str, dict] = {}
         n = 0
 
         for i, row in enumerate(ws.iter_rows(values_only=True), start=1):
@@ -420,6 +469,9 @@ def load_procos_db_v2(source: Any) -> dict:
             # is missing).
             if type_norm:
                 by_type_only[type_norm].append(rec)
+            # Reverse: EKB-artikelcode -> full record (used to enrich
+            # klant-ref hits with fab/omschrijving/typenr).
+            by_artikel_ekb[str(artikel)] = rec
 
             n += 1
     finally:
@@ -430,29 +482,150 @@ def load_procos_db_v2(source: Any) -> dict:
         "by_fab_artcode":  dict(by_fab_artcode),
         "by_fab_bestelnr": dict(by_fab_bestelnr),
         "by_type_only":    dict(by_type_only),
+        "by_artikel_ekb":  by_artikel_ekb,
         "n_rows":          n,
     }
 
 
-def _match_one_v2(row: CanonicalRow, db_v2: dict) -> MatchResult:
-    """Cascade match against the v2 (232k) database.
+# ----------------------------------------------------------------------
+# Klant referentielijst (Gino's 45k klant-artikel -> EKB-artikel mapping)
+# ----------------------------------------------------------------------
 
-    For each typenr-candidate, tries — in order:
+
+def load_klant_referentielijsten(source: Any) -> dict:
+    """Load the Klant referentielijsten xlsx into a per-klant lookup.
+
+    Source xlsx columns (header rij 1):
+        Klantcode | Klantnaam | Referentielijst | Artikel EKB | Artikel klant
+
+    Returns:
+        {
+            klant_code_upper: {
+                artikel_klant_norm: artikel_ekb,
+            },
+            ...
+        }
+
+    Lookup is normalized via ``_norm_type`` (the same normalization used
+    for type-nrs) so klant-artikelcodes with dashes/dots/spaces are
+    matchable regardless of formatting.
+    """
+    wb = _open_workbook(source)
+    try:
+        ws = wb[wb.sheetnames[0]]
+        out: dict[str, dict[str, str]] = defaultdict(dict)
+        n = 0
+        for i, row in enumerate(ws.iter_rows(values_only=True), start=1):
+            if i == 1:
+                continue
+            if not row or len(row) < 5:
+                continue
+            klant_code = row[0]
+            artikel_ekb = row[3]
+            artikel_klant = row[4]
+            if not (klant_code and artikel_ekb and artikel_klant):
+                continue
+            kc = str(klant_code).strip().upper()
+            ak_norm = _norm_type(artikel_klant)
+            if not ak_norm:
+                continue
+            # First occurrence wins (no overwriting).
+            if ak_norm not in out[kc]:
+                out[kc][ak_norm] = str(artikel_ekb)
+                n += 1
+    finally:
+        wb.close()
+    out["_meta"] = {"n_rows": n, "n_klants": len(out)}
+    return dict(out)
+
+
+def _try_klant_ref(
+    row: CanonicalRow,
+    klant_db: dict | None,
+    klant_code: str | None,
+    by_artikel_ekb: dict[str, dict] | None,
+    fab_norm: str,
+) -> MatchResult | None:
+    """Try cascade step 0: direct klant-artikel -> EKB-artikel lookup.
+
+    Returns a populated MatchResult when the klant-ref lookup hits, otherwise
+    None (so the caller can continue with the fab+type cascade).
+    """
+    if not klant_db or not klant_code:
+        return None
+    klant_map = klant_db.get(klant_code.upper())
+    if not klant_map:
+        return None
+
+    # The klant-artikel code typically lives in row.order_number for our
+    # xlsx-reader's mapping (synonym "artikel" -> order_number), but PDFs
+    # may have put it in model_number or even device_tag. Try all sensibly
+    # promising candidates.
+    raw_cands: list[str] = []
+    for v in (row.order_number, row.model_number, row.device_tag):
+        if v:
+            raw_cands.append(str(v))
+    # Also fall back to the typenr-candidates helper for completeness.
+    for v in _candidate_typenrs(row):
+        if v and v not in raw_cands:
+            raw_cands.append(v)
+
+    for raw in raw_cands:
+        ak_norm = _norm_type(raw)
+        if not ak_norm:
+            continue
+        ekb = klant_map.get(ak_norm)
+        if not ekb:
+            continue
+        # Enrich with the canonical record from the 232k v2 DB if we have it.
+        enrich = (by_artikel_ekb or {}).get(ekb, {})
+        return MatchResult(
+            status="MATCH",
+            procos_artikel=ekb,
+            procos_fabcode=enrich.get("fabrikant", ""),
+            procos_omschrijving=enrich.get("omschrijving", ""),
+            mapped_fab=fab_norm,
+            matched_typenr=raw,
+            n_hits=1,
+            matched_route="v2:klant-ref",
+        )
+    return None
+
+
+def _match_one_v2(
+    row: CanonicalRow,
+    db_v2: dict,
+    klant_db: dict | None = None,
+    klant_code: str | None = None,
+) -> MatchResult:
+    """Cascade match against the v2 (232k) database, with optional
+    klant-referentielijst as cascade step 0.
+
+    Steps (first unique hit wins):
+      0. (klant_code, klant_artikel) -> EKB-artikel    [if klant context known]
       3. (fabrikaat, type)
       4. (fabrikaat, art code)
       5. (fabrikaat, bestelnr lev)
       6. type-only (when fab missing or all fab-routes empty)
 
-    A unique hit on any route short-circuits and returns MATCH. A
-    non-unique hit (NIET UNIEK) is remembered as the best result so far
+    A non-unique hit on steps 3-6 is remembered as the best result so far
     but the cascade keeps trying — a later route may produce a unique
     hit that we should prefer.
     """
+    fab_norm = _norm_fab(row.manufacturer)
+
+    # Step 0 — klant-ref lookup. Highest-confidence: the klant's own
+    # artikelcode maps directly to an EKB-artikel.
+    kr_hit = _try_klant_ref(
+        row, klant_db, klant_code,
+        db_v2.get("by_artikel_ekb"), fab_norm,
+    )
+    if kr_hit is not None:
+        return kr_hit
+
     candidates = _candidate_typenrs(row)
     if not candidates:
         return MatchResult(status="GEEN TYPE NR")
-
-    fab_norm = _norm_fab(row.manufacturer)
 
     by_fab_type     = db_v2.get("by_fab_type") or {}
     by_fab_artcode  = db_v2.get("by_fab_artcode") or {}
@@ -528,8 +701,14 @@ def match_rows_combined(
     db_v2: dict | None,
     db_v1: dict | None,
     fab_mapping_v1: dict[str, str],
+    klant_db: dict | None = None,
+    klant_code: str | None = None,
 ) -> list[MatchResult]:
     """Match each row against v2 first; fall back to v1 on miss.
+
+    The v2 cascade also takes an optional ``klant_db`` (Gino's Klant
+    referentielijsten) plus a ``klant_code`` for that row's upload —
+    used as cascade step 0 to map klant-artikelcodes directly to EKB.
 
     Either DB may be None — the cascade tries whatever it has. If both
     are None, every row returns NIET GEVONDEN.
@@ -538,7 +717,7 @@ def match_rows_combined(
     for row in rows:
         result_v2: MatchResult | None = None
         if db_v2:
-            result_v2 = _match_one_v2(row, db_v2)
+            result_v2 = _match_one_v2(row, db_v2, klant_db, klant_code)
             if result_v2.status.startswith("MATCH"):
                 results.append(result_v2)
                 continue

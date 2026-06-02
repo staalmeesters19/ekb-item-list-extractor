@@ -20,6 +20,8 @@ import yaml  # noqa: E402
 from src.interfaces import ExtractionResult  # noqa: E402
 from src.matcher import (  # noqa: E402
     MatchResult,
+    detect_klant_code as _detect_klant_code,
+    load_klant_referentielijsten as _load_klant_referentielijsten,
     load_procos_db as _load_procos_db,
     load_procos_db_v2 as _load_procos_db_v2,
     match_rows as _match_rows,
@@ -56,6 +58,8 @@ __all__ = [
     "rows_to_dataframe",
     "load_procos_db_from_bytes",
     "load_procos_db_v2_from_path",
+    "load_klant_referentielijst_from_path",
+    "detect_klant_code",
     "get_fab_mapping",
     "run_match",
     "run_match_combined",
@@ -175,11 +179,27 @@ def load_procos_db_v2_from_path(path: str) -> dict:
     return _load_procos_db_v2(path)
 
 
+def load_klant_referentielijst_from_path(path: str) -> dict:
+    """Load Gino's Klant referentielijsten xlsx (klant-artikel -> EKB-artikel)."""
+    return _load_klant_referentielijsten(path)
+
+
+def detect_klant_code(*hints: str | None) -> str | None:
+    """Heuristic klant-code detection from filename + sheet-name hints."""
+    return _detect_klant_code(*hints)
+
+
 def run_match_combined(result: ExtractionResult,
                        db_v2: dict | None,
-                       db_v1: dict | None) -> List[MatchResult]:
-    """Match against the new 232k DB first, fall back to legacy 86k on miss."""
-    return _match_rows_combined(result.rows, db_v2, db_v1, get_fab_mapping())
+                       db_v1: dict | None,
+                       klant_db: dict | None = None,
+                       klant_code: str | None = None) -> List[MatchResult]:
+    """Match against v2 first (with optional klant-ref step 0), fall back
+    to legacy 86k on miss."""
+    return _match_rows_combined(
+        result.rows, db_v2, db_v1, get_fab_mapping(),
+        klant_db=klant_db, klant_code=klant_code,
+    )
 
 
 def get_fab_mapping() -> dict:
