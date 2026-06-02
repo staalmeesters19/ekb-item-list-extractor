@@ -49,7 +49,9 @@ from backend.pipeline_service import (  # noqa: E402
     extract as _extract,
     extract_from_xlsx as _extract_from_xlsx,
     load_procos_db_from_bytes as _load_procos_db_from_bytes,
+    load_procos_db_v2_from_path as _load_procos_db_v2_from_path,
     run_match as _run_match,
+    run_match_combined as _run_match_combined,
 )
 
 
@@ -57,34 +59,68 @@ from backend.pipeline_service import (  # noqa: E402
 # ProCos artikeldatabase (loaded once at process start, lazily on first use)
 # ---------------------------------------------------------------------------
 
-# In production this would come from a nightly ProCos export landing in a
-# shared bucket. For the POC we bundle the export with the Railway deploy.
-_PROCOS_PATH = _PROJECT_ROOT / "ProCos-export Artikeldata-excl prijzen.xlsx"
-_PROCOS_DB: Optional[dict] = None
-_PROCOS_DB_ERROR: Optional[str] = None
+# In production these would come from a nightly ProCos export landing in
+# a shared bucket. For the POC we bundle both exports with the Railway
+# deploy and load them lazily on first match.
+#
+# Two databases are kept side-by-side:
+#   - v1 (legacy 86k): used as fallback when v2 doesn't have a hit
+#   - v2 (new 232k):   primary, supports fab+type / fab+art_code / fab+bestelnr
+_PROCOS_V1_PATH = _PROJECT_ROOT / "ProCos-export Artikeldata-excl prijzen.xlsx"
+_PROCOS_V2_PATH = _PROJECT_ROOT / "procos_data" / "artikellijst.xlsx"
+
+_PROCOS_DB_V1: Optional[dict] = None
+_PROCOS_DB_V1_ERROR: Optional[str] = None
+_PROCOS_DB_V2: Optional[dict] = None
+_PROCOS_DB_V2_ERROR: Optional[str] = None
+
+
+def _get_procos_db_v1() -> tuple[Optional[dict], Optional[str]]:
+    """Load (and cache) the legacy 86k ProCos DB."""
+    global _PROCOS_DB_V1, _PROCOS_DB_V1_ERROR
+    if _PROCOS_DB_V1 is not None or _PROCOS_DB_V1_ERROR is not None:
+        return _PROCOS_DB_V1, _PROCOS_DB_V1_ERROR
+    if not _PROCOS_V1_PATH.exists():
+        _PROCOS_DB_V1_ERROR = (
+            f"Legacy ProCos DB niet gevonden (`{_PROCOS_V1_PATH.name}`)."
+        )
+        return None, _PROCOS_DB_V1_ERROR
+    try:
+        with open(_PROCOS_V1_PATH, "rb") as fh:
+            _PROCOS_DB_V1 = _load_procos_db_from_bytes(fh.read())
+        return _PROCOS_DB_V1, None
+    except Exception as exc:  # noqa: BLE001
+        _PROCOS_DB_V1_ERROR = f"{type(exc).__name__}: {exc}"
+        return None, _PROCOS_DB_V1_ERROR
+
+
+def _get_procos_db_v2() -> tuple[Optional[dict], Optional[str]]:
+    """Load (and cache) the new 232k ProCos Artikellijst."""
+    global _PROCOS_DB_V2, _PROCOS_DB_V2_ERROR
+    if _PROCOS_DB_V2 is not None or _PROCOS_DB_V2_ERROR is not None:
+        return _PROCOS_DB_V2, _PROCOS_DB_V2_ERROR
+    if not _PROCOS_V2_PATH.exists():
+        _PROCOS_DB_V2_ERROR = (
+            f"Nieuwe ProCos Artikellijst niet gevonden "
+            f"(`procos_data/{_PROCOS_V2_PATH.name}`)."
+        )
+        return None, _PROCOS_DB_V2_ERROR
+    try:
+        _PROCOS_DB_V2 = _load_procos_db_v2_from_path(str(_PROCOS_V2_PATH))
+        return _PROCOS_DB_V2, None
+    except Exception as exc:  # noqa: BLE001
+        _PROCOS_DB_V2_ERROR = f"{type(exc).__name__}: {exc}"
+        return None, _PROCOS_DB_V2_ERROR
 
 
 def _get_procos_db() -> tuple[Optional[dict], Optional[str]]:
-    """Return (db, error). Loads on first call; cached for the process lifetime."""
-    global _PROCOS_DB, _PROCOS_DB_ERROR
-    if _PROCOS_DB is not None or _PROCOS_DB_ERROR is not None:
-        return _PROCOS_DB, _PROCOS_DB_ERROR
-    if not _PROCOS_PATH.exists():
-        _PROCOS_DB_ERROR = (
-            f"ProCos artikeldatabase niet gevonden op de server "
-            f"(`{_PROCOS_PATH.name}`)."
-        )
-        return None, _PROCOS_DB_ERROR
-    try:
-        with open(_PROCOS_PATH, "rb") as fh:
-            _PROCOS_DB = _load_procos_db_from_bytes(fh.read())
-        return _PROCOS_DB, None
-    except Exception as exc:  # noqa: BLE001
-        _PROCOS_DB_ERROR = (
-            f"Kon ProCos artikeldatabase niet laden: "
-            f"{type(exc).__name__}: {exc}"
-        )
-        return None, _PROCOS_DB_ERROR
+    """Back-compat shim: returns the v1 DB.
+
+    The new match-flow loads both v1 and v2 directly; this function is
+    kept only because `_run_match_response` historically used it for the
+    'DB not available' early-out check.
+    """
+    return _get_procos_db_v1()
 
 
 # ---------------------------------------------------------------------------
@@ -486,11 +522,16 @@ def _format_match_md(result, matches, source_name: str) -> str:
     n_niet_uniek = sum(1 for m in matches if m.status.startswith("NIET UNIEK"))
     n_geen = sum(1 for m in matches if m.status == "GEEN TYPE NR")
     pct = (100.0 * n_match / n_total) if n_total else 0.0
+    # Combined "any hit" rate: unique MATCH + ambiguous NIET UNIEK. The
+    # ambiguous hits aren't 100% certain, but they DO point at a real
+    # ProCos article — useful for manual review.
+    pct_any = (100.0 * (n_match + n_niet_uniek) / n_total) if n_total else 0.0
 
     summary = (
         f"**{n_total} rijen** verwerkt — **{n_match} gematched "
-        f"({pct:.1f}%)** · {n_niet_gev} niet gevonden · "
-        f"{n_niet_uniek} niet uniek"
+        f"({pct:.1f}%)** + {n_niet_uniek} potentiële match (niet uniek) → "
+        f"**{n_match + n_niet_uniek} met hit ({pct_any:.1f}%)** · "
+        f"{n_niet_gev} niet gevonden"
     )
     if n_geen:
         summary += f" · {n_geen} geen type nr."
@@ -544,10 +585,15 @@ def _run_match_response(messages: list[ChatMessage]) -> str:
 
     data, source_name, kind = upload
 
-    db, err = _get_procos_db()
-    if db is None:
+    # Load BOTH databases. v2 is primary; v1 is fallback when v2 misses.
+    # If at least one is available we can still run the cascade.
+    db_v2, err_v2 = _get_procos_db_v2()
+    db_v1, err_v1 = _get_procos_db_v1()
+    if db_v2 is None and db_v1 is None:
         return (
-            f"## ProCos artikeldatabase niet beschikbaar\n\n`{err}`\n\n"
+            "## ProCos artikeldatabase niet beschikbaar\n\n"
+            f"- v2 (232k): `{err_v2}`\n"
+            f"- v1 (86k):  `{err_v1}`\n\n"
             "Neem contact op met de beheerder."
         )
 
@@ -567,7 +613,7 @@ def _run_match_response(messages: list[ChatMessage]) -> str:
         )
 
     try:
-        matches = _run_match(result, db)
+        matches = _run_match_combined(result, db_v2, db_v1)
     except Exception as exc:  # noqa: BLE001
         return (
             f"## Fout bij matchen tegen ProCos\n\n"

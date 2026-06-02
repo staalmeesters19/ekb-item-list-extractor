@@ -21,7 +21,9 @@ from src.interfaces import ExtractionResult  # noqa: E402
 from src.matcher import (  # noqa: E402
     MatchResult,
     load_procos_db as _load_procos_db,
+    load_procos_db_v2 as _load_procos_db_v2,
     match_rows as _match_rows,
+    match_rows_combined as _match_rows_combined,
     summarize as _summarize_matches,
 )
 from src.pipeline import run as _pipeline_run  # noqa: E402
@@ -53,8 +55,10 @@ __all__ = [
     "to_procos_xml_bytes",
     "rows_to_dataframe",
     "load_procos_db_from_bytes",
+    "load_procos_db_v2_from_path",
     "get_fab_mapping",
     "run_match",
+    "run_match_combined",
     "summarize_match",
     "to_match_xlsx_bytes",
     "to_niet_gevonden_xlsx_bytes",
@@ -162,8 +166,20 @@ _DATAFRAME_COLUMNS = [
 # --- Match step (ProCos 86k database) -----------------------------------------
 
 def load_procos_db_from_bytes(file_bytes: bytes) -> dict:
-    """Load the ProCos export from raw bytes uploaded via Streamlit."""
+    """Load the legacy 86k ProCos export from raw bytes."""
     return _load_procos_db(file_bytes)
+
+
+def load_procos_db_v2_from_path(path: str) -> dict:
+    """Load the new 232k ProCos Artikellijst from a filesystem path."""
+    return _load_procos_db_v2(path)
+
+
+def run_match_combined(result: ExtractionResult,
+                       db_v2: dict | None,
+                       db_v1: dict | None) -> List[MatchResult]:
+    """Match against the new 232k DB first, fall back to legacy 86k on miss."""
+    return _match_rows_combined(result.rows, db_v2, db_v1, get_fab_mapping())
 
 
 def get_fab_mapping() -> dict:

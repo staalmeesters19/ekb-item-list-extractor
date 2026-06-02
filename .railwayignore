@@ -67,3 +67,8 @@ frontend/.streamlit/secrets.toml
 !/ProCos-export*.xlsx
 !ProCos-export*.XLSX
 !/ProCos-export*.XLSX
+
+# Same negation for the new 232k ProCos artikeldata (Fase 2 — Gino's docs).
+# Lives in procos_data/ to keep root tidy.
+!procos_data/
+!procos_data/*.xlsx

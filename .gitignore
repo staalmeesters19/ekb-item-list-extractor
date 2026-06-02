@@ -22,6 +22,9 @@ data/*.json
 /ProCos-export*.xlsx
 /ProCos-export*.XLSX
 
+# New ProCos artikeldata (232k version, fase 2). Also confidential.
+/procos_data/
+
 # --- Python ---
 __pycache__/
 *.py[cod]
