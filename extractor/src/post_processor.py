@@ -26,6 +26,12 @@ _ZERO_WIDTH_CHARS = [
 
 _REPLACEMENT_CHAR = "�"
 
+# Generic pipe-pattern: "TYPENR | FABRIKANT" inside a description line.
+# Used to lift embedded type-nr + fabrikant out of klant-Excels that
+# pack both into a single column (common with EKB-internal exports).
+# Not klant-specific — any BOM using this convention benefits.
+_PIPE_SPLIT_RE = re.compile(r"^(.+?)\s*\|\s*(.+?)\s*$")
+
 # Fields that are definitionally strings on CanonicalRow (quantity is Any
 # and treated separately).
 _STRING_FIELDS = (
@@ -70,6 +76,14 @@ def _parse_quantity(raw: Any) -> tuple[Any, Optional[str]]:
     s = str(raw).strip()
     if s == "":
         return None, None
+
+    # When two columns map to the same canonical quantity field (e.g.
+    # `Aantal` + `Stuks` in JBT-style Excels) the row_parser merges them
+    # with a newline. Take the first non-empty line as the canonical value.
+    if "\n" in s:
+        first = next((p.strip() for p in s.split("\n") if p.strip()), "")
+        if first:
+            s = first
 
     try:
         return int(s), None
@@ -134,6 +148,44 @@ def post_process(row: CanonicalRow, config: dict) -> CanonicalRow:
     row.quantity = parsed_qty
     if qty_warning and qty_warning not in row.warnings:
         row.warnings.append(qty_warning)
+
+    # 2b. Embedded "TYPENR | FABRIKANT" in description.
+    # When a BOM packs the manufacturer + type-nr into one column using
+    # the "X | Y" pipe convention (klant 1 / JBT-style Excels), lift them
+    # out so the matcher has structured fab + type to work with. Generic:
+    # only fires when (a) we don't already have manufacturer + model_number,
+    # and (b) the right-hand side looks like a short text token (a
+    # manufacturer name), not a long sentence.
+    if isinstance(row.description, str) and "|" in row.description and (
+        not row.manufacturer or not row.model_number
+    ):
+        new_desc_lines: list[str] = []
+        lifted_typenr: Optional[str] = None
+        lifted_fab: Optional[str] = None
+        for line in row.description.split("\n"):
+            m = _PIPE_SPLIT_RE.match(line.strip())
+            if m:
+                left, right = m.group(1).strip(), m.group(2).strip()
+                # Right side must look like a manufacturer name:
+                # mostly alphabetic, short (<= 30 chars), no embedded pipes.
+                if (
+                    left
+                    and right
+                    and len(right) <= 30
+                    and "|" not in right
+                    and sum(1 for c in right if c.isalpha()) >= max(1, len(right) // 2)
+                ):
+                    lifted_typenr = lifted_typenr or left
+                    lifted_fab = lifted_fab or right
+                    continue  # consume this line — moved into fields
+            new_desc_lines.append(line)
+        if lifted_typenr or lifted_fab:
+            if lifted_typenr and not row.model_number:
+                row.model_number = lifted_typenr
+            if lifted_fab and not row.manufacturer:
+                row.manufacturer = lifted_fab
+            joined = "\n".join(new_desc_lines).strip()
+            row.description = joined if joined else None
 
     # 3. Schematic position extraction from description.
     if (row.schematic_position is None or
