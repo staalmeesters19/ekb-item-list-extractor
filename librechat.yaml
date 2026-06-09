@@ -12,7 +12,7 @@ endpoints:
       baseURL: 'https://agyle-api-production.up.railway.app/v1'
       models:
         default:
-          - 'agyle_parts_extract'
+          - 'ekb_procos_matcher'
         fetch: true
       titleConvo: false
       modelDisplayLabel: 'EKB ProCos Matcher'

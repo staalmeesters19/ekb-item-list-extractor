@@ -192,7 +192,10 @@ API_KEY = os.environ.get(
     "agyle-dev-key-please-override-via-env-AGYLE_API_KEY",
 )
 
-WORKFLOW_ID = "agyle_parts_extract"
+WORKFLOW_ID = "ekb_procos_matcher"
+# Backwards-compat: accept the legacy ID for in-flight conversations that
+# were started before the rename. Both resolve to the same workflow.
+WORKFLOW_ID_ALIASES = ("agyle_parts_extract",)
 WORKFLOW_OWNER = "agyle"
 WORKFLOW_CREATED_AT = 1730000000  # static "created" timestamp for the model card
 
@@ -824,7 +827,7 @@ async def chat_completions(req: ChatCompletionRequest):
     chat.completion envelope. Streaming is not implemented (the spec says
     streaming is not required for the first version).
     """
-    if req.model != WORKFLOW_ID:
+    if req.model != WORKFLOW_ID and req.model not in WORKFLOW_ID_ALIASES:
         raise HTTPException(
             status_code=404,
             detail={
