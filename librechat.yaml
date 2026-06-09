@@ -7,7 +7,7 @@ cache: false
 
 endpoints:
   custom:
-    - name: 'Agyle Parts Extract'
+    - name: 'EKB ProCos Matcher'
       apiKey: '${AGYLE_API_KEY}'
       baseURL: 'https://agyle-api-production.up.railway.app/v1'
       models:
@@ -15,7 +15,7 @@ endpoints:
           - 'agyle_parts_extract'
         fetch: true
       titleConvo: false
-      modelDisplayLabel: 'Agyle Parts Extract'
+      modelDisplayLabel: 'EKB ProCos Matcher'
 
 # File-upload config — allow PDFs and ALL Office formats via "Upload to
 # Provider". The patterns are regex (LibreChat uses RegExp on each entry),
@@ -24,7 +24,7 @@ endpoints:
 # when the MIME is unknown).
 fileConfig:
   endpoints:
-    "Agyle Parts Extract":
+    "EKB ProCos Matcher":
       fileLimit: 5
       fileSizeLimit: 25
       totalSizeLimit: 50
