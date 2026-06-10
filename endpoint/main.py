@@ -28,7 +28,7 @@ from typing import Any, Literal, Optional, Union
 import json
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import JSONResponse, Response, StreamingResponse
 from pydantic import BaseModel, Field
 
 
@@ -55,6 +55,7 @@ from backend.pipeline_service import (  # noqa: E402
     load_procos_db_v2_from_path as _load_procos_db_v2_from_path,
     run_match as _run_match,
     run_match_combined as _run_match_combined,
+    to_match_xlsx_bytes as _to_match_xlsx_bytes,
 )
 
 
@@ -182,6 +183,35 @@ _EXTRACT_CACHE_MAX = 50  # bounded — evict oldest on overflow
 
 
 # ---------------------------------------------------------------------------
+# Download store (temp-files: match-rapport.xlsx etc. for chat-side download)
+# ---------------------------------------------------------------------------
+# Token -> {"filename": str, "mime": str, "data": bytes, "created": float}
+# In-memory, single-process. TTL ~30 min via best-effort sweep on each
+# new addition (no background task). Sufficient for the POC; productie
+# kan dit naar een persistent volume of S3-presigned-url verplaatsen.
+_DOWNLOAD_STORE: dict[str, dict[str, Any]] = {}
+_DOWNLOAD_STORE_MAX = 100
+_DOWNLOAD_TTL_SECONDS = 30 * 60
+
+
+def _store_download(filename: str, mime: str, data: bytes) -> str:
+    """Save bytes under a fresh token, return the token."""
+    # Best-effort GC: drop entries older than TTL on every add.
+    now = time.time()
+    expired = [t for t, v in _DOWNLOAD_STORE.items() if now - v["created"] > _DOWNLOAD_TTL_SECONDS]
+    for t in expired:
+        _DOWNLOAD_STORE.pop(t, None)
+    # Cap size — FIFO eviction.
+    while len(_DOWNLOAD_STORE) >= _DOWNLOAD_STORE_MAX:
+        _DOWNLOAD_STORE.pop(next(iter(_DOWNLOAD_STORE)))
+    token = uuid.uuid4().hex
+    _DOWNLOAD_STORE[token] = {
+        "filename": filename, "mime": mime, "data": data, "created": now,
+    }
+    return token
+
+
+# ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
 
@@ -190,6 +220,15 @@ _EXTRACT_CACHE_MAX = 50  # bounded — evict oldest on overflow
 API_KEY = os.environ.get(
     "AGYLE_API_KEY",
     "agyle-dev-key-please-override-via-env-AGYLE_API_KEY",
+)
+
+# Public origin used to build absolute download URLs that we embed in
+# chat replies. LibreChat renders these as <a href> tags; they must be
+# absolute (clickable from LibreChat's domain). Default = our production
+# Railway URL; override via env when self-hosted by EKB.
+PUBLIC_URL = os.environ.get(
+    "PUBLIC_URL",
+    "https://agyle-api-production.up.railway.app",
 )
 
 WORKFLOW_ID = "ekb_procos_matcher"
@@ -563,7 +602,29 @@ _STATUS_DISPLAY = {
 }
 
 
-def _format_match_md(result, matches, source_name: str, klant_code: Optional[str] = None) -> str:
+_XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+
+def _build_match_download_link(result, matches, source_name: str) -> str:
+    """Generate the match-rapport xlsx, store under a token, return markdown link.
+
+    Returns the empty string when generation fails — caller embeds the
+    line conditionally so a writer-error never blocks the match-tabel.
+    """
+    try:
+        data = _to_match_xlsx_bytes(result, matches)
+    except Exception:  # noqa: BLE001
+        return ""
+    stem = source_name.rsplit(".", 1)[0] if "." in source_name else source_name
+    filename = f"{stem}_match_rapport.xlsx"
+    token = _store_download(filename, _XLSX_MIME, data)
+    url = f"{PUBLIC_URL.rstrip('/')}/v1/downloads/{token}"
+    return f"📥 [Download volledig match-rapport ({filename})]({url})"
+
+
+def _format_match_md(result, matches, source_name: str,
+                     klant_code: Optional[str] = None,
+                     download_link: str = "") -> str:
     """Render extraction + match results as a 9-column markdown table."""
     rows = result.rows
     n_total = len(rows)
@@ -620,8 +681,11 @@ def _format_match_md(result, matches, source_name: str, klant_code: Optional[str
         "",
         "---",
         "",
-        "Upload een **nieuw bestand** (PDF of Excel) om opnieuw te starten.",
     ]
+    if download_link:
+        foot.append(download_link)
+        foot.append("")
+    foot.append("Upload een **nieuw bestand** (PDF of Excel) om opnieuw te starten.")
     return "\n".join(head + table + foot)
 
 
@@ -688,7 +752,12 @@ def _run_match_response(messages: list[ChatMessage]) -> str:
             f"`{type(exc).__name__}: {exc}`"
         )
 
-    return _format_match_md(result, matches, source_name, klant_code=klant_code)
+    download_link = _build_match_download_link(result, matches, source_name)
+    return _format_match_md(
+        result, matches, source_name,
+        klant_code=klant_code,
+        download_link=download_link,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -752,6 +821,36 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 async def health():
     """Unauthenticated liveness probe — useful for monitoring."""
     return {"status": "ok"}
+
+
+@app.get("/v1/downloads/{token}")
+async def download(token: str):
+    """Serve a previously-stored download (e.g. match-rapport xlsx).
+
+    Public route — the token itself is the capability (32-char random hex,
+    ~128 bits of entropy). TTL 30 min. Clients reach this via the
+    download-link the chat-completions handler embeds in match-replies.
+    """
+    entry = _DOWNLOAD_STORE.get(token)
+    if not entry:
+        raise HTTPException(
+            status_code=404,
+            detail={"error": {"message": "Download not found or expired",
+                              "type": "not_found"}},
+        )
+    if time.time() - entry["created"] > _DOWNLOAD_TTL_SECONDS:
+        _DOWNLOAD_STORE.pop(token, None)
+        raise HTTPException(
+            status_code=410,
+            detail={"error": {"message": "Download expired",
+                              "type": "gone"}},
+        )
+    safe_name = entry["filename"].replace('"', "")
+    return Response(
+        content=entry["data"],
+        media_type=entry["mime"],
+        headers={"Content-Disposition": f'attachment; filename="{safe_name}"'},
+    )
 
 
 def _stream_full_reply(reply_md: str, model: str):
