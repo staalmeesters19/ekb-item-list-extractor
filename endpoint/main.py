@@ -56,6 +56,7 @@ from backend.pipeline_service import (  # noqa: E402
     run_match as _run_match,
     run_match_combined as _run_match_combined,
     to_match_xlsx_bytes as _to_match_xlsx_bytes,
+    to_niet_gevonden_xlsx_bytes as _to_niet_gevonden_xlsx_bytes,
 )
 
 
@@ -605,26 +606,54 @@ _STATUS_DISPLAY = {
 _XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 
 
-def _build_match_download_link(result, matches, source_name: str) -> str:
-    """Generate the match-rapport xlsx, store under a token, return markdown link.
+def _build_match_download_links(result, matches, source_name: str) -> list[str]:
+    """Generate match-report xlsx files, return markdown download links.
 
-    Returns the empty string when generation fails — caller embeds the
-    line conditionally so a writer-error never blocks the match-tabel.
+    Always tries to generate the full match-rapport. Adds a second link
+    for the niet-gevonden-only sheet when there is at least one row that
+    did not match — handig voor handmatige aanvulling die later teruggevoerd
+    kan worden naar het systeem (learning loop).
+
+    Returns a list of markdown link-lines (may be empty when generation
+    fails entirely, so the chat-reply never blocks on a writer-error).
     """
-    try:
-        data = _to_match_xlsx_bytes(result, matches)
-    except Exception:  # noqa: BLE001
-        return ""
     stem = source_name.rsplit(".", 1)[0] if "." in source_name else source_name
-    filename = f"{stem}_match_rapport.xlsx"
-    token = _store_download(filename, _XLSX_MIME, data)
-    url = f"{PUBLIC_URL.rstrip('/')}/v1/downloads/{token}"
-    return f"📥 [Download volledig match-rapport ({filename})]({url})"
+    links: list[str] = []
+
+    # 1. Full match-rapport (all rows, colour-coded status + summary sheet)
+    try:
+        full_bytes = _to_match_xlsx_bytes(result, matches)
+        full_name = f"{stem}_match_rapport.xlsx"
+        full_token = _store_download(full_name, _XLSX_MIME, full_bytes)
+        full_url = f"{PUBLIC_URL.rstrip('/')}/v1/downloads/{full_token}"
+        links.append(f"📥 [Download volledig match-rapport ({full_name})]({full_url})")
+    except Exception:  # noqa: BLE001
+        pass
+
+    # 2. Niet-gevonden-only (only when there are not-matched rows worth listing)
+    n_unmatched = sum(
+        1 for m in matches
+        if not m.status.startswith("MATCH")
+    )
+    if n_unmatched > 0:
+        try:
+            ng_bytes = _to_niet_gevonden_xlsx_bytes(result, matches)
+            ng_name = f"{stem}_niet_gevonden.xlsx"
+            ng_token = _store_download(ng_name, _XLSX_MIME, ng_bytes)
+            ng_url = f"{PUBLIC_URL.rstrip('/')}/v1/downloads/{ng_token}"
+            links.append(
+                f"📋 [Download lijst niet-gevonden ({n_unmatched} rijen, "
+                f"{ng_name})]({ng_url})"
+            )
+        except Exception:  # noqa: BLE001
+            pass
+
+    return links
 
 
 def _format_match_md(result, matches, source_name: str,
                      klant_code: Optional[str] = None,
-                     download_link: str = "") -> str:
+                     download_links: Optional[list[str]] = None) -> str:
     """Render extraction + match results as a 9-column markdown table."""
     rows = result.rows
     n_total = len(rows)
@@ -682,8 +711,9 @@ def _format_match_md(result, matches, source_name: str,
         "---",
         "",
     ]
-    if download_link:
-        foot.append(download_link)
+    if download_links:
+        for link in download_links:
+            foot.append(link)
         foot.append("")
     foot.append("Upload een **nieuw bestand** (PDF of Excel) om opnieuw te starten.")
     return "\n".join(head + table + foot)
@@ -752,11 +782,11 @@ def _run_match_response(messages: list[ChatMessage]) -> str:
             f"`{type(exc).__name__}: {exc}`"
         )
 
-    download_link = _build_match_download_link(result, matches, source_name)
+    download_links = _build_match_download_links(result, matches, source_name)
     return _format_match_md(
         result, matches, source_name,
         klant_code=klant_code,
-        download_link=download_link,
+        download_links=download_links,
     )
 
 
