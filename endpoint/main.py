@@ -519,12 +519,12 @@ def _format_extraction_md(result, source_name: str) -> str:
 
 def _helper_message() -> str:
     return (
-        "## Agyle Parts Extract\n\n"
-        "Upload een **PDF-tekening** of **Excel-stuklijst** om te starten. "
-        "Ik haal automatisch de rijen eruit en laat per rij zien wat er "
-        "gevonden is.\n\n"
-        "Typ daarna **`match`** om de geëxtraheerde lijst te matchen tegen "
-        "de ProCos artikeldatabase."
+        "## EKB ProCos Matcher\n\n"
+        "Upload een **PDF-tekening** of **Excel-stuklijst** en ik haal "
+        "automatisch de stuklijst-rijen eruit.\n\n"
+        "Typ daarna **`match`** om de rijen te koppelen aan de ProCos "
+        "artikeldatabase. Je krijgt een match-tabel + downloadbare Excels "
+        "voor de gematchte en niet-gevonden rijen."
     )
 
 
@@ -593,13 +593,13 @@ def _run_extraction(data: bytes, source_name: str, kind: str) -> str:
 # ---------------------------------------------------------------------------
 
 _STATUS_DISPLAY = {
-    "MATCH":                              "MATCH",
-    "NIET UNIEK":                         "NIET UNIEK",
-    "NIET GEVONDEN":                      "niet gevonden",
-    "MATCH (op type alleen)":             "MATCH (op type)",
-    "NIET UNIEK (op type alleen)":        "NIET UNIEK (op type)",
-    "NIET GEVONDEN (fab niet gemapt)":    "niet gevonden (fab niet gemapt)",
-    "GEEN TYPE NR":                       "geen type nr.",
+    "MATCH":                              "✅ MATCH",
+    "NIET UNIEK":                         "🟠 NIET UNIEK",
+    "NIET GEVONDEN":                      "❌ niet gevonden",
+    "MATCH (op type alleen)":             "🟢 MATCH (op type)",
+    "NIET UNIEK (op type alleen)":        "🟡 NIET UNIEK (op type)",
+    "NIET GEVONDEN (fab niet gemapt)":    "❌ niet gevonden (fab niet gemapt)",
+    "GEEN TYPE NR":                       "⚪ geen type nr.",
 }
 
 
@@ -824,7 +824,7 @@ def require_bearer(authorization: Optional[str] = Header(default=None)) -> None:
 # ---------------------------------------------------------------------------
 
 app = FastAPI(
-    title="Agyle Workflow Endpoint",
+    title="EKB ProCos Matcher",
     description="OpenAI-compatible API for the PDF→ProCos extraction agent.",
     version="0.1.0-fase1",
 )
