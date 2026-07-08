@@ -195,6 +195,45 @@ _DOWNLOAD_STORE_MAX = 100
 _DOWNLOAD_TTL_SECONDS = 30 * 60
 
 
+# ---------------------------------------------------------------------------
+# Feedback store — append-only JSONL persisted to disk on Railway
+# ---------------------------------------------------------------------------
+# Elke feedback-entry landt op één regel als JSON. Simpelst denkbare vorm;
+# geen database nodig. Bestand overleeft container-restarts zolang Railway
+# de disk niet leegmaakt (dat is de default: `railway up` maakt de disk
+# ephemeral, dus voor persistentie in productie moet er nog een volume
+# aan de service gekoppeld worden — voor de POC prima).
+import threading  # noqa: E402
+_FEEDBACK_PATH = _PROJECT_ROOT / "feedback" / "feedback.jsonl"
+_FEEDBACK_LOCK = threading.Lock()
+
+
+def _save_feedback(entry: dict) -> None:
+    """Append one feedback entry to the JSONL file (thread-safe)."""
+    _FEEDBACK_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with _FEEDBACK_LOCK:
+        with open(_FEEDBACK_PATH, "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(entry, ensure_ascii=False) + "\n")
+
+
+def _load_feedback() -> list[dict]:
+    """Load all feedback entries (newest last). Empty list if no file."""
+    if not _FEEDBACK_PATH.exists():
+        return []
+    entries = []
+    with _FEEDBACK_LOCK:
+        with open(_FEEDBACK_PATH, encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    entries.append(json.loads(line))
+                except json.JSONDecodeError:
+                    continue
+    return entries
+
+
 def _store_download(filename: str, mime: str, data: bytes) -> str:
     """Save bytes under a fresh token, return the token."""
     # Best-effort GC: drop entries older than TTL on every add.
@@ -460,6 +499,26 @@ def _is_match_command(text: str) -> bool:
     return t.startswith("match ") or t.startswith("match\n")
 
 
+def _extract_feedback_text(text: str) -> Optional[str]:
+    """Return the feedback body when the user typed `feedback [message]`.
+
+    - ``"feedback  tool is snel"`` -> ``"tool is snel"``
+    - ``"Feedback:"`` (no body)     -> ``""`` (empty string, triggers prompt)
+    - ``"halllo"``                  -> ``None`` (not a feedback command)
+    """
+    t = (text or "").strip()
+    if not t:
+        return None
+    low = t.lower()
+    if low == "feedback" or low.rstrip(".!?,;:") == "feedback":
+        return ""
+    for sep in (" ", "\n", ":", ","):
+        prefix = "feedback" + sep
+        if low.startswith(prefix):
+            return t[len(prefix):].strip()
+    return None
+
+
 def _md_escape(value: Any) -> str:
     if value is None:
         return ""
@@ -716,6 +775,11 @@ def _format_match_md(result, matches, source_name: str,
             foot.append(link)
         foot.append("")
     foot.append("Upload een **nieuw bestand** (PDF of Excel) om opnieuw te starten.")
+    foot.append("")
+    foot.append(
+        "*Wat vind je ervan? Wat kan er beter? Typ `feedback [je bericht]` — "
+        "we nemen het mee.*"
+    )
     return "\n".join(head + table + foot)
 
 
@@ -790,6 +854,80 @@ def _run_match_response(messages: list[ChatMessage]) -> str:
     )
 
 
+def _last_match_context(messages: list[ChatMessage]) -> dict:
+    """Zoek in de assistant-history naar de meest recente match-tabel en
+    extraheer wat context (bestandsnaam, match-percentage). Enkel voor het
+    verrijken van feedback — matcht niet altijd, dan blijft context leeg.
+    """
+    ctx: dict = {}
+    for msg in reversed(messages):
+        if msg.role != "assistant":
+            continue
+        text = ""
+        c = msg.content
+        if isinstance(c, str):
+            text = c
+        elif isinstance(c, list):
+            for blk in c:
+                if isinstance(blk, dict) and blk.get("type") == "text":
+                    text += blk.get("text", "")
+        if "Match-resultaat" not in text:
+            continue
+        # Pak bestandsnaam uit "Match-resultaat — {name}"
+        import re
+        m = re.search(r"Match-resultaat\s+—\s+(.+)", text)
+        if m:
+            ctx["source_name"] = m.group(1).strip().splitlines()[0]
+        # Pak match-percentage uit "**N gematched (P%)**"
+        m = re.search(r"(\d+)\s+gematched\s+\((\d+\.\d+)%\)", text)
+        if m:
+            ctx["n_matched"] = int(m.group(1))
+            ctx["pct"] = float(m.group(2))
+        break
+    return ctx
+
+
+def _run_feedback_response(messages: list[ChatMessage], feedback_text: str) -> str:
+    """Handle a `feedback` command. Store the entry, return a friendly reply.
+
+    Empty feedback (user typed just "feedback") -> ask for input.
+    """
+    if not feedback_text:
+        return (
+            "## Wat vind je ervan? Wat kan er beter?\n\n"
+            "Typ je feedback achter het woord `feedback`, bijvoorbeeld:\n\n"
+            "```\n"
+            "feedback tool werkt snel, maar rij 34 klopt niet\n"
+            "```\n"
+            "We noteren alles en nemen het mee in de volgende iteratie."
+        )
+
+    ctx = _last_match_context(messages)
+    entry = {
+        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S%z", time.localtime()),
+        "text": feedback_text,
+    }
+    if ctx:
+        entry["context"] = ctx
+
+    try:
+        _save_feedback(entry)
+    except Exception as exc:  # noqa: BLE001
+        return (
+            "## Feedback niet opgeslagen\n\n"
+            f"Er ging iets mis bij het bewaren van je feedback: "
+            f"`{type(exc).__name__}: {exc}`\n\n"
+            "Stuur 'm gerust rechtstreeks naar joris.merkx@agyle.nl."
+        )
+
+    return (
+        "## ✅ Bedankt — feedback genoteerd\n\n"
+        "We nemen het mee in de volgende iteratie. Als je iets specifieks over "
+        "een gematchte rij wil verbeteren, geef gerust het rijnummer + de "
+        "juiste ProCos-artikelcode erbij."
+    )
+
+
 # ---------------------------------------------------------------------------
 # Auth
 # ---------------------------------------------------------------------------
@@ -851,6 +989,17 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 async def health():
     """Unauthenticated liveness probe — useful for monitoring."""
     return {"status": "ok"}
+
+
+@app.get("/admin/feedback", dependencies=[Depends(require_bearer)])
+async def admin_feedback():
+    """Retrieve all stored feedback entries. Auth-protected via same
+    Bearer token as the rest of the API — kept simple for the POC."""
+    entries = _load_feedback()
+    return {
+        "count": len(entries),
+        "entries": entries,
+    }
 
 
 @app.get("/v1/downloads/{token}")
@@ -987,6 +1136,8 @@ async def chat_completions(req: ChatCompletionRequest):
             )
     elif _is_match_command(latest_text):
         reply_md = _run_match_response(req.messages)
+    elif (fb := _extract_feedback_text(latest_text)) is not None:
+        reply_md = _run_feedback_response(req.messages, fb)
     else:
         reply_md = _helper_message()
 
