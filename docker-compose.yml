@@ -1,0 +1,89 @@
+# ============================================================================
+# EKB ProCos Matcher — voorbeeld docker-compose voor EKB-omgeving.
+#
+# Deze file is een **template** voor EKB IT. Twee gebruikpatronen:
+#
+#   1. Standalone (deze file alleen):
+#         docker compose up -d
+#      Dan draait alleen de matcher op poort 8080.
+#
+#   2. Naast bestaande LibreChat (uit de EKB docker-compose):
+#      Voeg de 'agyle-api' service uit deze file toe aan LibreChat's
+#      docker-compose.yml — zo staan beide services in hetzelfde
+#      Docker-netwerk en kan LibreChat ons intern bereiken via
+#      http://agyle-api:8080/v1
+#
+# Configuratie vindt plaats via de .env (zie .env.example onderin dit
+# bestand als comment).
+# ============================================================================
+
+services:
+  agyle-api:
+    # Optie A: build vanuit lokale sources (dev, testomgeving)
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Optie B: pull image uit registry (productie)
+    # image: ghcr.io/staalmeesters19/ekb-item-list-extractor:latest
+
+    container_name: agyle-api
+    restart: unless-stopped
+
+    ports:
+      # Alleen exposen naar host als niet achter LibreChat-reverse-proxy.
+      # Bij LibreChat-integratie mag deze regel weg — dan is de service
+      # alleen intern via het Docker-netwerk bereikbaar.
+      - "8080:8080"
+
+    environment:
+      # === Kritiek — zonder deze werkt de auth niet ===
+      AGYLE_API_KEY: ${AGYLE_API_KEY:?zet AGYLE_API_KEY in .env}
+
+      # === URL waarop de service publiek te bereiken is ===
+      # Wordt gebruikt om absolute download-links in chat-replies te bouwen.
+      # Bij intern gebruik binnen EKB: interne DNS / IP zetten.
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
+
+      # === Data-locaties ===
+      # Verwijzen naar de gemounte volumes hieronder. Overschrijven kan
+      # via .env als je de defaults niet wil.
+      PROCOS_DATA_DIR: /data/procos
+      PROCOS_V1_PATH: /data/procos/ProCos-export-legacy.xlsx
+      FEEDBACK_DIR:   /data/feedback
+
+      # === Toekomst (na ProCos-MCP-integratie) ===
+      # PROCOS_MCP_URL: http://procos-mcp:5000
+
+    volumes:
+      # ProCos-referentiedata read-only mounten.
+      # EKB IT plaatst hier de 3 export-bestanden van Gino + het legacy
+      # 86k-bestand. Deze directory kan wekelijks/nachtelijks vervangen
+      # worden zonder container-restart.
+      - ${PROCOS_DATA_HOST:-./procos-data-host}:/data/procos:ro
+
+      # Feedback JSONL persistent — overleeft container-restarts.
+      - ${FEEDBACK_HOST:-./feedback-host}:/data/feedback
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 45s
+
+    # Onze in-memory ProCos DBs kosten ~1.5 GB — zet een grens zodat
+    # de container niet ongemerkt de host opeet.
+    deploy:
+      resources:
+        limits:
+          memory: 3G
+          cpus: "2.0"
+
+# ============================================================================
+# .env.example (kopieer naar .env en vul in):
+#
+#   AGYLE_API_KEY=<lange-random-string>
+#   PUBLIC_URL=http://ekb-agyle-api.internal:8080
+#   PROCOS_DATA_HOST=/mnt/procos-export
+#   FEEDBACK_HOST=/var/lib/agyle-api/feedback
+# ============================================================================

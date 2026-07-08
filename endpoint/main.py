@@ -71,10 +71,20 @@ from backend.pipeline_service import (  # noqa: E402
 # Two databases are kept side-by-side:
 #   - v1 (legacy 86k): used as fallback when v2 doesn't have a hit
 #   - v2 (new 232k):   primary, supports fab+type / fab+art_code / fab+bestelnr
-_PROCOS_V1_PATH = _PROJECT_ROOT / "ProCos-export Artikeldata-excl prijzen.xlsx"
-_PROCOS_V2_PATH = _PROJECT_ROOT / "procos_data" / "artikellijst.xlsx"
-_KLANT_REF_PATH = _PROJECT_ROOT / "procos_data" / "klant_referentielijsten.xlsx"
-_IMPORT_REFS_PATH = _PROJECT_ROOT / "procos_data" / "import_referenties.xlsx"
+# Data-paden zijn env-var-configureerbaar zodat een gecontainerde deploy
+# een externe volume kan mounten (bv. /data/procos) zonder herbouw van de
+# image. Als de env-var niet is gezet valt 't terug op de gebundelde
+# locaties — handig voor lokale ontwikkeling.
+_PROCOS_DATA_DIR = Path(os.environ.get(
+    "PROCOS_DATA_DIR", str(_PROJECT_ROOT / "procos_data")
+))
+_PROCOS_V1_PATH = Path(os.environ.get(
+    "PROCOS_V1_PATH",
+    str(_PROJECT_ROOT / "ProCos-export Artikeldata-excl prijzen.xlsx"),
+))
+_PROCOS_V2_PATH = _PROCOS_DATA_DIR / "artikellijst.xlsx"
+_KLANT_REF_PATH = _PROCOS_DATA_DIR / "klant_referentielijsten.xlsx"
+_IMPORT_REFS_PATH = _PROCOS_DATA_DIR / "import_referenties.xlsx"
 
 _PROCOS_DB_V1: Optional[dict] = None
 _PROCOS_DB_V1_ERROR: Optional[str] = None
@@ -204,7 +214,12 @@ _DOWNLOAD_TTL_SECONDS = 30 * 60
 # ephemeral, dus voor persistentie in productie moet er nog een volume
 # aan de service gekoppeld worden — voor de POC prima).
 import threading  # noqa: E402
-_FEEDBACK_PATH = _PROJECT_ROOT / "feedback" / "feedback.jsonl"
+# Feedback-pad env-var-configureerbaar: EKB kan een persistent volume
+# mounten op /data/feedback zodat feedback container-restarts overleeft.
+_FEEDBACK_DIR = Path(os.environ.get(
+    "FEEDBACK_DIR", str(_PROJECT_ROOT / "feedback")
+))
+_FEEDBACK_PATH = _FEEDBACK_DIR / "feedback.jsonl"
 _FEEDBACK_LOCK = threading.Lock()
 
 

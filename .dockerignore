@@ -1,0 +1,97 @@
+# Alles wat niet in de production-image hoort. Houdt de image klein en
+# snel te bouwen. Regels lijken op .gitignore maar dan voor Docker.
+
+# --- Version control ---
+.git/
+.gitignore
+.gitattributes
+
+# --- Railway-specifieke files (niet nodig in EKB self-host image) ---
+.railwayignore
+railway.json
+
+# --- Docker-artefacten zelf ---
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# --- Python cruft ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+build/
+dist/
+.venv/
+venv/
+env/
+.eggs/
+*.so
+
+# --- Test/coverage caches ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Streamlit local state (frontend was ontwikkel-only) ---
+.streamlit/
+frontend/.streamlit/secrets.toml
+
+# --- Documentation die niet nodig is in de image ---
+*.md
+DEPLOY.md
+README.md
+docs/
+
+# --- Data die NIET in de image hoort ---
+# Klant-PDFs zijn confidential customer data
+data/*.pdf
+data/*.PDF
+data/*.xlsx
+data/*.XLSX
+data/*.xltm
+data/*.xml
+data/*.csv
+data/*.json
+
+# Match-rapport outputs (worden runtime gegenereerd)
+*_match_rapport.xlsx
+*_niet_gevonden.xlsx
+*_extractie.xlsx
+
+# EKB-interne documenten
+/*.xltm
+/*.doc
+/*.docx
+/EKB/
+
+# --- Runtime state die NIET in image mag ---
+feedback/
+downloads/
+*.tmp
+*.log
+*.bak
+/out/
+/tmp/
+
+# --- Claude Code / IDE config ---
+.claude/
+CLAUDE.md
+
+# --- Grote binaries die geen deel van image zijn ---
+*.zip
+*.tar.gz
+extracted/

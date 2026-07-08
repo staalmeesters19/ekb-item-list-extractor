@@ -68,3 +68,16 @@ frontend/.streamlit/secrets.toml
 
 # --- Claude Code local config ---
 .claude/
+
+# --- Environment files (bevatten secrets zoals AGYLE_API_KEY) ---
+.env
+.env.local
+.env.*.local
+# .env.example WEL commit'en — dat is de template zonder secrets
+!.env.example
+
+# --- Docker runtime state (persistente volumes bij docker-compose default paths) ---
+/procos-data-host/
+/feedback-host/
+/feedback/
+/downloads/
